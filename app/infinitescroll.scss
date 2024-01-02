@@ -1,0 +1,25 @@
+$n:6; /* number of images*/
+$g:2.1; /* gap as percentage of width */
+
+.gallery  {
+  --d: 10s; /* duration */
+ width: 100%; 
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center; /* number of visible images */
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg,#0000,#000 5% 95%,#0000);
+}
+.gallery > img {
+  grid-area: 1/1;
+  width: 100px;
+  animation: r var(--d) linear infinite reverse;
+}
+@for $i from 2 to ($n + 1) {
+  .gallery > img:nth-child(#{$i}) {animation-delay: calc(#{(1 - $i)/$n}*var(--d))}
+}
+@keyframes r {
+  #{100/($n + ($n - 2)*$g)}% {transform: translate(-100%)}
+  #{100/($n + ($n - 2)*$g) + .01}% {transform: translate(($n - 1 + ($n - 2)*$g)*100%)}
+}
