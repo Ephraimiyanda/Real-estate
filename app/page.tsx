@@ -1,14 +1,15 @@
 "use client"
 import Link from "next/link";
 import "./infinitescroll.scss"
-import { Button, Input, Select, SelectItem, Tab, Tabs } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Chip, Input, Select, SelectItem, Tab, Tabs } from "@nextui-org/react";
 import { ImLocation } from "react-icons/im";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
+import { GrHomeRounded } from "react-icons/gr";
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("")
-  const [latestProperty,setLatestProperty]=useState<any>("All")
+  const [latestProperty, setLatestProperty] = useState<any>("All")
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
       <section className="first-section w-full h-screen  bg-no-repeat bg-center bg-cover flex flex-col py-10">
@@ -321,7 +322,199 @@ export default function Home() {
             </Tabs>
           </div>
         </div>
-        <div></div>
+        <div className="py-4 w-full overflow-auto flex justify-center">
+          <Card className=" w-60 bg-none shadow-none">
+            <CardBody className="p-0">
+              <Image
+                src="/Rectangle 18.png"
+                width={300}
+                height={300}
+                alt="home"
+                className="w-full"
+              />
+              <Chip
+                className="p-2 absolute bottom-2 left-2 bg-[#FFE1E1] text-red-500"
+                color="danger"
+                startContent={
+                  <Image
+                    src="/fire icon.svg"
+                    width={100}
+                    height={100}
+                    alt="fire icon"
+                    className="w-4"
+                  />
+                }
+              >
+                <p>Popular</p>
+              </Chip>
+            </CardBody>
+            <CardFooter className="flex flex-col gap-2 px-0 py-2">
+              <p className="font-bold text-left w-full">$ 5,970</p>
+              <p className="font-semibold  w-full">
+                Tranquil Haven in the Woods
+              </p>
+              <p className="text-[#808080]  w-full text-sm">
+                103 Wright CourtBurien, WA 98168
+              </p>
+              <div className="flex gap-5 justify-start w-full">
+                <div className="flex gap-1">
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="bed icon"
+                    src="/bed icon.svg"
+                    className="w-5"
+                  />
+                  <span>4 beds</span>
+                </div>
+                <div className="flex gap-1">
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="bath icon"
+                    src="/bath icon.svg"
+                    className="w-5"
+                  />
+                  <span>4 bath(s)</span>
+                </div>
+              </div>
+            </CardFooter>
+          </Card>
+        </div>
+      </section>
+      <section className="bg-[#eceaea] py-12  w-full min-h-[56vh] flex flex-col items-center ">
+        <div className="flex flex-col gap-3 max-w-[1280px] w-full sm:px-6 px-3 m-auto">
+          <p className=" text-base font-medium text-center">OUR SERVICES</p>
+          <h4 className=" text-4xl text-center font-semibold">
+            What we offer our clients
+          </h4>
+          <div className="flex w-full justify-evenly py-6">
+            <Card
+              isHoverable
+              isPressable
+              className=" max-w-[256px] w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+            >
+              <CardHeader>
+                <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="search"
+                    src="/search.svg"
+                    className="w-10"
+                  />
+                </div>
+              </CardHeader>
+              <CardBody>
+                <span className=" font-medium text-center">Buy a New Home</span>
+                <p className="text-[#808080] text-center">
+                  Find a property that fits your needs.Browse our listings and
+                  discover theperfect properties.
+                </p>
+              </CardBody>
+            </Card>
+            <Card
+              isHoverable
+              isPressable
+              className=" max-w-[256px] w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+            >
+              <CardHeader>
+                <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="home"
+                    src="/home.svg"
+                    className="w-10"
+                  />
+                </div>
+              </CardHeader>
+              <CardBody>
+                <span className=" font-medium text-center">Sell a House</span>
+                <p className="text-[#808080] text-center">
+                  List your property for sale and get seriuos buyers without
+                  hassles.
+                </p>
+              </CardBody>
+            </Card>
+            <Card
+              isHoverable
+              isPressable
+              className=" max-w-[256px] w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+            >
+              <CardHeader>
+                <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
+                  <Image
+                    width={100}
+                    height={100}
+                    alt="bed"
+                    src="/bed.svg"
+                    className="w-10"
+                  />
+                </div>
+              </CardHeader>
+              <CardBody>
+                <span className=" font-[590] text-center">Buy a New Home</span>
+                <p className="text-[#808080] ">
+                  Find a property that fits your needs.Browse our listings and
+                  discover theperfect properties
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+        </div>
+      </section>
+      <section className="py-10 w-full min-h-[56vh] flex flex-col items-center ">
+        <Image
+          width={100}
+          height={100}
+          alt="blurry ellipse"
+          src="/blurry ellipse.svg"
+          className="w-11"
+        />
+        <div className="flex flex-col gap-3 max-w-[1280px] w-full sm:px-6 px-3 m-auto">
+          <span className=" text-base font-medium text-[#4361EE]">
+            AREAS ACROSS THE TOWN
+          </span>
+          <h5 className=" text-4xl font-semibold">Neighborhood Properties</h5>
+          <div className="py-3">
+            <Image
+              width={100}
+              height={100}
+              alt="house 1"
+              src="/house 1.png"
+              className="w-5"
+            />
+            <Image
+              width={100}
+              height={100}
+              alt="house 2"
+              src="/house 2.png"
+              className="w-5"
+            />
+            <Image
+              width={100}
+              height={100}
+              alt="house 3"
+              src="/house 3.png"
+              className="w-5"
+            />
+            <Image
+              width={100}
+              height={100}
+              alt="house 4"
+              src="/house 4.png"
+              className="w-5"
+            />
+            <Image
+              width={100}
+              height={100}
+              alt="house 5"
+              src="/house 5.png"
+              className="w-5"
+            />
+          </div>
+        </div>
       </section>
     </main>
   );

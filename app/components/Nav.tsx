@@ -12,6 +12,7 @@ import {
   NavbarContent,
   NavbarBrand,
 } from "@nextui-org/react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { HiHomeModern } from "react-icons/hi2";
@@ -24,11 +25,13 @@ export default function Nav() {
   return (
       <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl"  className="top-[0] fixed w-full ">
         <NavbarContent>
-          <NavbarBrand className="flex gap-3 ">
+        <NavbarBrand className="flex gap-3 ">
+          <Link href="/" className="flex justify-center items-center gap-2">
             <div className="rounded-[50%] bg-[#0070f0] p-1">
               <HiHomeModern size={30} color="white" />
             </div>
             <p className="font-bold text-inherit">RealSwitch</p>
+          </Link>
           </NavbarBrand>
         </NavbarContent>
 
