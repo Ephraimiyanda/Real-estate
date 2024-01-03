@@ -488,7 +488,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span>216</span>
+                  <span className=" ">216</span>
                   <p>New York City, NY</p>
                 </div>
               </CardFooter>
@@ -503,7 +503,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span>141</span>
+                  <span className=" ">141</span>
                   <p>Houston, TX</p>
                 </div>
               </CardFooter>
@@ -518,7 +518,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span>212</span>
+                  <span className=" ">212</span>
                   <p>San Diego, CA</p>
                 </div>
               </CardFooter>
@@ -533,7 +533,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span>183</span>
+                  <span className=" ">183</span>
                   <p>Philadelphia, PA</p>
                 </div>
               </CardFooter>
@@ -548,7 +548,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span>112</span>
+                  <span className=" text-5xl drop-shadow text-white font-semibold">112</span>
                   <p>San Francisco, CA</p>
                 </div>
               </CardFooter>
