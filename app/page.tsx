@@ -477,42 +477,82 @@ export default function Home() {
             AREAS ACROSS THE TOWN
           </span>
           <h5 className=" text-4xl font-semibold">Neighborhood Properties</h5>
-          <div className="py-3">
-            <Image
-              width={100}
-              height={100}
-              alt="house 1"
-              src="/house 1.png"
-              className="w-5"
-            />
-            <Image
-              width={100}
-              height={100}
-              alt="house 2"
-              src="/house 2.png"
-              className="w-5"
-            />
-            <Image
-              width={100}
-              height={100}
-              alt="house 3"
-              src="/house 3.png"
-              className="w-5"
-            />
-            <Image
-              width={100}
-              height={100}
-              alt="house 4"
-              src="/house 4.png"
-              className="w-5"
-            />
-            <Image
-              width={100}
-              height={100}
-              alt="house 5"
-              src="/house 5.png"
-              className="w-5"
-            />
+          <div className="py-3 grid grid-cols-2 md:grid-cols-3 gap-4">
+            <Card className="bg-transparent shadow-none">
+              <Image
+                width={1000}
+                height={1000}
+                alt="house 1"
+                src="/house 1.png"
+                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+              />
+              <CardFooter className="px-10 absolute bottom-10 left-4">
+                <div>
+                  <span>216</span>
+                  <p>New York City, NY</p>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="bg-transparent shadow-none">
+              <Image
+                width={1000}
+                height={1000}
+                alt="house 2"
+                src="/house 2.png"
+                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+              />
+              <CardFooter className="px-10 absolute bottom-10 left-4">
+                <div>
+                  <span>141</span>
+                  <p>Houston, TX</p>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="bg-transparent shadow-none">
+              <Image
+                width={1000}
+                height={1000}
+                alt="house 3"
+                src="/house 3.png"
+                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+              />
+              <CardFooter className="px-10 absolute bottom-10 left-4">
+                <div>
+                  <span>212</span>
+                  <p>San Diego, CA</p>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="bg-transparent shadow-none">
+              <Image
+                width={1000}
+                height={1000}
+                alt="house 4"
+                src="/house 4.png"
+                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+              />
+              <CardFooter className="px-10 absolute bottom-10 left-4">
+                <div>
+                  <span>183</span>
+                  <p>Philadelphia, PA</p>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className=" grid col-span-2 bg-transparent shadow-none">
+              <Image
+                width={1500}
+                height={1000}
+                alt="house 5"
+                src="/house 5.png"
+                className="  max-w-full rounded-lg w-full max-h-[320px] h-full "
+              />
+              <CardFooter className="px-10 absolute bottom-10 left-4">
+                <div>
+                  <span>112</span>
+                  <p>San Francisco, CA</p>
+                </div>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </section>
