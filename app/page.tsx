@@ -7,6 +7,8 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { GrHomeRounded } from "react-icons/gr";
+import { InvestChip, NewListingChip, PopularChip } from "./components/Chips";
+import { GoArrowRight } from "react-icons/go";
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("")
   const [latestProperty, setLatestProperty] = useState<any>("All")
@@ -27,18 +29,75 @@ export default function Home() {
             <div className="flex gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center">
               <Select
                 label="Property Type"
-                className="max-w-[140px] bg-white "
+                className="max-w-[160px] bg-white "
                 radius="none"
                 variant="bordered"
                 size="sm"
               >
-                <SelectItem key={"Residential"} value={"Residential"}>
-                  Residential
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"ALL"}
+                  value={"ALL"}
+                >
+                  ALL
                 </SelectItem>
-                <SelectItem key={"Commercial"} value={"Commercial"}>
-                  Commercial
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"CONDO/TOWNHOME"}
+                  value={"CONDO/TOWNHOME"}
+                >
+                  CONDO/TOWNHOME
                 </SelectItem>
-              </Select>{" "}
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"COOPERATIVE"}
+                  value={"COOPERATIVE"}
+                >
+                  COOPERATIVE
+                </SelectItem>
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"MANUFACTURED"}
+                  value={"MANUFACTURED"}
+                >
+                  MANUFACTURED
+                </SelectItem>
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"MISCELLANEOUS"}
+                  value={"MISCELLANEOUS"}
+                >
+                  MISCELLANEOUS
+                </SelectItem>
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"MULTI (2-4 Units)"}
+                  value={"MULTI (2-4 Units)"}
+                >
+                  MULTI (2-4 Units)
+                </SelectItem>
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"MULTI 5+"}
+                  value={"MULTI 5+"}
+                >
+                  MULTI 5+
+                </SelectItem>
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"SINGLE FAMILY RESIDENCE"}
+                  value={"SINGLE FAMILY RESIDENCE"}
+                >
+                  SINGLE FAMILY RESIDENCE
+                </SelectItem>
+                <SelectItem
+                  className="text-xs lowercase"
+                  key={"Vacant Land"}
+                  value={"Vacant Land"}
+                >
+                  Vacant Land
+                </SelectItem>
+              </Select>
               <Input
                 variant="bordered"
                 value={searchvalue}
@@ -272,7 +331,7 @@ export default function Home() {
               height={200}
               alt="swiming pool"
               src="/swiming pool.jpg"
-              className="translate-y-8 w-[200px]"
+              className="translate-y-8 w-[260px]"
             />
             <div className="flex flex-col">
               <Image
@@ -280,12 +339,14 @@ export default function Home() {
                 height={200}
                 alt="bedroom"
                 src="/bedroom.png"
+                className="w-[220px] h-[220px]"
               />
               <Image
-                width={200}
-                height={200}
+                width={300}
+                height={300}
                 alt="google"
                 src="/living room.png"
+                className="w-[220px] h-[220px]"
               />
             </div>
           </div>
@@ -322,64 +383,369 @@ export default function Home() {
             </Tabs>
           </div>
         </div>
-        <div className="py-4 w-full overflow-auto flex justify-center">
-          <Card className=" w-60 bg-none shadow-none">
-            <CardBody className="p-0">
-              <Image
-                src="/Rectangle 18.png"
-                width={300}
-                height={300}
-                alt="home"
-                className="w-full"
-              />
-              <Chip
-                className="p-2 absolute bottom-2 left-2 bg-[#FFE1E1] text-red-500"
-                color="danger"
-                startContent={
+        <div className="py-4 w-full max-w-[1280px] mx-auto sm:px-6 px-3 h-full   flex justify-between gap-3 ">
+          <div className="card-container w-full flex-nowrap  py-3 h-full overflow-x-auto flex snap-center snap-x first:scroll ">
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0 ">
                   <Image
-                    src="/fire icon.svg"
-                    width={100}
-                    height={100}
-                    alt="fire icon"
-                    className="w-4"
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
                   />
-                }
-              >
-                <p>Popular</p>
-              </Chip>
-            </CardBody>
-            <CardFooter className="flex flex-col gap-2 px-0 py-2">
-              <p className="font-bold text-left w-full">$ 5,970</p>
-              <p className="font-semibold  w-full">
-                Tranquil Haven in the Woods
-              </p>
-              <p className="text-[#808080]  w-full text-sm">
-                103 Wright CourtBurien, WA 98168
-              </p>
-              <div className="flex gap-5 justify-start w-full">
-                <div className="flex gap-1">
+                  <PopularChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0">
                   <Image
-                    width={100}
-                    height={100}
-                    alt="bed icon"
-                    src="/bed icon.svg"
-                    className="w-5"
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
                   />
-                  <span>4 beds</span>
-                </div>
-                <div className="flex gap-1">
+                  <NewListingChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0">
                   <Image
-                    width={100}
-                    height={100}
-                    alt="bath icon"
-                    src="/bath icon.svg"
-                    className="w-5"
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
                   />
-                  <span>4 bath(s)</span>
-                </div>
-              </div>
-            </CardFooter>
-          </Card>
+                  <InvestChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0">
+                  <Image
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
+                  />
+                  <NewListingChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0">
+                  <Image
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
+                  />
+                  <InvestChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0">
+                  <Image
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
+                  />
+                  <PopularChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>{" "}
+            </div>
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0">
+                  <Image
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
+                  />
+                  <PopularChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>{" "}
+            </div>
+            <div className="py-3">
+              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
+                <CardBody className="p-0">
+                  <Image
+                    src="/Rectangle 18.png"
+                    width={300}
+                    height={300}
+                    alt="home"
+                    className="w-[270px] h-[260px]"
+                  />
+                  <NewListingChip />
+                </CardBody>
+                <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                  <p className="font-bold text-left w-full">$ 5,970</p>
+                  <p className="font-semibold  w-full">
+                    Tranquil Haven in the Woods
+                  </p>
+                  <p className="text-[#808080]  w-full text-sm">
+                    103 Wright CourtBurien, WA 98168
+                  </p>
+                  <div className="flex gap-5 justify-start w-full">
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bed icon"
+                        src="/bed icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 beds</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image
+                        width={100}
+                        height={100}
+                        alt="bath icon"
+                        src="/bath icon.svg"
+                        className="w-5"
+                      />
+                      <span>4 bath(s)</span>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
         </div>
       </section>
       <section className="bg-[#eceaea] py-12  w-full min-h-[56vh] flex flex-col items-center ">
@@ -455,7 +821,7 @@ export default function Home() {
               </CardHeader>
               <CardBody>
                 <span className=" font-[590] text-center">Buy a New Home</span>
-                <p className="text-[#808080] ">
+                <p className="text-[#808080] text-center">
                   Find a property that fits your needs.Browse our listings and
                   discover theperfect properties
                 </p>
@@ -484,12 +850,14 @@ export default function Home() {
                 height={1000}
                 alt="house 1"
                 src="/house 1.png"
-                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+                className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" ">216</span>
-                  <p>New York City, NY</p>
+                  <span className="text-5xl drop-shadow text-white font-semibold opacity-60 ">
+                    216
+                  </span>
+                  <p className="text-white">New York City, NY</p>
                 </div>
               </CardFooter>
             </Card>
@@ -499,12 +867,14 @@ export default function Home() {
                 height={1000}
                 alt="house 2"
                 src="/house 2.png"
-                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+                className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" ">141</span>
-                  <p>Houston, TX</p>
+                  <span className=" text-5xl drop-shadow text-white font-semibold opacity-60">
+                    141
+                  </span>
+                  <p className="text-white">Houston, TX</p>
                 </div>
               </CardFooter>
             </Card>
@@ -514,12 +884,14 @@ export default function Home() {
                 height={1000}
                 alt="house 3"
                 src="/house 3.png"
-                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+                className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" ">212</span>
-                  <p>San Diego, CA</p>
+                  <span className=" text-5xl drop-shadow text-white font-semibold opacity-60">
+                    212
+                  </span>
+                  <p className="text-white">San Diego, CA</p>
                 </div>
               </CardFooter>
             </Card>
@@ -529,12 +901,14 @@ export default function Home() {
                 height={1000}
                 alt="house 4"
                 src="/house 4.png"
-                className="  max-w-full rounded-lg w-full max-h-[320px] h-full"
+                className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" ">183</span>
-                  <p>Philadelphia, PA</p>
+                  <span className="text-5xl drop-shadow text-white font-semibold opacity-60 ">
+                    183
+                  </span>
+                  <p className="text-white">Philadelphia, PA</p>
                 </div>
               </CardFooter>
             </Card>
@@ -544,17 +918,116 @@ export default function Home() {
                 height={1000}
                 alt="house 5"
                 src="/house 5.png"
-                className="  max-w-full rounded-lg w-full max-h-[320px] h-full "
+                className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full "
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" text-5xl drop-shadow text-white font-semibold">112</span>
-                  <p>San Francisco, CA</p>
+                  <span className=" text-5xl drop-shadow text-white font-semibold opacity-60">
+                    112
+                  </span>
+                  <p className="text-white">San Francisco, CA</p>
                 </div>
               </CardFooter>
             </Card>
           </div>
         </div>
+        <div className=" relative max-w-[1280px] w-full sm:px-10 px-3 right-12">
+          <Image
+            width={100}
+            height={100}
+            alt="blurry ellipse"
+            src="/blurry ellipse.svg"
+            className="w-20 rotate-[270deg] ml-auto"
+          />
+        </div>
+      </section>
+      <section className="bg-[#4361EE] py-12  w-full min-h-[56vh] flex flex-col items-center">
+        <div className=" max-w-[1280px] w-full sm:px-10 px-3 flex flex-col justify-center items-center gap-4">
+          <span className="text-white text-center mx-auto pt-3">
+            WHAT’S TRENDING
+          </span>
+          <h6 className="text-white text-4xl font-semibold text-center pt-3 py-4">
+            Latest Blogs & Posts
+          </h6>
+          <div className="flex justify-between w-full">
+            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
+              <CardBody className="p-0 flex flex-col gap-3">
+                <Image
+                  src="/Rectangle 18.png"
+                  width={300}
+                  height={300}
+                  alt="home"
+                  className=" h-[240px] w-[340px] "
+                />
+                <p className=" text-2xl font-medium">
+                  Top 10 Home Buying Mistakes to Avoid
+                </p>
+              </CardBody>
+              <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                <p className="text-[#D4D4D4]">
+                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
+                </p>
+                <div className="w-full flex justify-end">
+                  <Button isIconOnly className="p-2 rounded-[50%] rml">
+                    <GoArrowRight color="#4361EE" size={32} />
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
+              <CardBody className="p-0 flex flex-col gap-3">
+                <Image
+                  src="/Rectangle 18.png"
+                  width={300}
+                  height={300}
+                  alt="home"
+                  className=" h-[240px] w-[340px] "
+                />
+                <p className=" text-2xl font-medium">
+                  Top 10 Home Buying Mistakes to Avoid
+                </p>
+                
+              </CardBody>
+              <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                <p className="text-[#D4D4D4]">
+                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
+                </p>
+                <div className="w-full flex justify-end">
+                  <Button isIconOnly className="p-2 rounded-[50%] ">
+                    <GoArrowRight color="#4361EE" size={32} />
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
+              <CardBody className="p-0 flex flex-col gap-3">
+                <Image
+                  src="/Rectangle 18.png"
+                  width={300}
+                  height={300}
+                  alt="home"
+                  className=" h-[240px] w-[340px] "
+                />
+                <p className=" text-2xl font-medium">
+                  Top 10 Home Buying Mistakes to Avoid
+                </p>
+              </CardBody>
+              <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                <p className="text-[#D4D4D4]">
+                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
+                </p>
+                <div className="w-full flex justify-end">
+                  <Button isIconOnly className="p-2 rounded-[50%] rml">
+                    <GoArrowRight color="#4361EE" size={32} />
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </section>
+      <section className="bg-[#4361EE] py-12  w-full min-h-[56vh] flex flex-col items-center">
+        <div className=" max-w-[1280px] w-full sm:px-10 px-3 flex flex-col justify-center items-center gap-4"></div>
       </section>
     </main>
   );

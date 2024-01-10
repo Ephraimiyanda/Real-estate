@@ -26,7 +26,7 @@ export function NewListingChip() {
       color="danger"
       startContent={
         <Image
-          src="home icon/.svg"
+          src="/home icon.svg"
           width={100}
           height={100}
           alt="fire icon"
@@ -49,7 +49,7 @@ export function InvestChip() {
           width={100}
           height={100}
           alt="fire icon"
-          className="w-4"
+          className="w-3"
         />
       }
     >

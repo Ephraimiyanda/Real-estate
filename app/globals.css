@@ -29,7 +29,15 @@ body {
   background-image: url(../public/Rectangle\ 4.png);
    background-position: center;
   
+}.card-container::-webkit-scrollbar{
+  background: rgb(244, 243, 243);
+  height: 6px;
 }
+.card-container::-webkit-scrollbar-thumb{
+background:#4361EE ;
+border-radius: 4px;  
+}
+
 @media (min-width:1280px) {
   .first-section{
     background-position: 50% -160px;
