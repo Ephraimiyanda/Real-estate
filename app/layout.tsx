@@ -5,7 +5,7 @@ import NextUiProvider from "./Providers/NEXTUIProvider/Nextuiprovider";
 import "./globals.css";
 import Nav from "./components/Nav";
 import Script from "next/script";
-
+import React from "react";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Real estatate",
