@@ -9,11 +9,14 @@ import Image from "next/image";
 import { GrHomeRounded } from "react-icons/gr";
 import { InvestChip, NewListingChip, PopularChip } from "./components/Chips";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
+import Script from "next/script";
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("")
   const [latestProperty, setLatestProperty] = useState<any>("All")
+  
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
+      <script src="https://third-party-script.js" async />
       <section className="first-section w-full h-screen  bg-no-repeat bg-center bg-cover flex flex-col py-10">
         <div className="max-w-[1280px] mx-auto flex justify-between items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
