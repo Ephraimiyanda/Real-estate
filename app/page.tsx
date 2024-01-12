@@ -773,7 +773,7 @@ export default function Home() {
                   />
                 </div>
               </CardHeader>
-              <CardBody>
+              <CardBody className="overflow-hidden">
                 <span className=" font-medium text-center">Buy a New Home</span>
                 <p className="text-[#808080] text-center">
                   Find a property that fits your needs.Browse our listings and
