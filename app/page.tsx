@@ -207,8 +207,8 @@ export default function Home() {
                     >
                       <path
                         stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M15 19l-7-7 7-7"
                       ></path>
                     </svg>
@@ -231,7 +231,7 @@ export default function Home() {
                       <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeWidth="2"
                         d="M9 5l7 7-7 7"
                       ></path>
                     </svg>
@@ -239,11 +239,6 @@ export default function Home() {
                   </span>
                 </button>
               </div>
-
-              <script
-                src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
-                type="text/javascript"
-              />
             </div>
           </div>
         </div>
@@ -1061,6 +1056,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <script
+        id="carousel-script"
+        src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
+      
+      />
     </main>
   );
 }

@@ -20,7 +20,8 @@ export default function RootLayout({children}:any) {
           <Nav />
           {children}
         </NextUiProvider>
-    </body>
+      </body>
+     
     </html>
   );
   
