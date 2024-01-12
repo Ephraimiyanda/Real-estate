@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: any;
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -26,7 +26,8 @@ export default function RootLayout({
           <Nav />
           {children}
         </NextUiProvider>
-      </body>
+    </body>
     </html>
   );
+  
 }
