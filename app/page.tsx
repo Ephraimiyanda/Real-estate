@@ -8,7 +8,7 @@ import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { GrHomeRounded } from "react-icons/gr";
 import { InvestChip, NewListingChip, PopularChip } from "./components/Chips";
-import { GoArrowRight } from "react-icons/go";
+import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("")
   const [latestProperty, setLatestProperty] = useState<any>("All")
@@ -968,32 +968,7 @@ export default function Home() {
                   Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
                 </p>
                 <div className="w-full flex justify-end">
-                  <Button isIconOnly className="p-2 rounded-[50%] rml">
-                    <GoArrowRight color="#4361EE" size={32} />
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
-              <CardBody className="p-0 flex flex-col gap-3">
-                <Image
-                  src="/Rectangle 18.png"
-                  width={300}
-                  height={300}
-                  alt="home"
-                  className=" h-[240px] w-[340px] "
-                />
-                <p className=" text-2xl font-medium">
-                  Top 10 Home Buying Mistakes to Avoid
-                </p>
-                
-              </CardBody>
-              <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                <p className="text-[#D4D4D4]">
-                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
-                </p>
-                <div className="w-full flex justify-end">
-                  <Button isIconOnly className="p-2 rounded-[50%] ">
+                  <Button isIconOnly className="p-2 rounded-[50%] bg-white">
                     <GoArrowRight color="#4361EE" size={32} />
                   </Button>
                 </div>
@@ -1017,7 +992,31 @@ export default function Home() {
                   Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
                 </p>
                 <div className="w-full flex justify-end">
-                  <Button isIconOnly className="p-2 rounded-[50%] rml">
+                  <Button isIconOnly className="p-2 rounded-[50%] bg-white">
+                    <GoArrowRight color="#4361EE" size={32} />
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>
+            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
+              <CardBody className="p-0 flex flex-col gap-3">
+                <Image
+                  src="/Rectangle 18.png"
+                  width={300}
+                  height={300}
+                  alt="home"
+                  className=" h-[240px] w-[340px] "
+                />
+                <p className=" text-2xl font-medium">
+                  Top 10 Home Buying Mistakes to Avoid
+                </p>
+              </CardBody>
+              <CardFooter className="flex flex-col gap-2 px-0 py-2">
+                <p className="text-[#D4D4D4]">
+                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
+                </p>
+                <div className="w-full flex justify-end">
+                  <Button isIconOnly className="p-2 rounded-[50%] bg-white">
                     <GoArrowRight color="#4361EE" size={32} />
                   </Button>
                 </div>
@@ -1026,8 +1025,36 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-[#4361EE] py-12  w-full min-h-[56vh] flex flex-col items-center">
-        <div className=" max-w-[1280px] w-full sm:px-10 px-3 flex flex-col justify-center items-center gap-4"></div>
+      <section className="py-12  w-full min-h-[56vh] flex flex-col items-center">
+        <div className=" max-w-[1280px] w-full sm:px-10 px-3 flex flex-col justify-center items-center gap-4">
+          <div className="flex justify-between w-full">
+            <div className="max-w-[415px] flex flex-col gap-3">
+              <span className="text-[#4361EE]">TESTIMONIALS</span>
+              <p className=" text-4xl font-semibold  pt-3 py-4">
+                Look What Our Customers Say!
+              </p>
+              <p>
+                Take a look at the testemonies of our customers and what they
+                have to say about our serviecs.
+              </p>
+              <div className="flex max-w-[150px] justify-between relative top-6">
+                <Button
+                  isIconOnly
+                  className="p-2 rounded-[50%] rml border-[#4361EE] border bg-white"
+                >
+                  <GoArrowLeft color="#4361EE" size={32} />
+                </Button>
+                <Button
+                  isIconOnly
+                  className="p-2 rounded-[50%] rml border-[#4361EE] border bg-white"
+                >
+                  <GoArrowRight color="#4361EE" size={32} />
+                </Button>
+              </div>
+            </div>
+            <div></div>
+          </div>
+        </div>
       </section>
     </main>
   );
