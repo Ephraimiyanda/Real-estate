@@ -23,7 +23,7 @@ export default function RootLayout({
         <NextUiProvider>
           <Nav />
           {children}
-        <script src="https://third-party-script.js" async />
+        <script src="https://third-party-script.js" defer />
         </NextUiProvider>
       </body>
     </html>
