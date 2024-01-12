@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@builder.io/partytown": "^0.8.2",
     "@nextui-org/react": "^2.2.9",
     "framer-motion": "^10.16.16",
     "next": "14.0.2",

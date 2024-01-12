@@ -240,7 +240,10 @@ export default function Home() {
                 </button>
               </div>
 
-              <Script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js" async></Script>
+              <script
+                src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
+                type="text/partytown"
+              />
             </div>
           </div>
         </div>
