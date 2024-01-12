@@ -26,7 +26,7 @@ body {
     rgb(var(--background-start-rgb));
 }
 .first-section{
-  background-image: url(../public/Rectangle\ 4.png);
+  background-image: url(../public/Rectangle4.png);
    background-position: center;
   
 }.card-container::-webkit-scrollbar{

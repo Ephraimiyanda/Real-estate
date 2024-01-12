@@ -249,14 +249,14 @@ export default function Home() {
             width={1000}
             height={200}
             alt="listings"
-            src="/200 listings.png"
+            src="/200listings.png"
             className="hover:scale-110 duration-100 ease-in transition-all  sm:w-[240px] h-[120px]"
           />
           <Image
             width={1000}
             height={200}
             alt="happy customers"
-            src="/happy customers.png"
+            src="/happycustomers.png"
             className="hover:scale-110 duration-100 ease-in transition-all  sm:w-[240px] h-[120px]"
           />
         </div>
@@ -391,7 +391,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0 ">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -436,7 +436,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -481,7 +481,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -526,7 +526,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -571,7 +571,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -616,7 +616,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -661,7 +661,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -706,7 +706,7 @@ export default function Home() {
               <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
                 <CardBody className="p-0">
                   <Image
-                    src="/Rectangle 18.png"
+                    src="/Rectangle18.png"
                     width={300}
                     height={300}
                     alt="home"
@@ -851,7 +851,7 @@ export default function Home() {
                 width={1000}
                 height={1000}
                 alt="house 1"
-                src="/house 1.png"
+                src="/house1.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
@@ -867,8 +867,8 @@ export default function Home() {
               <Image
                 width={1000}
                 height={1000}
-                alt="house 2"
-                src="/house 2.png"
+                alt="house2"
+                src="/house2.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
@@ -885,7 +885,7 @@ export default function Home() {
                 width={1000}
                 height={1000}
                 alt="house 3"
-                src="/house 3.png"
+                src="/house3.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
@@ -902,7 +902,7 @@ export default function Home() {
                 width={1000}
                 height={1000}
                 alt="house 4"
-                src="/house 4.png"
+                src="/house4.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
@@ -919,7 +919,7 @@ export default function Home() {
                 width={1500}
                 height={1000}
                 alt="house 5"
-                src="/house 5.png"
+                src="/house5.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full "
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
@@ -955,7 +955,7 @@ export default function Home() {
             <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image
-                  src="/Rectangle 18.png"
+                  src="/Rectangle18.png"
                   width={300}
                   height={300}
                   alt="home"
@@ -979,7 +979,7 @@ export default function Home() {
             <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image
-                  src="/Rectangle 18.png"
+                  src="/Rectangle18.png"
                   width={300}
                   height={300}
                   alt="home"
@@ -1003,7 +1003,7 @@ export default function Home() {
             <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image
-                  src="/Rectangle 18.png"
+                  src="/Rectangle18.png"
                   width={300}
                   height={300}
                   alt="home"
