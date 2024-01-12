@@ -332,7 +332,7 @@ export default function Home() {
               width={200}
               height={200}
               alt="swiming pool"
-              src="/swiming pool.jpg"
+              src="/swimingpool.jpg"
               className="translate-y-8 w-[260px]"
             />
             <div className="flex flex-col">
@@ -347,7 +347,7 @@ export default function Home() {
                 width={300}
                 height={300}
                 alt="google"
-                src="/living room.png"
+                src="/livingroom.png"
                 className="w-[220px] h-[220px]"
               />
             </div>
