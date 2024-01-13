@@ -343,7 +343,7 @@ export default function Home() {
               height={200}
               alt="swiming pool"
               src="/swimingpool.jpg"
-              className="translate-y-8 w-[260px]"
+              className="sm:w-[260px] h-full translate-y-8 object-contain"
             />
             <div className="flex flex-col">
               <Image
@@ -351,14 +351,14 @@ export default function Home() {
                 height={200}
                 alt="bedroom"
                 src="/bedroom.png"
-                className="w-[220px] h-[220px]"
+                className="sm:w-[220px] sm:h-[220px] object-contai"
               />
               <Image
                 width={300}
                 height={300}
                 alt="google"
                 src="/livingroom.png"
-                className="w-[220px] h-[220px]"
+                className="sm:w-[220px] sm:h-[220px] object-contai"
               />
             </div>
           </div>
