@@ -122,8 +122,8 @@ export default function Home() {
               </Button>
             </form>
           </div>
-          <div className="w-full">
-            <div className="mx-auto w-full max-w-[500px] min-w-[270px] lg:w-[400px] relative md:-left-[10px] lg:-left-0">
+          <div className="w-full sm:w-auto">
+            <div className="mx-auto w-full max-w-[500px] min-w-[270px] lg:w-[400px] relative md:-left-[10px] lg:-left-0 lg:left-[unset]">
               <div
                 id="default-carousel"
                 className="relative"
