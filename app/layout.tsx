@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import NextUiProvider from "./Providers/NEXTUIProvider/Nextuiprovider";
 import "./globals.css";
 import Nav from "./components/Nav";
-
+import Head from "next/head";
+import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Real estatate",
@@ -14,13 +15,13 @@ export const metadata: Metadata = {
 export default function RootLayout({children}:any) {
   return (
     <html lang="en">
+      
       <body className={inter.className}>
         <NextUiProvider>
           <Nav />
           {children}
         </NextUiProvider>
       </body>
-     
     </html>
   );
   

@@ -128,6 +128,12 @@ export default function Home() {
                 className="relative"
                 data-carousel="static"
               >
+                <script
+                  id="carousel-script"
+                  src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
+                  type="text/javascript"
+                />
+
                 <div className="overflow-hidden relative h-56 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
                   <div
                     className="hidden duration-700 ease-in-out"
@@ -1057,17 +1063,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Helmet>
-        <Script
-        id="carousel-script"
-        src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
-          async
-          defer
-          type="text/javascript"
-        strategy="afterInteractive"
-      /> 
-      </Helmet>
-     
     </main>
   );
 }
