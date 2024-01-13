@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
-      <section className="first-section w-full h-screen  bg-no-repeat bg-center bg-cover flex flex-col py-10">
+      <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col py-10">
         <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
             <p className=" text-base font-medium text-[#4361EE]">REAL ESTATE</p>
@@ -770,7 +770,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className="w-[70%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className="w-[90%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -794,7 +794,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className=" w-[70%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className=" w-[90%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -818,7 +818,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className=" w-[70%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className=" w-[90%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
