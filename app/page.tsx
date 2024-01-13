@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
-      <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col py-10">
+      <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
         <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
             <p className=" text-base font-medium text-[#4361EE]">REAL ESTATE</p>
