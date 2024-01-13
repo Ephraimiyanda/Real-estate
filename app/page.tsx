@@ -1062,6 +1062,7 @@ export default function Home() {
         type="module"
         src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
         async
+        strategy="afterInteractive"
       
       />
     </main>
