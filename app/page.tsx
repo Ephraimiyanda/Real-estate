@@ -1056,9 +1056,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <script
+      <Script
         id="carousel-script"
+        type="module"
         src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
+        async
       
       />
     </main>
