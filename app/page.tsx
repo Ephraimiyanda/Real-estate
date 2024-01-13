@@ -1061,6 +1061,9 @@ export default function Home() {
         <Script
         id="carousel-script"
         src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
+          async
+          defer
+          type="text/javascript"
         strategy="afterInteractive"
       /> 
       </Helmet>
