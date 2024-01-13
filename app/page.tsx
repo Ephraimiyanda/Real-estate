@@ -1060,9 +1060,7 @@ export default function Home() {
       <Helmet>
         <Script
         id="carousel-script"
-        type="module"
         src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
-        async
         strategy="afterInteractive"
       /> 
       </Helmet>
