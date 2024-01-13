@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
       <section className="first-section w-full h-screen  bg-no-repeat bg-center bg-cover flex flex-col py-10">
-        <div className="max-w-[1280px] mx-auto flex justify-between items-center h-full w-full sm:px-6 px-3 ">
+        <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
             <p className=" text-base font-medium text-[#4361EE]">REAL ESTATE</p>
             <h1 className=" text-6xl font-semibold max-w-[500px]">
@@ -29,7 +29,7 @@ export default function Home() {
               real estate. We have been operating in Madrid and Barcelona more
               than 15 years.
             </p>
-            <div className="flex gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center">
+            <form className="flex gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center">
               <Select
                 label="Property Type"
                 className="max-w-[160px] bg-white "
@@ -113,16 +113,17 @@ export default function Home() {
                 size="sm"
               />
               <Button
+                type="submit"
                 startContent={<CiSearch size={30} color="white" />}
                 className="bg-[#4361EE] text-white w-[190px]  h-[44px]"
                 radius="none"
               >
                 Search
               </Button>
-            </div>
+            </form>
           </div>
-          <div>
-            <div className="max-w-2xl mx-auto w-[400px]">
+          <div className="w-full">
+            <div className="mx-auto w-full max-w-[500px] min-w-[270px] lg:w-[400px] relative md:-left-[10px] lg:-left-0">
               <div
                 id="default-carousel"
                 className="relative"
@@ -201,7 +202,7 @@ export default function Home() {
 
                 <button
                   type="button"
-                  className="flex absolute top-0 -left-10 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                  className="flex absolute top-0 sm:-left-10 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                   data-carousel-prev
                 >
                   <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/70 dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60">
@@ -224,7 +225,7 @@ export default function Home() {
                 </button>
                 <button
                   type="button"
-                  className="flex absolute top-0 -right-10 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                  className="flex absolute top-0 right-0 sm:-right-10 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                   data-carousel-next
                 >
                   <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/70 dark:bg-gray-800/30  dark:group-hover:bg-gray-800/60  ">
@@ -249,20 +250,22 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center gap-4 h-10 ">
+        <div className="flex flex-wrap justify-center sm:gap-4 sm:top-0 top-6 relative sm:h-10 ">
           <Image
             width={1000}
             height={200}
             alt="listings"
             src="/200listings.png"
-            className="hover:scale-110 duration-100 ease-in transition-all  sm:w-[240px] h-[120px]"
+            className="hover:scale-110 duration-100 ease-in transition-all w-[220px] h-[100px] sm:w-[240px] sm:h-[120px]"
+            quality={100}
           />
           <Image
             width={1000}
             height={200}
             alt="happy customers"
             src="/happycustomers.png"
-            className="hover:scale-110 duration-100 ease-in transition-all  sm:w-[240px] h-[120px]"
+            className="hover:scale-110 duration-100 ease-in transition-all w-[220px] h-[100px] sm:w-[240px] sm:h-[120px]"
+            quality={100}
           />
         </div>
       </section>
@@ -280,8 +283,8 @@ export default function Home() {
         </div>
       </section>
       <section className="py-10 w-full min-h-[56vh] flex flex-col items-center ">
-        <div className="flex max-w-[1280px]  sm:px-6 px-3 m-auto justify-between items-center w-full">
-          <div className="max-w-[450px] flex flex-col gap-4">
+        <div className="flex max-w-[1280px]  sm:px-6 px-3 m-auto justify-center flex-col lg:flex-row sm:justify-between items-center w-full">
+          <div className="lg:max-w-[450px] flex flex-col gap-4">
             <span className=" text-base font-medium text-[#4361EE]">
               WHO ARE WE
             </span>
@@ -294,45 +297,47 @@ export default function Home() {
               neighborhoods and We can show you the ones that match your
               criteria.
             </p>
-            <div className="flex max-w-[320px] p-3 h-30 shadow-md gap-3 rounded-xl">
-              <Image
-                width={200}
-                height={200}
-                alt="smart home"
-                src="/smart home.svg"
-                className="w-8"
-              />
-              <div className="flex flex-col gap-1">
-                <span className=" text-sm font-medium text-[#4361EE]">
-                  Quality properties
-                </span>
-                <p className="text-[#808080] text-sm">
-                  Comfortable working and living high excellence suitable
-                  properties.
-                </p>
+            <div className="flex sm:flex-row lg:flex-col flex-col gap-4">
+              <div className="flex max-w-[320px] p-3 h-30 shadow-md gap-3 rounded-xl">
+                <Image
+                  width={200}
+                  height={200}
+                  alt="smart home"
+                  src="/smart home.svg"
+                  className="w-8"
+                />
+                <div className="flex flex-col gap-1">
+                  <span className=" text-sm font-medium text-[#4361EE]">
+                    Quality properties
+                  </span>
+                  <p className="text-[#808080] text-sm">
+                    Comfortable working and living high excellence suitable
+                    properties.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="flex max-w-[320px] p-3 h-30 shadow-md gap-3 rounded-xl">
-              <Image
-                width={200}
-                height={200}
-                alt="octagin"
-                src="/octagon.svg"
-                className="w-8"
-              />
-              <div className="flex flex-col gap-1">
-                <span className=" text-sm font-medium text-[#4361EE]">
-                  Security
-                </span>
-                <p className="text-[#808080] text-sm">
-                  Commercial and residential properties with unique security
-                  needs for the client.
-                </p>
+              <div className="flex max-w-[320px] p-3 h-30 shadow-md gap-3 rounded-xl">
+                <Image
+                  width={200}
+                  height={200}
+                  alt="octagin"
+                  src="/octagon.svg"
+                  className="w-8"
+                />
+                <div className="flex flex-col gap-1">
+                  <span className=" text-sm font-medium text-[#4361EE]">
+                    Security
+                  </span>
+                  <p className="text-[#808080] text-sm">
+                    Commercial and residential properties with unique security
+                    needs for the client.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex gap-1">
+          <div className="flex gap-1 py-3">
             <Image
               width={200}
               height={200}
@@ -360,7 +365,7 @@ export default function Home() {
         </div>
       </section>
       <section className="py-10 w-full min-h-[56vh] flex flex-col items-center ">
-        <div className="flex max-w-[1280px]  sm:px-6 px-3 m-auto justify-between items-center w-full">
+        <div className="flex max-w-[1280px] flex-col gap-3 sm:gap-0 sm:flex-row sm:px-6 px-3 m-auto justify-between sm:items-center w-full">
           <div className="flex flex-col gap-3">
             <span className=" text-base font-medium text-[#4361EE]">
               CHECKOUT OUR NEW
@@ -761,11 +766,11 @@ export default function Home() {
           <h4 className=" text-4xl text-center font-semibold">
             What we offer our clients
           </h4>
-          <div className="flex w-full justify-evenly py-6">
+          <div className="flex flex-col gap-5 sm:gap-0 items-center sm:items-[unset] sm:flex-row w-full justify-evenly py-6">
             <Card
               isHoverable
               isPressable
-              className=" max-w-[256px] w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className="w-[70%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -789,7 +794,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className=" max-w-[256px] w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className=" w-[70%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -813,7 +818,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className=" max-w-[256px] w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className=" w-[70%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -956,7 +961,7 @@ export default function Home() {
           <h6 className="text-white text-4xl font-semibold text-center pt-3 py-4">
             Latest Blogs & Posts
           </h6>
-          <div className="flex justify-between w-full">
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-0 items-center sm:items-[unset] justify-between w-full">
             <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image
