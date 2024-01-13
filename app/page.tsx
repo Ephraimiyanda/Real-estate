@@ -10,6 +10,7 @@ import { GrHomeRounded } from "react-icons/gr";
 import { InvestChip, NewListingChip, PopularChip } from "./components/Chips";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import Script from "next/script";
+
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("")
   const [latestProperty, setLatestProperty] = useState<any>("All")

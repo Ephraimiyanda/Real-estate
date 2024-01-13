@@ -5,6 +5,7 @@ import NextUiProvider from "./Providers/NEXTUIProvider/Nextuiprovider";
 import "./globals.css";
 import Nav from "./components/Nav";
 import { ReactNode } from "react";
+import { NextScript } from "next/document";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function RootLayout({children}:any) {
           {children}
         </NextUiProvider>
       </body>
-     
+     <NextScript/>
     </html>
   );
   
