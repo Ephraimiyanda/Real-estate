@@ -10,7 +10,7 @@ import { GrHomeRounded } from "react-icons/gr";
 import { InvestChip, NewListingChip, PopularChip } from "./components/Chips";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import Script from "next/script";
-
+import {Helmet} from "react-helmet"
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("")
   const [latestProperty, setLatestProperty] = useState<any>("All")
@@ -1057,13 +1057,16 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Script
+      <Helmet>
+        <Script
         id="carousel-script"
         type="module"
         src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
         async
         strategy="afterInteractive"
-      />
+      /> 
+      </Helmet>
+     
     </main>
   );
 }
