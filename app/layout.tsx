@@ -22,7 +22,7 @@ export default function RootLayout({children}:any) {
           {children}
         </NextUiProvider>
       </body>
-     <NextScript/>
+     
     </html>
   );
   

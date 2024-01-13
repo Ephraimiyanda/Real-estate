@@ -17,6 +17,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
+      <NextScript />
       <section className="first-section w-full h-screen  bg-no-repeat bg-center bg-cover flex flex-col py-10">
         <div className="max-w-[1280px] mx-auto flex justify-between items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
@@ -1063,7 +1064,6 @@ export default function Home() {
         src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
         async
         strategy="afterInteractive"
-      
       />
     </main>
   );
