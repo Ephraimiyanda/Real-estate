@@ -18,10 +18,10 @@ export default function Home() {
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
       <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
-        <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
+        <div className="max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-0 lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
             <p className=" text-base font-medium text-[#4361EE]">REAL ESTATE</p>
-            <h1 className=" text-6xl font-semibold max-w-[500px]">
+            <h1 className=" text-4xl sm:text-6xl font-semibold max-w-[500px]">
               Find a perfect home you love ..!
             </h1>
             <p className="max-w-[500px] text-[#808080] text-sm">
@@ -122,8 +122,8 @@ export default function Home() {
               </Button>
             </form>
           </div>
-          <div className="w-full sm:w-auto">
-            <div className="mx-auto w-full max-w-[500px] min-w-[270px] lg:w-[400px] relative md:-left-[10px] lg:-left-0 lg:left-[unset]">
+          <div className="w-full lg:w-auto">
+            <div className="mx-auto w-full max-w-[500px] min-w-[270px] lg:w-[400px] relative md:-left-[10px]  lg:left-[unset]">
               <div
                 id="default-carousel"
                 className="relative"
@@ -250,13 +250,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center sm:gap-4 sm:top-0 top-6 relative sm:h-10 ">
+        <div className="flex  justify-center sm:gap-4 sm:top-0 top-6 relative sm:h-10 ">
           <Image
             width={1000}
             height={200}
             alt="listings"
             src="/200listings.png"
-            className="hover:scale-110 duration-100 ease-in transition-all w-[220px] h-[100px] sm:w-[240px] sm:h-[120px]"
+            className="hover:scale-110 duration-100 ease-in transition-all w-[180px] h-auto sm:w-[240px] sm:h-[120px] relative -right-3 sm:-right-0"
             quality={100}
           />
           <Image
@@ -264,7 +264,7 @@ export default function Home() {
             height={200}
             alt="happy customers"
             src="/happycustomers.png"
-            className="hover:scale-110 duration-100 ease-in transition-all w-[220px] h-[100px] sm:w-[240px] sm:h-[120px]"
+            className="hover:scale-110 duration-100 ease-in transition-all w-[180px] h-auto sm:w-[240px] sm:h-[120px] relative -left-3 sm:-left-0"
             quality={100}
           />
         </div>
@@ -288,7 +288,7 @@ export default function Home() {
             <span className=" text-base font-medium text-[#4361EE]">
               WHO ARE WE
             </span>
-            <h2 className=" text-4xl font-semibold">
+            <h2 className=" text-3xl sm:text-4xl font-semibold">
               Assisting individuals in locating the appropriate real estate.
             </h2>
             <p className="text-[#808080]">
@@ -370,7 +370,7 @@ export default function Home() {
             <span className=" text-base font-medium text-[#4361EE]">
               CHECKOUT OUR NEW
             </span>
-            <h3 className=" text-4xl font-semibold">Latest Listed Propeties</h3>
+            <h3 className=" text-3xl sm:text-4xl font-semibold">Latest Listed Propeties</h3>
             <p className="text-[#808080] ">
               Check out the latest properties on the market right for you.
             </p>
@@ -763,7 +763,7 @@ export default function Home() {
       <section className="bg-[#eceaea] py-12  w-full min-h-[56vh] flex flex-col items-center ">
         <div className="flex flex-col gap-3 max-w-[1280px] w-full sm:px-6 px-3 m-auto">
           <p className=" text-base font-medium text-center">OUR SERVICES</p>
-          <h4 className=" text-4xl text-center font-semibold">
+          <h4 className=" text-3xl sm:text-4xl text-center font-semibold">
             What we offer our clients
           </h4>
           <div className="flex flex-col gap-5 sm:gap-0 items-center sm:items-[unset] sm:flex-row w-full justify-evenly py-6">
@@ -854,7 +854,7 @@ export default function Home() {
           <span className=" text-base font-medium text-[#4361EE]">
             AREAS ACROSS THE TOWN
           </span>
-          <h5 className=" text-4xl font-semibold">Neighborhood Properties</h5>
+          <h5 className=" text-3xl sm:text-4xl font-semibold">Neighborhood Properties</h5>
           <div className="py-3 grid grid-cols-2 md:grid-cols-3 gap-4">
             <Card className="bg-transparent shadow-none">
               <Image
@@ -958,7 +958,7 @@ export default function Home() {
           <span className="text-white text-center mx-auto pt-3">
             WHAT’S TRENDING
           </span>
-          <h6 className="text-white text-4xl font-semibold text-center pt-3 py-4">
+          <h6 className="text-white text-3xl sm:text-4xl font-semibold text-center pt-3 py-4">
             Latest Blogs & Posts
           </h6>
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-0 items-center sm:items-[unset] justify-between w-full">
@@ -1042,7 +1042,7 @@ export default function Home() {
           <div className="flex justify-between w-full">
             <div className="max-w-[415px] flex flex-col gap-3">
               <span className="text-[#4361EE]">TESTIMONIALS</span>
-              <p className=" text-4xl font-semibold  pt-3 py-4">
+              <p className=" text-3xl sm:text-4xl font-semibold  pt-3 py-4">
                 Look What Our Customers Say!
               </p>
               <p>
