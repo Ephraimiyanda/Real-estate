@@ -1080,8 +1080,8 @@ export default function Home() {
             />
             <p className="pb-5 border-b-gray-300 border-b-1">
               I highly recommend Jodi J. Appleby. She was attentive to our needs
-              and worked tirelessly to find us the perfect home. We couldn't be
-              happier with our new place!
+              and worked tirelessly to find us the perfect home. We
+              couldn&apos;t be happier with our new place!
             </p>
             <div className="flex justify-between items-center">
               <p className="font-semibold">Barbara D. Smith</p>
