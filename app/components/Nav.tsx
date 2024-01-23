@@ -20,6 +20,12 @@ import { useState } from "react";
 import { HiHomeModern } from "react-icons/hi2";
 import { RxAvatar } from "react-icons/rx";
 import { TbHomePlus } from "react-icons/tb";
+import { IoMdHome } from "react-icons/io";
+import { FcAbout } from "react-icons/fc";
+import { TbHomeSearch } from "react-icons/tb";
+import { GrServices } from "react-icons/gr";
+import { IoBookSharp } from "react-icons/io5";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -29,7 +35,8 @@ export default function Nav() {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       maxWidth="xl"
-      className="top-[0] fixed w-full "
+      isBlurred={false}
+      className="top-[0] fixed w-full bg-[#fafaff] "
     >
       <NavbarContent>
         <NavbarBrand className="flex gap-3 ">
@@ -68,28 +75,78 @@ export default function Nav() {
           <p>Add Listing</p>
         </Button>
       </NavbarContent>
-           <NavbarMenu>
-        <NavbarMenuItem>
+      <NavbarMenu>
+        <NavbarMenuItem
+          className={`flex justify-start items-center gap-3 py-2 ${
+            pathname === "/" ? "text-[#0070f0]" : "text-black"
+          }`}
+        >
+          <IoMdHome color={pathname === "/" ? "#0070f0" : "black"} size={24} />
           <Link href={"/"}>Home</Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
+        <NavbarMenuItem
+          className={`flex justify-start items-center gap-3 py-2 ${
+            pathname === "/About" ? "text-[#0070f0]" : "text-black"
+          }`}
+        >
+          <IoMdInformationCircleOutline
+            color={pathname === "/About" ? "#0070f0" : "black"}
+            size={24}
+          />
           <Link href={"/About"}>About</Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
-          <Link href={"/About"}>Listings</Link>
+        <NavbarMenuItem
+          className={`flex justify-start items-center gap-3 py-2 ${
+            pathname === "/Listings" ? "text-[#0070f0]" : "text-black"
+          }`}
+        >
+          <TbHomeSearch
+            color={pathname === "/Listing" ? "#0070f0" : "black"}
+            size={24}
+          />
+          <Link href={"/Listings"}>Listings</Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
+        <NavbarMenuItem
+          className={`flex justify-start items-center gap-3 py-2 ${
+            pathname === "/Services" ? "text-[#0070f0]" : "text-black"
+          }`}
+        >
+          <GrServices
+            color={pathname === "/Services" ? "#0070f0" : "black"}
+            size={24}
+          />
           <Link href={"/Services"}>Services</Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
+        <NavbarMenuItem
+          className={`flex justify-start items-center gap-3 py-2 ${
+            pathname === "/Blogs" ? "text-[#0070f0]" : "text-black"
+          }`}
+        >
+          <IoBookSharp
+            color={pathname === "/Blogs" ? "#0070f0" : "black"}
+            size={24}
+          />
           <Link href={"/Blogs"}>Blogs</Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem className=" sm:hidden gap-3 py-2">
+          <Button className="bg-transparent shadow" radius="full">
+            <RxAvatar size={20} />
+            <p>Login/Register</p>
+          </Button>
+          <Button radius="full" className="bg-[#0070f0] text-white">
+            <TbHomePlus size={24} color="white" />
+            <p>Add Listing</p>
+          </Button>
         </NavbarMenuItem>
       </NavbarMenu>
 
-      <NavbarContent className="lg:hidden flex-[0] flex-grow-[0.3]" style={{
-        flexGrow:"0.1"
-      }}
-        justify="start">
+      <NavbarContent
+        className="lg:hidden flex-[0] flex-grow-[0.3]"
+        style={{
+          flexGrow: "0.1",
+        }}
+        justify="start"
+      >
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />

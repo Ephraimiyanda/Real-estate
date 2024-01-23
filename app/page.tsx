@@ -16,7 +16,7 @@ export default function Home() {
   const [latestProperty, setLatestProperty] = useState<any>("All")
 
   return (
-    <main className="flex min-h-screen  flex-col items-center justify-between absolute w-full  top-[0] ">
+    <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] ">
       <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
         <div className="max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-0 lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
@@ -29,7 +29,7 @@ export default function Home() {
               real estate. We have been operating in Madrid and Barcelona more
               than 15 years.
             </p>
-            <form className="flex gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center">
+            <form className="sm:flex hidden gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center">
               <Select
                 label="Property Type"
                 className="max-w-[160px] bg-white "
@@ -370,7 +370,9 @@ export default function Home() {
             <span className=" text-base font-medium text-[#4361EE]">
               CHECKOUT OUR NEW
             </span>
-            <h3 className=" text-3xl sm:text-4xl font-semibold">Latest Listed Propeties</h3>
+            <h3 className=" text-3xl sm:text-4xl font-semibold">
+              Latest Listed Propeties
+            </h3>
             <p className="text-[#808080] ">
               Check out the latest properties on the market right for you.
             </p>
@@ -854,7 +856,9 @@ export default function Home() {
           <span className=" text-base font-medium text-[#4361EE]">
             AREAS ACROSS THE TOWN
           </span>
-          <h5 className=" text-3xl sm:text-4xl font-semibold">Neighborhood Properties</h5>
+          <h5 className=" text-3xl sm:text-4xl font-semibold">
+            Neighborhood Properties
+          </h5>
           <div className="py-3 grid grid-cols-2 md:grid-cols-3 gap-4">
             <Card className="bg-transparent shadow-none">
               <Image
@@ -1037,8 +1041,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="py-12  w-full min-h-[56vh] flex flex-col items-center">
-        <div className=" max-w-[1280px] w-full sm:px-10 px-3 flex flex-col justify-center items-center gap-4">
+      <section className="py-28 w-full min-h-[56vh] flex flex-col items-center">
+        <div className=" max-w-[1280px] w-full sm:px-10 px-3  flex sm:flex-row sm:gap-4 flex-col  justify-between  gap-10">
           <div className="flex justify-between w-full">
             <div className="max-w-[415px] flex flex-col gap-3">
               <span className="text-[#4361EE]">TESTIMONIALS</span>
@@ -1065,6 +1069,53 @@ export default function Home() {
               </div>
             </div>
             <div></div>
+          </div>
+          <div className="flex flex-col gap-4 p-10 shadow-md border-t-gray-100 border-t-1 max-w-[500px] rounded-3xl">
+            <Image
+              src="/quote.svg"
+              width={300}
+              height={300}
+              alt="quote"
+              className=" h-[70px] w-[50px] mr-auto"
+            />
+            <p className="pb-5 border-b-gray-300 border-b-1">
+              I highly recommend Jodi J. Appleby. She was attentive to our needs
+              and worked tirelessly to find us the perfect home. We couldn't be
+              happier with our new place!
+            </p>
+            <div className="flex justify-between items-center">
+              <p className="font-semibold">Barbara D. Smith</p>
+              <Image
+                src="/stars.svg"
+                width={300}
+                height={300}
+                alt="quote"
+                className=" h-[50px] w-[150px] "
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="py-12 w-full sm:min-h-[56vh] sm:px-10 px-3">
+        <div className=" max-w-[1280px] w-full sm:px-10 px-3 sm:pt-0 pt-4 flex mx-auto sm:flex-row flex-col-reverse  bg-[#3A0CA3] agent_section relative  sm:h-[198px] h-full rounded-3xl">
+          <Image
+            src="/realtor.png"
+            width={300}
+            height={300}
+            alt="quote"
+            className="sm:absolute sm:-top-14"
+          />
+          <div className="flex sm:flex-row flex-col gap-3 justify-between items-center mx-auto">
+            <div className="max-w-[500px] text-white">
+              <p className=" font-semibold text-3xl py-3">Become a Agent.</p>
+              <p>
+                Join us as an agent and help our customers find the right
+                accomadations suitable for them.{" "}
+              </p>
+            </div>
+            <Button className="bg-white text-[#3A0CA3] py-2 px-6 mr-auto sm:mr-[unset] rounded-3xl ">
+              Register
+            </Button>
           </div>
         </div>
       </section>

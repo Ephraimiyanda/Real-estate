@@ -6,6 +6,7 @@ import "./globals.css";
 import Nav from "./components/Nav";
 import Head from "next/head";
 import Script from "next/script";
+import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Real estatate",
@@ -20,6 +21,7 @@ export default function RootLayout({children}:any) {
         <NextUiProvider>
           <Nav />
           {children}
+          <Footer/>
         </NextUiProvider>
       </body>
     </html>
