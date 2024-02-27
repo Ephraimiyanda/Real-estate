@@ -75,7 +75,7 @@ export default function Nav() {
           <p>Add Listing</p>
         </Button>
       </NavbarContent>
-      <NavbarMenu>
+      <NavbarMenu className="flex flex-col justify-center align-center gap-3">
         <NavbarMenuItem
           className={`flex justify-start items-center gap-3 py-2 ${
             pathname === "/" ? "text-[#0070f0]" : "text-black"
@@ -128,7 +128,7 @@ export default function Nav() {
           />
           <Link href={"/Blogs"}>Blogs</Link>
         </NavbarMenuItem>
-        <NavbarMenuItem className=" sm:hidden gap-3 py-2">
+        <NavbarMenuItem className=" sm:hidden flex gap-3 py-2">
           <Button className="bg-transparent shadow" radius="full">
             <RxAvatar size={20} />
             <p>Login/Register</p>
