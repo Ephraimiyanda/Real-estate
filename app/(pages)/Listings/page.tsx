@@ -154,24 +154,24 @@ export default function Search() {
   }
   //search for properties based on given params
   const searchProperties = async () => {
-    setPropertyLoading(true);
-    const url = `https://zoopla4.p.rapidapi.com/properties/rent?locationKey=${location}&minPrice=${priceRange[0]}&page=${currentPage}&maxBeds=${bedNumber} &minBeds=${bedNumber}&sort=${sortBy}&maxPrice=${priceRange[1]}`;
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
-        "X-RapidAPI-Host": "zoopla4.p.rapidapi.com",
-      },
-    };
-    try {
-      const response = await fetch(url, options);
-      const result = await response.json();
-      const suggestedPropertiesResult = result.data;
-      setPropertyLoading(false);
-      setSuggestedProperties(suggestedPropertiesResult);
-    } catch (error) {
-      console.error(error);
-    }
+    // setPropertyLoading(true);
+    // const url = `https://zoopla4.p.rapidapi.com/properties/rent?locationKey=${location}&minPrice=${priceRange[0]}&page=${currentPage}&maxBeds=${bedNumber} &minBeds=${bedNumber}&sort=${sortBy}&maxPrice=${priceRange[1]}`;
+    // const options = {
+    //   method: "GET",
+    //   headers: {
+    //     "X-RapidAPI-Key": "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
+    //     "X-RapidAPI-Host": "zoopla4.p.rapidapi.com",
+    //   },
+    // };
+    // try {
+    //   const response = await fetch(url, options);
+    //   const result = await response.json();
+    //   const suggestedPropertiesResult = result.data;
+    //   setPropertyLoading(false);
+    //   setSuggestedProperties(suggestedPropertiesResult);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   useEffect(() => {
     if (location) {
