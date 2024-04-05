@@ -205,7 +205,7 @@ export default function Home() {
                   className="flex absolute top-0 sm:-left-10 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                   data-carousel-prev
                 >
-                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/70 dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60">
+                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10  group-hover:bg-white/90 dark:bg-white/60 ">
                     <svg
                       className="w-5 h-5 text-[#4361EE] sm:w-6 sm:h-6 dark:text-gray-800 "
                       fill="none"
@@ -214,6 +214,7 @@ export default function Home() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
+                        stroke="#4361EE"
                         stroke-linecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
@@ -228,7 +229,7 @@ export default function Home() {
                   className="flex absolute top-0 right-0 sm:-right-10 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                   data-carousel-next
                 >
-                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/70 dark:bg-gray-800/30  dark:group-hover:bg-gray-800/60  ">
+                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/90 dark:bg-white/60 ">
                     <svg
                       className="w-5 h-5 text-[#4361EE] sm:w-6 sm:h-6 dark:text-gray-800"
                       fill="none"
@@ -237,6 +238,7 @@ export default function Home() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
+                        stroke="#4361EE"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         strokeWidth="2"
@@ -768,7 +770,7 @@ export default function Home() {
           <h4 className=" text-3xl sm:text-4xl text-center font-semibold">
             What we offer our clients
           </h4>
-          <div className="flex flex-col gap-5 sm:gap-0 items-center sm:items-[unset] sm:flex-row w-full justify-evenly py-6">
+          <div className="flex flex-col flex-wrap gap-5 sm:gap-4 items-center sm:items-[unset] sm:flex-row w-full justify-evenly py-6">
             <Card
               isHoverable
               isPressable
@@ -965,7 +967,7 @@ export default function Home() {
           <h6 className="text-white text-3xl sm:text-4xl font-semibold text-center pt-3 py-4">
             Latest Blogs & Posts
           </h6>
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-0 items-center sm:items-[unset] justify-between w-full">
+          <div className="flex flex-wrap flex-col sm:flex-row gap-6 sm:gap-4 items-center sm:items-[unset] justify-between w-full">
             <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image

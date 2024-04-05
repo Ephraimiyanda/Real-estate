@@ -60,7 +60,11 @@ export default function Nav() {
         >
           <Tab key="/" title="Home" href="/"></Tab>
           <Tab key="/About" title="About" href="/About"></Tab>
-          <Tab key="/Listings" title="Listings" href="/Listings"></Tab>
+          <Tab
+            key="/Listings"
+            title="Listings and Offers"
+            href="/Listings"
+          ></Tab>
           <Tab key="/Services" title="Services" href="/Services"></Tab>
           <Tab key="/Blogs" title="Blogs" href="/Blogs"></Tab>
         </Tabs>
@@ -104,7 +108,7 @@ export default function Nav() {
             color={pathname === "/Listing" ? "#0070f0" : "black"}
             size={24}
           />
-          <Link href={"/Listings"}>Listings</Link>
+          <Link href={"/Listings"}>Listings and Offers</Link>
         </NavbarMenuItem>
         <NavbarMenuItem
           className={`flex justify-start items-center gap-3 py-2 ${
@@ -128,12 +132,12 @@ export default function Nav() {
           />
           <Link href={"/Blogs"}>Blogs</Link>
         </NavbarMenuItem>
-        <NavbarMenuItem className=" sm:hidden gap-3 py-2">
+        <NavbarMenuItem className=" sm:hidden flex gap-3 py-2">
           <Button className="bg-transparent shadow" radius="full">
             <RxAvatar size={20} />
             <p>Login/Register</p>
           </Button>
-          <Button radius="full" className="bg-[#0070f0] text-white">
+          <Button radius="full" className="bg-[#0070f0] flex justify-center items-center text-white">
             <TbHomePlus size={24} color="white" />
             <p>Add Listing</p>
           </Button>

@@ -10,7 +10,8 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Real estatate",
-  description: "what you want we have",
+  description: "what you want we have, look for your best housing options",
+  
 };
 
 export default function RootLayout({children}:any) {
