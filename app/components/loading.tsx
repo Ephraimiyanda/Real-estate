@@ -9,7 +9,7 @@ function LoadingCard() {
   return (
     <Card
       shadow="md"
-      className="rounded-md  p-0 bg-white  max-h-[360px] max-w-[270px]"
+      className="rounded-md  p-0 bg-white w-[90%] max-w-[350px] max-h-[360px] sm:max-w-[270px] sm:w-[270px]"
       style={{
         padding: "0px",
       }}
@@ -21,7 +21,7 @@ function LoadingCard() {
           maxWidth: "unset",
         }}
       >
-        <Skeleton className=" h-[240px] w-[270px] object-cover" />
+        <Skeleton className=" h-[240px] w-full object-cover" />
         <CardFooter className="text-small justify-start flex flex-col px-3 gap-5 w-full p-0 pt-2">
           <div className="justify-start flex flex-col px-3 gap-4 py-3 w-full">
             <div className="text-lg">

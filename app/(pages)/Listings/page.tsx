@@ -57,7 +57,7 @@ export default function Search() {
   const pathname = usePathname();
   const { replace } = useRouter();
   const propertyCost = ["highest", "lowest", "recommended", "recent"];
-  console.log(bedNumber, sortBy, location,purposeOfProperty);
+  console.log(bedNumber, sortBy, location,purposeOfProperty,suggestedProperties);
   const propertypurposeItems = [
     { key: "rent", value: "Rent" },
     { key: "sale", value: "Sale" },
@@ -134,7 +134,7 @@ export default function Search() {
   async function fetchSuggestedProperties() {
     setPropertyLoading(true);
        const url =
-         `https://zoopla4.p.rapidapi.com/properties/rent?locationKey=london&minPrice=100&page=${currentPage}&maxBeds=4&sort=recent&maxPrice=1000`;
+         `https://zoopla4.p.rapidapi.com/properties/rent?locationKey=london&minPrice=100&page=${currentPage}&minBeds=1&sort=recent&maxPrice=12000`;
        const options = {
          method: "GET",
          headers: {
@@ -147,7 +147,7 @@ export default function Search() {
        const result = await response.json();
        const suggestedPropertiesResult = result.data;
        setSuggestedProperties(suggestedPropertiesResult);
-    setPropertyLoading(false);
+       setPropertyLoading(false);
      } catch (error) {
        console.error(error);
      }
@@ -404,8 +404,8 @@ export default function Search() {
           </div>
         </div>
         <div className="max-w-[1280px] mx-auto  sm:px-6 px-3">
-          <div className=" flex justify-between items-center sm:items-start  flex-wrap  py-7 gap-4">
-            {suggestedProperties && !propertyLoading ? (
+          <div className=" flex justify-center sm:justify-between items-center sm:items-start  flex-wrap  py-7 gap-4">
+            {suggestedProperties&&!propertyLoading? (
               suggestedProperties.map((properties: property) => (
                 <SearchBlock
                   key={properties.id}

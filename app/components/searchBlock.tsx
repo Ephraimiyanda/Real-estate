@@ -9,7 +9,7 @@ export default function SearchBlock({title,location,src}:searchblock) {
   return (
     <Card
       shadow="md"
-      className="rounded-md  p-0 bg-white  max-h-[360px] max-w-[270px]"
+      className="rounded-md  p-0 bg-white  max-h-[360px] w-[90%] max-w-[350px] sm:max-w-[270px] sm:w-[270px]"
       style={{
         padding: "0px",
       }}
@@ -25,14 +25,14 @@ export default function SearchBlock({title,location,src}:searchblock) {
           radius="none"
           removeWrapper
           src={src}
-          className=" h-[240px] w-[270px] object-cover"
+          className=" h-[240px] w-full sm:w-[270px] object-cover"
           alt="img"
         />
         <CardFooter className="text-small justify-start flex flex-col px-3 gap-5 w-full p-0 pt-2">
           <div className="justify-start flex flex-col px-3 gap-4 py-3 w-full">
             <div className="text-lg">
               <Link href={`/product/${title}`}>
-                <p className=" overflow-hidden text-ellipsis h-10  whitespace-nowrap ">
+                <p className=" overflow-hidden text-ellipsis h-14 ">
                   {title}
                 </p>
               </Link>
