@@ -79,7 +79,7 @@ export default function Nav() {
           <p>Add Listing</p>
         </Button>
       </NavbarContent>
-      <NavbarMenu>
+      <NavbarMenu className="flex flex-col gap-3">
         <NavbarMenuItem
           className={`flex justify-start items-center gap-3 py-2 ${
             pathname === "/" ? "text-[#0070f0]" : "text-black"
