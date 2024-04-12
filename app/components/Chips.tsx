@@ -3,7 +3,7 @@ import Image from "next/image"
 export function PopularChip() {
     return (
       <Chip
-        className="p-2 absolute bottom-2 left-2 bg-[#FFE1E1] text-red-500"
+        className="p-2 absolute bottom-2 flex justify-center items-center left-2 bg-[#FFE1E1] text-red-500"
         color="danger"
         startContent={
           <Image
@@ -15,14 +15,14 @@ export function PopularChip() {
           />
         }
       >
-        <p>Popular</p>
+        <p className="pt-[3px]">Popular</p>
       </Chip>
     );
 }
 export function NewListingChip() {
   return (
     <Chip
-      className="p-2 absolute bottom-2 left-2 bg-[#D7EEFF] text-[#119BFF]"
+      className="p-2 absolute bottom-2 flex justify-center items-center left-2 bg-[#D7EEFF] text-[#119BFF]"
       color="danger"
       startContent={
         <Image
@@ -34,14 +34,14 @@ export function NewListingChip() {
         />
       }
     >
-      <p>New Listing</p>
+      <p className="pt-[3px]">New Listing</p>
     </Chip>
   );
 }
 export function InvestChip() {
   return (
     <Chip
-      className="p-2 absolute bottom-2 left-2 bg-[#F1FFF1] text-[#00CE3A]"
+      className="p-2 absolute bottom-2 flex justify-center items-center left-2 bg-[#F1FFF1] text-[#00CE3A]"
       color="danger"
       startContent={
         <Image
@@ -53,7 +53,7 @@ export function InvestChip() {
         />
       }
     >
-      <p>Invest</p>
+      <p className="pt-[3px]">Invest</p>
     </Chip>
   );
 }

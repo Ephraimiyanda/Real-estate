@@ -27,13 +27,17 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import PropertyLoading from "@/app/components/propertyLoading";
 import { useRouter } from "next/router";
-export default function Workspace() {
-  const [propertyData, setPropertyData] = useState([]);
+
+export default function PropertyDetails({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const [propertyData, setPropertyData] = useState<string | number | any>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
-  const { id } = router.query;
+  const [images, setImages] = useState([]);
   async function getProperty() {
-    const url = `https://zoopla4.p.rapidapi.com/properties/${id}`;
+    const url = `https://zoopla4.p.rapidapi.com/properties/${params.id}`;
     const options = {
       method: "GET",
       headers: {
@@ -46,8 +50,13 @@ export default function Workspace() {
       const response = await fetch(url, options);
       const result = await response.json();
       setPropertyData(result.data);
+      const newArray = result.data.images.map((image:string) => ({
+        original: image,
+        thumbnail: image,
+      }));
+      setImages(newArray)
       setLoading(false);
-      console.log(result);
+      console.log(result.data);
     } catch (error) {
       console.error(error);
     }
@@ -62,8 +71,8 @@ export default function Workspace() {
       {loading ? (
         <PropertyLoading />
       ) : (
-        <div className="py-28  max-w-[1280px] mx-auto md:px-6 px-3">
-          <h1 className="md:px-6 px-3 text-center font-semibold text-3xl pb-11">
+        <div className="py-20  max-w-[1280px] mx-auto md:px-6 px-3">
+          <h1 className="md:px-6 px-3 text-center font-semibold text-3xl pb-8">
             {propertyData.name}
           </h1>
           <div className=" flex lg:flex-row flex-col gap-5 justify-between">
@@ -71,10 +80,10 @@ export default function Workspace() {
               <div className="max-w-[800px]">
                 <ImageGallery
                   showPlayButton={false}
-                  thumbnailHeight={200}
+                  thumbnailHeight={"200"}
                   thumbnailWidth={250}
                   loading="lazy"
-                  items={propertyData.images}
+                  items={images}
                   renderLeftNav={(
                     onClick: MouseEventHandler<HTMLButtonElement> | undefined,
                     disabled: boolean | undefined
@@ -103,30 +112,33 @@ export default function Workspace() {
                   )}
                 />
               </div>
-              <div className="flex gap-2 justify-between flex-wrap py-8">
-                <div className="max-w-[250px] flex gap-2 justify-between items-center font-semibold text-lg">
-                  <BsBuildings size={40} color="#4361EE" />
-                  <span>{propertyData.propertyType}</span>
+              <Spacer y={6}></Spacer>
+              <div className="flex justify-between  items-center px-6 py-3 rounded-sm bg-[#4361EE] bg-opacity-20">
+                <div className="flex flex-col">
+                  <span className="font-light">Mortgage since:</span>
+                  <span className="text-lg font-semibold">{propertyData.price} €/month</span>
                 </div>
-
-                {propertyData.aqft && (
-                  <div className="max-w-[250px] flex gap-2 justify-between items-center font-semibold text-lg">
-                    <SiBlueprint size={40} color="#4361EE" />
-                    <span>{propertyData.aqft}sqft</span>
-                  </div>
-                )}
-
-                <div className="max-w-[250px] flex gap-2 justify-between items-center font-semibold text-lg">
-                  <FaMapLocationDot size={40} color="#4361EE" />
-                  <span>{propertyData.address}</span>
-                </div>
+                <Button
+                  className="bg-[#4361EE] text-white"
+                    radius="none"
+                    size="lg"
+                  variant="solid"
+                >
+                  Get a mortgage
+                </Button>
               </div>
+              <Spacer y={6}></Spacer>
               <div>
-                <p>{propertyData.description}</p>
+                <p className="pb-4 font-semibold text-lg flex justify-normal items-center gap-2">
+                  <BsBuildings size={40} color="#4361EE" />
+                  <span>Description</span>
+                </p>
+                <div>{propertyData.description}</div>
               </div>
-              <div className="py-8">
-                <p className="pb-4 font-semibold text-lg">
-                  Basic characteristics
+              <div className="py-8 ">
+                <p className="pb-4 font-semibold text-lg flex justify-normal items-center gap-2">
+                  <SiBlueprint size={40} color="#4361EE" />
+                  <span>Basic characteristics</span>
                 </p>
                 <ul className="list-disc px-7">
                   {propertyData.councilTaxBand && (
@@ -134,61 +146,75 @@ export default function Workspace() {
                   )}
                   <li>propertyType: {propertyData.propertyType}</li>
                   <li>postalCode: {propertyData.postalCode}</li>
-                  <li>Listing condition: {propertyData.postalCode}</li>
+                  <li>Listing condition: {propertyData.listingCondition}</li>
+                </ul>
+                <ul className="list-disc px-7 py-3">
+                  <span className="font-semibold text-lg">Features</span>
+                  {propertyData.features &&
+                    propertyData.features?.map((feature: string) => (
+                      <li key={feature}>{feature}</li>
+                    ))}
                 </ul>
               </div>
               <div className="py-4">
-                <p className="pb-4 font-semibold text-lg">Location</p>
+                <p className="pb-4 font-semibold text-lg flex justify-normal items-center gap-2">
+                  {" "}
+                  <FaMapLocationDot size={40} color="#4361EE" />
+                  <span>Location</span>
+                </p>
                 <p>{propertyData.address}</p>
               </div>
               <div>
                 <iframe
                   width="100%"
                   height="450"
-                  src={`https://www.google.com/maps/embed/v1/place?q=${propertyData.latitude},${propertyData.longitude}&amp;key=AIzaSyDjS321DIle77Wu969s4VQZMrdV2Qt_tzY`}
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDjS321DIle77Wu969s4VQZMrdV2Qt_tzY&q=${propertyData.latitude},${propertyData.longitude}`}
                 ></iframe>
               </div>
-              {propertyData.floorPlan.length > 0 && (
+              {propertyData.floorPlan?.length > 0 && (
                 <div className="py-4">
                   <p className="pb-4 font-semibold text-lg">Floor Plan</p>
                   <div className="flex flex-wrap ">
-                    <Card
-                      isFooterBlurred
-                      className="w-full h-[300px] col-span-12 sm:col-span-5"
-                    >
-                      <Image
-                        removeWrapper
-                        alt="Card example background"
-                        className="z-0 w-full h-full  object-contain"
-                        src="https://lc.zoocdn.com/471b297a14fb036a80048a468d3eda86639124a8.png"
-                      />
-                      <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                        <div>
-                          <p className="text-black text-tiny">Available</p>
-                          <p className="text-black text-tiny">
-                            Ready for view.
-                          </p>
-                        </div>
-                        <Button
-                          className="text-tiny"
-                          color="primary"
-                          radius="full"
-                          size="sm"
-                          as={Link}
-                          href="https://lc.zoocdn.com/471b297a14fb036a80048a468d3eda86639124a8.png"
-                        >
-                          View floor plan
-                        </Button>
-                      </CardFooter>
-                    </Card>
+                    {propertyData.floorPlan.map((floorplan: string) => (
+                      <Card
+                        key={floorplan}
+                        isFooterBlurred
+                        className="w-full min-w-[300px] h-[300px] col-span-12 sm:col-span-5"
+                      >
+                        <Image
+                          removeWrapper
+                          alt="Card example background"
+                          className="z-0 w-full h-full  object-contain"
+                          src={floorplan}
+                        />
+                        <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
+                          <div>
+                            <p className="text-black text-tiny">Available</p>
+                            <p className="text-black text-tiny">
+                              Ready for view.
+                            </p>
+                          </div>
+                          <Button
+                            className="text-tiny"
+                            color="primary"
+                            radius="full"
+                            size="sm"
+                            as={Link}
+                            href={floorplan}
+                          >
+                            View floor plan
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    ))}
                   </div>
                 </div>
               )}
             </div>
-            <div className="lg:max-w-[400px] flex gap-5 lg:flex-col-reverse w-full justify-between h-fit">
+            <div className="lg:max-w-[400px] flex gap-5 sm:flex-row-reverse flex-col-reverse lg:flex-col-reverse w-full justify-between h-fit">
               <form
                 action=""
-                className="flex flex-col gap-3 bg-primary bg-opacity-10 py-4 rounded-lg sm:px-6 px-3 w-full sm:w-1/2 lg:w-full"
+                className="flex flex-col gap-3 bg-[#4361EE] bg-opacity-20 py-4 rounded-lg sm:px-6 px-3 w-full sm:w-1/2 lg:w-full"
               >
                 <p className="text-3xl font-semibold">Contact Us</p>
                 <Spacer y={4}></Spacer>
@@ -304,72 +330,56 @@ export default function Workspace() {
                   Send Message
                 </Button>
               </form>
-              <div className="flex flex-col gap-4 bg-primary bg-opacity-10 rounded-lg sm:px-6 px-3 py-4 h-fit w-full sm:w-1/2 lg:w-full">
+              <div className="flex flex-col gap-4 bg-[#4361EE] bg-opacity-20 rounded-lg sm:px-6 px-3 py-4 h-fit w-full sm:w-1/2 lg:w-full">
+                <span className="font-semibold text-lg">Brief Features</span>
                 <p>
-                  <strong>
-                    Listing status :
-                    {propertyData.listingStatus === "rent"
-                      ? "for rent"
-                      : "for sale"}
-                  </strong>
+                  <strong>Listing status:</strong>{" "}
+                  {propertyData.listingStatus === "to_rent"
+                    ? "for rent"
+                    : "for sale"}
                 </p>
                 <p>
-                  <strong>Category :{propertyData.Category}</strong>
+                  <strong>Category:</strong> {propertyData.category}
                 </p>
                 <p>
-                  <strong>
-                    Total floor area :
-                    {
-                      (propertyData.sqft = ""
-                        ? "unavailable"
-                        : propertyData.sqft)
-                    }
-                  </strong>
+                  <strong>Total floor area:</strong>{" "}
+                  {propertyData.sqft === "" ? "unavailable" : propertyData.sqft}
                 </p>
                 <p>
-                  <strong>
-                    Number of rooms :
-                    {
-                      (propertyData.livingRooms = null
-                        ? "unavailable"
-                        : propertyData.livingRooms)
-                    }
-                  </strong>
+                  <strong>Number of rooms :</strong>{" "}
+                  {
+                    (propertyData.livingRooms === null
+                      ? "unavailable"
+                      : propertyData.livingRooms)
+                  }
                 </p>
                 <p>
-                  <strong>
-                    Number of beds :
-                    {
-                      (propertyData.beds = null
-                        ? "unavailable"
-                        : propertyData.beds)
-                    }
-                  </strong>
+                  <strong>Number of beds:</strong>{" "}
+                  {
+                    (propertyData.beds === null
+                      ? "unavailable"
+                      : propertyData.beds)
+                  }
                 </p>
                 <p>
-                  <strong>
-                    Number of baths :
-                    {
-                      (propertyData.baths = null
-                        ? "unavailable"
-                        : propertyData.baths)
-                    }
-                  </strong>
+                  <strong>Number of baths:</strong>{" "}
+                  {
+                    (propertyData.baths === null
+                      ? "unavailable"
+                      : propertyData.baths)
+                  }
                 </p>
                 <p>
-                  <strong>
-                    Shared ownership :{propertyData.isSharedOwnership}
-                  </strong>
+                  <strong>Shared ownership:</strong>{" "}
+                  {propertyData.isSharedOwnership ? "True" : "False"}
                 </p>
                 <p>
-                  <strong>
-                    Student friendly :{propertyData.studentFriendly}
-                  </strong>
+                  <strong>Student friendly:</strong>{" "}
+                  {propertyData.studentFriendly ? "True" : "False"}
                 </p>
                 <p>
-                  <strong>
-                    Retirement Home :{propertyData.isRetirementHome}
-                  </strong>
+                  <strong>Retirement Home:</strong>{" "}
+                  {propertyData.isRetirementHome ? "True" : "False"}
                 </p>
               </div>
             </div>

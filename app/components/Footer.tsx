@@ -81,13 +81,13 @@ export default function Footer() {
             <Input
               aria-label="newsletter"
               placeholder="Email Address"
-                          className="bg-white hover:bg-white"
-                          
+              className="bg-white hover:bg-white"
               classNames={{
                 mainWrapper: "bg-white hover:bg-white",
-                inputWrapper: "bg-white hover:!bg-white focus-within:!bg-white shadow-none",
-                  input: "bg-white hover:bg-white",
-                innerWrapper:""
+                inputWrapper:
+                  "bg-white hover:!bg-white focus-within:!bg-white shadow-none",
+                input: "bg-white hover:bg-white",
+                innerWrapper: "",
               }}
             ></Input>
             <Button

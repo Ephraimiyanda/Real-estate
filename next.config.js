@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode:false,
   experimental: {
     nextScriptWorkers: true,
+    scrollRestoration:true
   },
   images: {
     disableStaticImages: true,

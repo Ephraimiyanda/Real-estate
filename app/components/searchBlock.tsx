@@ -3,9 +3,10 @@ import Link from "next/link";
 interface searchblock{
   title: string;
   location: string;
-  src:string
+  src: string
+  id:number
 }
-export default function SearchBlock({title,location,src}:searchblock) {
+export default function SearchBlock({title,location,src,id}:searchblock) {
   return (
     <Card
       shadow="md"
@@ -31,7 +32,7 @@ export default function SearchBlock({title,location,src}:searchblock) {
         <CardFooter className="text-small justify-start flex flex-col px-3 gap-5 w-full p-0 pt-2">
           <div className="justify-start flex flex-col px-3 gap-4 py-3 w-full">
             <div className="text-lg">
-              <Link href={`/product/${title}`}>
+              <Link href={`/Listings/Properties/${id}`} >
                 <p className=" overflow-hidden text-ellipsis h-14 ">
                   {title}
                 </p>

@@ -1,20 +1,82 @@
-"use client"
+"use client";
 import Link from "next/link";
-import "./infinitescroll.scss"
-import { Button, Card, CardBody, CardFooter, CardHeader, Chip, Input, Select, SelectItem, Tab, Tabs } from "@nextui-org/react";
+import "./infinitescroll.scss";
+import {
+  Autocomplete,
+  AutocompleteItem,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Input,
+  Select,
+  SelectItem,
+  Tab,
+  Tabs,
+} from "@nextui-org/react";
 import { ImLocation } from "react-icons/im";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { GrHomeRounded } from "react-icons/gr";
 import { InvestChip, NewListingChip, PopularChip } from "./components/Chips";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import Script from "next/script";
-import {Helmet} from "react-helmet"
+import { Helmet } from "react-helmet";
+import { useDebounceValue } from "./assest/debounce";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 export default function Home() {
-  const [searchvalue, setSearchValue] = useState("")
-  const [latestProperty, setLatestProperty] = useState<any>("All")
+  const [searchvalue, setSearchValue] = useState("");
+  const [latestProperty, setLatestProperty] = useState<any>("All");
+  const [autoComplete, setAutoComplete] = useState([]);
+  const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
+  const searchQuery = useDebounceValue(searchvalue);
+  const [location, setLocation] = useState<any>("");
+  const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
+  const router=useRouter()
+  const propertyTypeItems = [
+    { key: "apartment", value: "APARTMENT" },
+    { key: "condo", value: "CONDO" },
+    { key: "townhome", value: "TOWNHOME" },
+    { key: "single_family", value: "SINGLE FAMILY" },
+    { key: "co_op", value: "Co-op" },
+    { key: "cond-op", value: "Cond_op" },
+    { key: "other", value: "other" },
+  ];
+  //run autocomplete fo location
+  const fetchAutoComplete = async (query: string) => {
+    setAutoCompleteLoading(true);
+    const url = `https://zoopla4.p.rapidapi.com/locations?location=${query}`;
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
+        "X-RapidAPI-Host": "zoopla4.p.rapidapi.com",
+      },
+    };
 
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      const autoCompleteResult = result.data;
+      setAutoComplete(autoCompleteResult);
+    } catch (error) {
+      console.error(error);
+    }
+    return setAutoCompleteLoading(false);
+  };
+  function OnInputChange(value: string) {
+    setSearchValue(value);
+    RunAutoComplete();
+  }
+  function RunAutoComplete() {
+    if (searchQuery.length > 0) {
+      fetchAutoComplete(searchQuery);
+    }
+  }
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] ">
       <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
@@ -26,92 +88,60 @@ export default function Home() {
             </h1>
             <p className="max-w-[500px] text-[#808080] text-sm">
               We provide a complete service for the sale, purchase or rental of
-              real estate. We have been operating in Madrid and Barcelona more
-              than 15 years.
+              real estate. We have been operating in the UK for more than 15
+              years.
             </p>
-            <form className="sm:flex hidden gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center">
+            <form
+              onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                e.preventDefault();
+                router.push(
+                  `/Listings?page=1&locationKey=${location}&minPrice=100&maxPrice=1000&sort=recent&type=${typeOfProperty}&purpose=rent&maxBeds=4`
+                );
+              }}
+              className="sm:flex hidden gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center"
+            >
               <Select
                 label="Property Type"
                 className="max-w-[160px] bg-white "
                 radius="none"
                 variant="bordered"
                 size="sm"
+                selectedKeys={typeOfProperty.length > 0 ? [typeOfProperty] : ""}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setTypeOfProperty(e.target.value)
+                }
               >
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"ALL"}
-                  value={"ALL"}
-                >
-                  ALL
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"CONDO/TOWNHOME"}
-                  value={"CONDO/TOWNHOME"}
-                >
-                  CONDO/TOWNHOME
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"COOPERATIVE"}
-                  value={"COOPERATIVE"}
-                >
-                  COOPERATIVE
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"MANUFACTURED"}
-                  value={"MANUFACTURED"}
-                >
-                  MANUFACTURED
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"MISCELLANEOUS"}
-                  value={"MISCELLANEOUS"}
-                >
-                  MISCELLANEOUS
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"MULTI (2-4 Units)"}
-                  value={"MULTI (2-4 Units)"}
-                >
-                  MULTI (2-4 Units)
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"MULTI 5+"}
-                  value={"MULTI 5+"}
-                >
-                  MULTI 5+
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"SINGLE FAMILY RESIDENCE"}
-                  value={"SINGLE FAMILY RESIDENCE"}
-                >
-                  SINGLE FAMILY RESIDENCE
-                </SelectItem>
-                <SelectItem
-                  className="text-xs lowercase"
-                  key={"Vacant Land"}
-                  value={"Vacant Land"}
-                >
-                  Vacant Land
-                </SelectItem>
+                {propertyTypeItems.map((item) => (
+                  <SelectItem key={item.key} value={item.value}>
+                    {item.value}
+                  </SelectItem>
+                ))}
               </Select>
-              <Input
-                variant="bordered"
-                value={searchvalue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                startContent={<ImLocation color="#1C3988" size={20} />}
-                aria-label="searchbar"
-                placeholder="Search of location"
+              <Autocomplete
                 radius="none"
-                className="bg-white w-full"
-                size="sm"
-              />
+                size="md"
+                aria-label="autocomplete"
+                variant="bordered"
+                items={autoComplete ? autoComplete : []}
+                isLoading={autoCompleteLoading}
+                inputValue={searchvalue}
+                onSelectionChange={setLocation}
+                placeholder="Select a location"
+                onInputChange={OnInputChange}
+                allowsEmptyCollection
+                startContent={<ImLocation color="#1C3988" size={20} />}
+                className="bg-white w-full max-w-[500px]"
+              >
+                {(item: any) => (
+                  <AutocompleteItem
+                    key={item.key}
+                    value={item.key}
+                    className="capitalize"
+                  >
+                    {item.name}
+                  </AutocompleteItem>
+                )}
+              </Autocomplete>
               <Button
                 type="submit"
                 startContent={<CiSearch size={30} color="white" />}
@@ -205,7 +235,7 @@ export default function Home() {
                   className="flex absolute top-0 sm:-left-10 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                   data-carousel-prev
                 >
-                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10  group-hover:bg-white/90 dark:bg-white/60 ">
+                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/90 dark:bg-white/60 ">
                     <svg
                       className="w-5 h-5 text-[#4361EE] sm:w-6 sm:h-6 dark:text-gray-800 "
                       fill="none"
@@ -215,8 +245,6 @@ export default function Home() {
                     >
                       <path
                         stroke="#4361EE"
-                        stroke-linecap="round"
-                        strokeLinejoin="round"
                         strokeWidth="2"
                         d="M15 19l-7-7 7-7"
                       ></path>
@@ -239,8 +267,6 @@ export default function Home() {
                     >
                       <path
                         stroke="#4361EE"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
                         strokeWidth="2"
                         d="M9 5l7 7-7 7"
                       ></path>
@@ -395,7 +421,7 @@ export default function Home() {
             >
               <Tab key="All" title="All"></Tab>
               <Tab key="Rent" title="Rent"></Tab>
-              <Tab key="List" title="List"></Tab>
+              <Tab key="Sale" title="Sale"></Tab>
             </Tabs>
           </div>
         </div>

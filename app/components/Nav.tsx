@@ -61,7 +61,7 @@ export default function Nav() {
           <Tab key="/" title="Home" href="/"></Tab>
           <Tab key="/About" title="About" href="/About"></Tab>
           <Tab
-            key="/Listings"
+            key="/Listings/.."
             title="Listings and Offers"
             href="/Listings"
           ></Tab>
@@ -101,11 +101,11 @@ export default function Nav() {
         </NavbarMenuItem>
         <NavbarMenuItem
           className={`flex justify-start items-center gap-3 py-2 ${
-            pathname === "/Listings" ? "text-[#0070f0]" : "text-black"
+            pathname.includes("/Listings") ? "text-[#0070f0]" : "text-black"
           }`}
         >
           <TbHomeSearch
-            color={pathname === "/Listing" ? "#0070f0" : "black"}
+            color={pathname.includes("/Listings") ? "#0070f0" : "black"}
             size={24}
           />
           <Link href={"/Listings"}>Listings and Offers</Link>
@@ -137,14 +137,17 @@ export default function Nav() {
             <RxAvatar size={20} />
             <p>Login/Register</p>
           </Button>
-          <Button radius="full" className="bg-[#0070f0] flex justify-center items-center text-white">
+          <Button
+            radius="full"
+            className="bg-[#0070f0] flex justify-center items-center text-white"
+          >
             <TbHomePlus size={24} color="white" />
             <p>Add Listing</p>
           </Button>
         </NavbarMenuItem>
       </NavbarMenu>
 
-      <NavbarContent
+      <NavbarContent 
         className="lg:hidden flex-[0] flex-grow-[0.3]"
         style={{
           flexGrow: "0.1",
