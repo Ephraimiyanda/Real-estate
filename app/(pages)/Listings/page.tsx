@@ -411,7 +411,7 @@ export default function Search() {
           </div>
         </div>
         <div className="max-w-[1280px] mx-auto  sm:px-6 px-3">
-          <div className=" flex justify-center sm:justify-between items-center sm:items-start  flex-wrap  py-7 gap-4">
+          <div className=" flex justify-center sm:justify-between md:justify-evenly lg:justify-between items-center sm:items-start  flex-wrap  py-7 gap-4">
             {suggestedProperties && !propertyLoading ? (
               suggestedProperties.map((properties: property) => (
                 <SearchBlock

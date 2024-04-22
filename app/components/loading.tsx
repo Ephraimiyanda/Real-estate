@@ -45,7 +45,7 @@ export default function LoadingBlock() {
     return skeletonCards;
   }
     return (
-      <div className="flex justify-center sm:justify-between items-center sm:items-start  flex-wrap  gap-4 max-w-[1280px] mx-auto ">
+      <div className="flex justify-center sm:justify-between md:justify-evenly lg:justify-between items-center sm:items-start  flex-wrap  gap-4 max-w-[1280px] mx-auto ">
         {Load()}
       </div>
     );
