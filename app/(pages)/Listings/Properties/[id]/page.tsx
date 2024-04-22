@@ -50,11 +50,11 @@ export default function PropertyDetails({
       const response = await fetch(url, options);
       const result = await response.json();
       setPropertyData(result.data);
-      const newArray = result.data.images.map((image:string) => ({
+      const newArray = result.data.images.map((image: string) => ({
         original: image,
         thumbnail: image,
       }));
-      setImages(newArray)
+      setImages(newArray);
       setLoading(false);
       console.log(result.data);
     } catch (error) {
@@ -80,9 +80,6 @@ export default function PropertyDetails({
               <div className="max-w-[800px]">
                 <ImageGallery
                   showPlayButton={false}
-                  thumbnailHeight={"200"}
-                  thumbnailWidth={250}
-                  loading="lazy"
                   items={images}
                   renderLeftNav={(
                     onClick: MouseEventHandler<HTMLButtonElement> | undefined,
@@ -116,12 +113,14 @@ export default function PropertyDetails({
               <div className="flex justify-between  items-center px-6 py-3 rounded-sm bg-[#4361EE] bg-opacity-20">
                 <div className="flex flex-col">
                   <span className="font-light">Mortgage since:</span>
-                  <span className="text-lg font-semibold">{propertyData.price} €/month</span>
+                  <span className="text-lg font-semibold">
+                    {propertyData.price} €/month
+                  </span>
                 </div>
                 <Button
                   className="bg-[#4361EE] text-white"
-                    radius="none"
-                    size="lg"
+                  radius="none"
+                  size="lg"
                   variant="solid"
                 >
                   Get a mortgage
@@ -347,27 +346,21 @@ export default function PropertyDetails({
                 </p>
                 <p>
                   <strong>Number of rooms :</strong>{" "}
-                  {
-                    (propertyData.livingRooms === null
-                      ? "unavailable"
-                      : propertyData.livingRooms)
-                  }
+                  {propertyData.livingRooms === null
+                    ? "unavailable"
+                    : propertyData.livingRooms}
                 </p>
                 <p>
                   <strong>Number of beds:</strong>{" "}
-                  {
-                    (propertyData.beds === null
-                      ? "unavailable"
-                      : propertyData.beds)
-                  }
+                  {propertyData.beds === null
+                    ? "unavailable"
+                    : propertyData.beds}
                 </p>
                 <p>
                   <strong>Number of baths:</strong>{" "}
-                  {
-                    (propertyData.baths === null
-                      ? "unavailable"
-                      : propertyData.baths)
-                  }
+                  {propertyData.baths === null
+                    ? "unavailable"
+                    : propertyData.baths}
                 </p>
                 <p>
                   <strong>Shared ownership:</strong>{" "}

@@ -61,7 +61,7 @@ export default function Nav() {
           <Tab key="/" title="Home" href="/"></Tab>
           <Tab key="/About" title="About" href="/About"></Tab>
           <Tab
-            key="/Listings/.."
+            key="/Listings"
             title="Listings and Offers"
             href="/Listings"
           ></Tab>
