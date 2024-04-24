@@ -28,7 +28,7 @@ import { FaUser } from "react-icons/fa";
 import PropertyLoading from "@/app/components/propertyLoading";
 import { useRouter } from "next/router";
 export default function Workspace() {
-  const [propertyData, setPropertyData] = useState([]);
+  const [propertyData, setPropertyData] = useState<string | number | any>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { id } = router.query;
@@ -71,9 +71,6 @@ export default function Workspace() {
               <div className="max-w-[800px]">
                 <ImageGallery
                   showPlayButton={false}
-                  thumbnailHeight={200}
-                  thumbnailWidth={250}
-                  loading="lazy"
                   items={propertyData.images}
                   renderLeftNav={(
                     onClick: MouseEventHandler<HTMLButtonElement> | undefined,
