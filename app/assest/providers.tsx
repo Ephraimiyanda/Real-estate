@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Providers({ children }: { children: React.ReactNode }) {
     const router = useRouter();
   return (
-    <NextUiProvider navigate={router.push}>
+    <NextUiProvider>
       <Nav />
       {children}
       <Footer />
