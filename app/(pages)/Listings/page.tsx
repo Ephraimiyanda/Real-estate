@@ -40,6 +40,7 @@ export default function Search() {
   const [sortBy, setSortBy] = useState<string | any>("");
   const [initialValuesSet, setInitialValuesSet] = useState(false);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const [noProperty, setNoProperty] = useState(false);
   const searchQuery = useDebounceValue(query);
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -75,6 +76,7 @@ export default function Search() {
     if (location) {
       params.set("page", currentPage);
       params.set("locationKey", location);
+      params.set("location",query)
       params.set("minPrice", priceRange[0]);
       params.set("maxPrice", priceRange[1]);
       params.set("maxBeds", bedNumber);
@@ -83,6 +85,7 @@ export default function Search() {
       params.set("purpose", purposeOfProperty);
     } else {
       params.delete("page", currentPage);
+      params.delete("location", query);
       params.delete("locationKey", location);
       params.delete("minPrice", priceRange[0]);
       params.delete("maxPrice", priceRange[1]);
@@ -92,12 +95,14 @@ export default function Search() {
       params.delete("purpose", purposeOfProperty);
     }
     replace(`${pathname}?${params.toString()}`);
+    searchProperties()
   }
 
   //getting params from url and setting them to state
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const locationParam = params.get("locationKey");
+    const locationqueryparam=params.get("location");
     const priceMinParam = params.get("minPrice");
     const priceMaxParam = params.get("maxPrice");
     const bedsParam = params.get("maxBeds");
@@ -110,6 +115,7 @@ export default function Search() {
     }
     if (locationParam !== null) {
       setLocation(locationParam);
+      setQuery(locationqueryparam as string);
       setPriceRange([Number(priceMinParam), Number(priceMaxParam)]);
       setBedNumber(bedsParam);
       setSortBy(sortParam);
@@ -121,13 +127,6 @@ export default function Search() {
       fetchSuggestedProperties();
     }
   }, []);
-
-  useEffect(() => {
-    if (initialValuesSet) {
-      // Check if all initial values have been set
-      searchProperties(); // Call searchProperties only when all parameters are set
-    }
-  }, [initialValuesSet,currentPage,pathname]);
 
   //fetch suggested properties to display on page
   async function fetchSuggestedProperties() {
@@ -165,8 +164,14 @@ export default function Search() {
       const response = await fetch(url, options);
       const result = await response.json();
       const suggestedPropertiesResult = result.data;
+      if (suggestedProperties.length<=0) {
+        setNoProperty(true)
+      } else {
+       setNoProperty(false); 
+      }
       setSuggestedProperties(suggestedPropertiesResult);
       setPropertyLoading(false);
+      
     } catch (error) {
       console.error(error);
     }
@@ -218,7 +223,7 @@ export default function Search() {
   // });
 
   function RunAutoComplete() {
-    if (searchQuery.length > 0) {
+    if (searchQuery&&searchQuery.length > 0) {
       fetchAutoComplete(searchQuery);
     }
   }
@@ -432,6 +437,11 @@ export default function Search() {
               ))
             ) : (
               <LoadingBlock />
+            )}
+            {noProperty && (
+              <div className="flex w-full justify center min-h-[50vh] items-center">
+                <p className="text-center text-xl mx-auto">No properties found !!</p>
+              </div>
             )}
           </div>
           <div className="py-4 flex justify-center ">
