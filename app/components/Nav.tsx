@@ -12,9 +12,9 @@ import {
   NavbarContent,
   NavbarBrand,
   NavbarMenu,
-  NavbarMenuItem,
+  NavbarItem,
+  Link,
 } from "@nextui-org/react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { HiHomeModern } from "react-icons/hi2";
@@ -72,82 +72,94 @@ export default function Nav() {
       <NavbarContent justify="end" className="hidden sm:flex">
         <Button className="bg-transparent shadow-none" radius="full">
           <RxAvatar size={20} />
-          <p>Login/Register</p>
+          <p >Login/Register</p>
         </Button>
         <Button radius="full" className="bg-[#0070f0] text-white">
           <TbHomePlus size={24} color="white" />
-          <p>Add Listing</p>
+          <p >Add Listing</p>
         </Button>
       </NavbarContent>
       <NavbarMenu className="flex flex-col gap-3">
-        <NavbarMenuItem
+        <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
             pathname === "/" ? "text-[#0070f0]" : "text-black"
           }`}
+          as={Link}
+          key="home"
+          href="/"
+          aria-label="dashboard"
         >
           <IoMdHome color={pathname === "/" ? "#0070f0" : "black"} size={24} />
-          <Link href={"/"}>Home</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem
+          <p className="text-xl">Home</p>
+        </NavbarItem>
+        <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
             pathname === "/About" ? "text-[#0070f0]" : "text-black"
           }`}
+          as={Link}
+          href={"/About"}
         >
           <IoMdInformationCircleOutline
             color={pathname === "/About" ? "#0070f0" : "black"}
             size={24}
           />
-          <Link href={"/About"}>About</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem
+          <p className="text-xl">About</p>
+        </NavbarItem>
+        <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
             pathname.includes("/Listings") ? "text-[#0070f0]" : "text-black"
           }`}
+          as={Link}
+          href={"/Listings"}
         >
           <TbHomeSearch
             color={pathname.includes("/Listings") ? "#0070f0" : "black"}
             size={24}
           />
-          <Link href={"/Listings"}>Listings and Offers</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem
+          <p className="text-xl">Listings and Offers</p>
+        </NavbarItem>
+        <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
             pathname === "/Services" ? "text-[#0070f0]" : "text-black"
           }`}
+          as={Link}
+          href={"/Services"}
         >
           <GrServices
             color={pathname === "/Services" ? "#0070f0" : "black"}
             size={24}
           />
-          <Link href={"/Services"}>Services</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem
+          <p className="text-xl">Services</p>
+        </NavbarItem>
+        <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
             pathname === "/Blogs" ? "text-[#0070f0]" : "text-black"
           }`}
+          as={Link}
+          href={"/Blogs"}
         >
           <IoBookSharp
             color={pathname === "/Blogs" ? "#0070f0" : "black"}
             size={24}
           />
-          <Link href={"/Blogs"}>Blogs</Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem className=" sm:hidden flex gap-3 py-2">
+          <p className="text-xl">Blogs</p>
+        </NavbarItem>
+        <NavbarItem className=" sm:hidden flex gap-3 py-2">
           <Button className="bg-transparent shadow" radius="full">
             <RxAvatar size={20} />
-            <p>Login/Register</p>
+            <p className="text-xl">Login/Register</p>
           </Button>
           <Button
             radius="full"
             className="bg-[#0070f0] flex justify-center items-center text-white"
           >
             <TbHomePlus size={24} color="white" />
-            <p>Add Listing</p>
+            <p className="text-xl">Add Listing</p>
           </Button>
-        </NavbarMenuItem>
+        </NavbarItem>
       </NavbarMenu>
 
-      <NavbarContent 
+      <NavbarContent
         className="lg:hidden flex-[0] flex-grow-[0.3]"
         style={{
           flexGrow: "0.1",

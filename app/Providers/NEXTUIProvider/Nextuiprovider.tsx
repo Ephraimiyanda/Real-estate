@@ -6,9 +6,10 @@ export default function NextUiProvider({
   children,
 }: {
   children: React.ReactNode;
-    }) {
-    const router = useRouter();
-    return (
-        <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+  }) {
+  const router = useRouter();
+  return (
+       
+        <NextUIProvider>{children}</NextUIProvider>
     );
 }

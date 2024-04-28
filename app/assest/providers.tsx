@@ -8,9 +8,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     const router = useRouter();
   return (
     <NextUiProvider>
-      <Nav />
       {children}
-      <Footer />
     </NextUiProvider>
   );
 }

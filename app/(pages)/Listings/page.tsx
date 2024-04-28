@@ -165,9 +165,8 @@ export default function Search() {
       const response = await fetch(url, options);
       const result = await response.json();
       const suggestedPropertiesResult = result.data;
-      console.log(result.data);
-      setPropertyLoading(false);
       setSuggestedProperties(suggestedPropertiesResult);
+      setPropertyLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -302,7 +301,16 @@ export default function Search() {
                 </Autocomplete>
                 <Button
                   type="submit"
-                  startContent={<CiSearch size={30} color="white" />}
+                  startContent={
+                    !propertyLoading ? (
+                      <CiSearch size={30} color="white" />
+                    ) : (
+                      <Spinner
+                        aria-label="Default"
+                        color="default"
+                      />
+                    )
+                  }
                   className="bg-[#4361EE] flex items-center text-base justify-center text-white w-[50px] sm:w-[150px]  h-[53px]"
                   radius="none"
                 >

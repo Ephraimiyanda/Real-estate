@@ -149,7 +149,7 @@ export default function PropertyDetails({
                 </ul>
                 <ul className="list-disc px-7 py-3">
                   <span className="font-semibold text-lg">Features</span>
-                  {propertyData.features &&
+                  {propertyData.features.length>0 &&
                     propertyData.features?.map((feature: string) => (
                       <li key={feature}>{feature}</li>
                     ))}
