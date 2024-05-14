@@ -10,9 +10,9 @@ const inter = Inter({ subsets: ["latin"] });
 import { useRouter } from "next/navigation";
 import Providers from "./assest/providers";
 export const metadata: Metadata = {
-  title: "Real estatate",
+  title: "Realswitch",
   description: "what you want we have, look for your best housing options",
-  icons:"/logo.png"
+  icons: "/logo.png"
 };
 
 export default function RootLayout({
