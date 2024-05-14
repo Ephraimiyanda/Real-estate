@@ -37,9 +37,8 @@ export default function Search() {
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
   const [purposeOfProperty, setPurposeOfProperty] = useState<string | any>("");
   const [propertyLoading, setPropertyLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState<string | any>("");
-  const [initialValuesSet, setInitialValuesSet] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [noProperty, setNoProperty] = useState(false);
   const searchQuery = useDebounceValue(query);
   const searchParams = useSearchParams();
@@ -122,7 +121,6 @@ export default function Search() {
       setCurrentPage(Number(pageParam));
       setPurposeOfProperty(purposeParam);
       setTypeOfProperty(typeParam);
-      setInitialValuesSet(true);
     } else {
       fetchSuggestedProperties();
     }
@@ -152,6 +150,7 @@ export default function Search() {
   //search for properties based on given params
   const searchProperties = async () => {
     setPropertyLoading(true);
+    setLoading(true)
     const url = `https://zoopla4.p.rapidapi.com/properties/${purposeOfProperty}?locationKey=${location}&minPrice=${priceRange[0]}&page=${currentPage}&maxBeds=${bedNumber}&sort=${sortBy}&maxPrice=${priceRange[1]}`;
     const options = {
       method: "GET",
@@ -171,6 +170,7 @@ export default function Search() {
       }
       setSuggestedProperties(suggestedPropertiesResult);
       setPropertyLoading(false);
+      setLoading(false);
       
     } catch (error) {
       console.error(error);
@@ -307,7 +307,7 @@ export default function Search() {
                 <Button
                   type="submit"
                   startContent={
-                    !propertyLoading ? (
+                    !loading ? (
                       <CiSearch size={30} color="white" />
                     ) : (
                       <Spinner

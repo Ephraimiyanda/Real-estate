@@ -37,14 +37,17 @@ export default function Nav() {
       maxWidth="xl"
       isBlurred={false}
       className="top-[0] fixed w-full bg-[#fafaff] "
+      classNames={{
+        wrapper:"sm:px-6 px-3"
+      }}
     >
-      <NavbarContent>
+      <NavbarContent className="">
         <NavbarBrand className="flex gap-3 ">
           <Link href="/" className="flex justify-center items-center gap-2">
             <div className="rounded-[50%] bg-[#0070f0] p-1">
               <HiHomeModern size={30} color="white" />
             </div>
-            <p className="font-bold text-inherit">RealSwitch</p>
+            <p className="font-bold text-inherit text-lg sm:text-2xl">RealSwitch</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -59,24 +62,24 @@ export default function Nav() {
           className="text-black"
         >
           <Tab key="/" title="Home" href="/"></Tab>
-          <Tab key="/About" title="About" href="/About"></Tab>
+          <Tab key="/#about-us" title="About" href="/#about-us"></Tab>
           <Tab
             key="/Listings"
             title="Listings and Offers"
             href="/Listings"
           ></Tab>
-          <Tab key="/Services" title="Services" href="/Services"></Tab>
-          <Tab key="/Blogs" title="Blogs" href="/Blogs"></Tab>
+          <Tab key="/#services" title="Services" href="/#services"></Tab>
+          <Tab key="/#blogs" title="Blogs" href="/#blogs"></Tab>
         </Tabs>
       </NavbarContent>
       <NavbarContent justify="end" className="hidden sm:flex">
         <Button className="bg-transparent shadow-none" radius="full">
           <RxAvatar size={20} />
-          <p >Login/Register</p>
+          <p>Login/Register</p>
         </Button>
         <Button radius="full" className="bg-[#0070f0] text-white">
           <TbHomePlus size={24} color="white" />
-          <p >Add Listing</p>
+          <p>Add Listing</p>
         </Button>
       </NavbarContent>
       <NavbarMenu className="flex flex-col gap-3">
@@ -94,13 +97,13 @@ export default function Nav() {
         </NavbarItem>
         <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
-            pathname === "/About" ? "text-[#0070f0]" : "text-black"
+            pathname === "/#about-us" ? "text-[#0070f0]" : "text-black"
           }`}
           as={Link}
-          href={"/About"}
+          href={"/#about-us"}
         >
           <IoMdInformationCircleOutline
-            color={pathname === "/About" ? "#0070f0" : "black"}
+            color={pathname === "/#about-us" ? "#0070f0" : "black"}
             size={24}
           />
           <p className="text-xl">About</p>
@@ -120,26 +123,26 @@ export default function Nav() {
         </NavbarItem>
         <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
-            pathname === "/Services" ? "text-[#0070f0]" : "text-black"
+            pathname === "/#services" ? "text-[#0070f0]" : "text-black"
           }`}
           as={Link}
-          href={"/Services"}
+          href={"/#services"}
         >
           <GrServices
-            color={pathname === "/Services" ? "#0070f0" : "black"}
+            color={pathname === "/#services" ? "#0070f0" : "black"}
             size={24}
           />
           <p className="text-xl">Services</p>
         </NavbarItem>
         <NavbarItem
           className={`flex justify-start items-center gap-3 py-2 ${
-            pathname === "/Blogs" ? "text-[#0070f0]" : "text-black"
+            pathname === "/#blogs" ? "text-[#0070f0]" : "text-black"
           }`}
           as={Link}
-          href={"/Blogs"}
+          href={"/#blogs"}
         >
           <IoBookSharp
-            color={pathname === "/Blogs" ? "#0070f0" : "black"}
+            color={pathname === "/#blogs" ? "#0070f0" : "black"}
             size={24}
           />
           <p className="text-xl">Blogs</p>
@@ -147,14 +150,14 @@ export default function Nav() {
         <NavbarItem className=" sm:hidden flex gap-3 py-2">
           <Button className="bg-transparent shadow" radius="full">
             <RxAvatar size={20} />
-            <p className="text-xl">Login/Register</p>
+            <p className="text-base">Login/Register</p>
           </Button>
           <Button
             radius="full"
             className="bg-[#0070f0] flex justify-center items-center text-white"
           >
             <TbHomePlus size={24} color="white" />
-            <p className="text-xl">Add Listing</p>
+            <p className="text-base">Add Listing</p>
           </Button>
         </NavbarItem>
       </NavbarMenu>

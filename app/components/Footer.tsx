@@ -18,13 +18,13 @@ export default function Footer() {
             </Link>
           </div>
           <p>2728 Hickory StreetSalt Lake City, UT 84104</p>
-          <div className="flex justify-start gap-2">
+          <div className="flex justify-start gap-2 items-center">
             <BsTelephone />
             <p>+1 206-214-2298</p>
           </div>
-          <div>
+          <div className="flex justify-start gap-2 items-center">
             <MdOutlineEmail />
-            <Link href={"myemail@gmail.com"}>myemail@gmail.com</Link>
+            <Link href={"myemail@gmail.com"}>RealSwitch@gmail.com</Link>
           </div>
         </div>
         <div className="flex flex-col gap-3">
@@ -34,16 +34,16 @@ export default function Footer() {
               <Link href={"/"}>Home</Link>
             </li>
             <li>
-              <Link href={"/About-us"}>About</Link>
+              <Link href={"/#about-us"}>About</Link>
             </li>
             <li>
-              <Link href={"Listings"}>Listings</Link>
+              <Link href={"/Listings"}>Listings</Link>
             </li>
             <li>
-              <Link href={"/Services"}>Services</Link>
+              <Link href={"/#services"}>Services</Link>
             </li>
             <li>
-              <Link href={"/Blogs"}>Bolgs</Link>
+              <Link href={"/#blogs"}>Blogs</Link>
             </li>
             <li>
               <Link href={"#Blogs"}>Become a Agent</Link>

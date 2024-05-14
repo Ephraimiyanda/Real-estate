@@ -12,6 +12,7 @@ import Providers from "./assest/providers";
 export const metadata: Metadata = {
   title: "Real estatate",
   description: "what you want we have, look for your best housing options",
+  icons:"/logo.png"
 };
 
 export default function RootLayout({

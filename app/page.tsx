@@ -13,6 +13,7 @@ import {
   Input,
   Select,
   SelectItem,
+  Spinner,
   Tab,
   Tabs,
 } from "@nextui-org/react";
@@ -33,9 +34,10 @@ export default function Home() {
   const [latestProperty, setLatestProperty] = useState<any>("All");
   const [autoComplete, setAutoComplete] = useState([]);
   const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
-  const searchQuery = useDebounceValue(searchvalue);
+  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState<any>("");
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
+  const searchQuery = useDebounceValue(searchvalue);
   const router=useRouter()
   const propertyTypeItems = [
     { key: "apartment", value: "APARTMENT" },
@@ -78,7 +80,7 @@ export default function Home() {
     }
   }
   return (
-    <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] ">
+    <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] scroll-smooth">
       <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
         <div className="max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-0 lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
@@ -94,9 +96,13 @@ export default function Home() {
             <form
               onSubmit={(e: FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
-                router.push(
-                  `/Listings?page=1&locationKey=${location}&minPrice=100&maxPrice=1000&sort=recent&type=${typeOfProperty}&purpose=rent&maxBeds=4`
-                );
+                
+                if (location.length > 0) {
+                  setLoading(true)
+                  router.push(
+                    `/Listings?page=1&locationKey=${location}&minPrice=100&maxPrice=1000&sort=recent&type=${typeOfProperty}&purpose=rent&maxBeds=4`
+                  );
+                }
               }}
               className="sm:flex hidden gap-2 p-2 bg-[#F3F3FA] max-w-[650px] w-full items-center"
             >
@@ -144,7 +150,15 @@ export default function Home() {
               </Autocomplete>
               <Button
                 type="submit"
-                startContent={<CiSearch size={30} color="white" />}
+                startContent={
+                  !loading ? (
+                      <CiSearch size={30} color="white" />
+                    ) : (
+                      <Spinner
+                        aria-label="Default"
+                        color="default"
+                      />
+                    )}
                 className="bg-[#4361EE] text-white w-[190px]  h-[44px]"
                 radius="none"
               >
@@ -278,13 +292,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex  justify-center sm:gap-4 sm:top-0 top-6 relative sm:h-10 ">
+        <div className="flex flex-wrap justify-center sm:gap-4 sm:top-0 top-6 relative sm:h-10 ">
           <Image
             width={1000}
             height={200}
             alt="listings"
             src="/200listings.png"
-            className="hover:scale-110 duration-100 ease-in transition-all w-[180px] h-auto sm:w-[240px] sm:h-[120px] relative -right-3 sm:-right-0"
+            className="hover:scale-110 duration-100 ease-in transition-all w-[180px] h-auto sm:w-[240px] sm:h-[120px] relative "
             quality={100}
           />
           <Image
@@ -292,7 +306,7 @@ export default function Home() {
             height={200}
             alt="happy customers"
             src="/happycustomers.png"
-            className="hover:scale-110 duration-100 ease-in transition-all w-[180px] h-auto sm:w-[240px] sm:h-[120px] relative -left-3 sm:-left-0"
+            className="hover:scale-110 duration-100 ease-in transition-all w-[180px] h-auto sm:w-[240px] sm:h-[120px] relative "
             quality={100}
           />
         </div>
@@ -310,7 +324,8 @@ export default function Home() {
           <Image width={100} height={200} alt="netflix" src="/netflix.png" />
         </div>
       </section>
-      <section className="py-10 w-full min-h-[56vh] flex flex-col items-center ">
+      {/* about section */}
+      <section className="py-10 w-full min-h-[56vh] flex flex-col items-center " id="about-us">
         <div className="flex max-w-[1280px]  sm:px-6 px-3 m-auto justify-center flex-col lg:flex-row sm:justify-between items-center w-full">
           <div className="lg:max-w-[450px] flex flex-col gap-4">
             <span className=" text-base font-medium text-[#4361EE]">
@@ -392,6 +407,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* listed properties section */}
       <section className="py-10 w-full min-h-[56vh] flex flex-col items-center ">
         <div className="flex max-w-[1280px] flex-col gap-3 sm:gap-0 sm:flex-row sm:px-6 px-3 m-auto justify-between sm:items-center w-full">
           <div className="flex flex-col gap-3">
@@ -790,7 +806,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-[#eceaea] py-12  w-full min-h-[56vh] flex flex-col items-center ">
+      {/* services section */}
+      <section className="bg-[#eceaea] py-12  w-full min-h-[56vh] flex flex-col items-center " id="services">
         <div className="flex flex-col gap-3 max-w-[1280px] w-full sm:px-6 px-3 m-auto">
           <p className=" text-base font-medium text-center">OUR SERVICES</p>
           <h4 className=" text-3xl sm:text-4xl text-center font-semibold">
@@ -872,6 +889,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* areas acroos town section */}
       <section className="py-10 w-full min-h-[56vh] flex flex-col items-center ">
         <Image
           width={100}
@@ -985,7 +1003,8 @@ export default function Home() {
           />
         </div>
       </section>
-      <section className="bg-[#4361EE] py-12  w-full min-h-[56vh] flex flex-col items-center">
+      {/* blog section */}
+      <section className="bg-[#4361EE] py-12  w-full min-h-[56vh] flex flex-col items-center" id="blogs">
         <div className=" max-w-[1280px] w-full sm:px-10 px-3 flex flex-col justify-center items-center gap-4">
           <span className="text-white text-center mx-auto pt-3">
             WHAT’S TRENDING
@@ -994,7 +1013,7 @@ export default function Home() {
             Latest Blogs & Posts
           </h6>
           <div className="flex flex-wrap flex-col sm:flex-row gap-6 sm:gap-4 items-center sm:items-[unset] justify-between w-full">
-            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
+            <Card className="bg-transparent md:max-w-[340px] sm:max-w-[280px] max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image
                   src="/Rectangle18.png"
@@ -1018,7 +1037,7 @@ export default function Home() {
                 </div>
               </CardFooter>
             </Card>
-            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
+            <Card className="bg-transparent md:max-w-[340px] sm:max-w-[280px] max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image
                   src="/Rectangle18.png"
@@ -1042,7 +1061,7 @@ export default function Home() {
                 </div>
               </CardFooter>
             </Card>
-            <Card className="bg-transparent max-w-[340px] bg-none shadow-none text-white">
+            <Card className="bg-transparent md:max-w-[340px] sm:max-w-[280px] max-w-[340px] bg-none shadow-none text-white">
               <CardBody className="p-0 flex flex-col gap-3">
                 <Image
                   src="/Rectangle18.png"
@@ -1069,6 +1088,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* testemonial section */}
       <section className="py-28 w-full min-h-[56vh] flex flex-col items-center">
         <div className=" max-w-[1280px] w-full sm:px-10 px-3  flex sm:flex-row sm:gap-4 flex-col  justify-between  gap-10">
           <div className="flex justify-between w-full">
