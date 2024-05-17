@@ -75,7 +75,7 @@ export default function Search() {
     if (location) {
       params.set("page", currentPage);
       params.set("locationKey", location);
-      params.set("location",query)
+      params.set("location", query);
       params.set("minPrice", priceRange[0]);
       params.set("maxPrice", priceRange[1]);
       params.set("maxBeds", bedNumber);
@@ -94,41 +94,13 @@ export default function Search() {
       params.delete("purpose", purposeOfProperty);
     }
     replace(`${pathname}?${params.toString()}`);
-    searchProperties()
+    searchProperties();
   }
-
-  //getting params from url and setting them to state
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const locationParam = params.get("locationKey");
-    const locationqueryparam=params.get("location");
-    const priceMinParam = params.get("minPrice");
-    const priceMaxParam = params.get("maxPrice");
-    const bedsParam = params.get("maxBeds");
-    const sortParam = params.get("sort");
-    const pageParam = params.get("page");
-    const typeParam = params.get("type");
-    const purposeParam = params.get("purpose");
-    if (pageParam) {
-      setCurrentPage(Number(pageParam));
-    }
-    if (locationParam !== null) {
-      setLocation(locationParam);
-      setQuery(locationqueryparam as string);
-      setPriceRange([Number(priceMinParam), Number(priceMaxParam)]);
-      setBedNumber(bedsParam);
-      setSortBy(sortParam);
-      setCurrentPage(Number(pageParam));
-      setPurposeOfProperty(purposeParam);
-      setTypeOfProperty(typeParam);
-    } else {
-      fetchSuggestedProperties();
-    }
-  }, []);
 
   //fetch suggested properties to display on page
   async function fetchSuggestedProperties() {
     setPropertyLoading(true);
+    setNoProperty(false);
     const url = `https://zoopla4.p.rapidapi.com/properties/rent?locationKey=london&minPrice=100&page=${currentPage}&minBeds=1&sort=recent&maxPrice=12000`;
     const options = {
       method: "GET",
@@ -143,6 +115,12 @@ export default function Search() {
       const suggestedPropertiesResult = result.data;
       setSuggestedProperties(suggestedPropertiesResult);
       setPropertyLoading(false);
+      if (suggestedPropertiesResult.length === 0) {
+        setNoProperty(true);
+        setPropertyLoading(false);
+      } else {
+        setNoProperty(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -150,7 +128,8 @@ export default function Search() {
   //search for properties based on given params
   const searchProperties = async () => {
     setPropertyLoading(true);
-    setLoading(true)
+    setNoProperty(false);
+    setLoading(true);
     const url = `https://zoopla4.p.rapidapi.com/properties/${purposeOfProperty}?locationKey=${location}&minPrice=${priceRange[0]}&page=${currentPage}&maxBeds=${bedNumber}&sort=${sortBy}&maxPrice=${priceRange[1]}`;
     const options = {
       method: "GET",
@@ -163,20 +142,52 @@ export default function Search() {
       const response = await fetch(url, options);
       const result = await response.json();
       const suggestedPropertiesResult = result.data;
-      if (suggestedProperties.length<=0) {
-        setNoProperty(true)
-      } else {
-       setNoProperty(false); 
-      }
+
       setSuggestedProperties(suggestedPropertiesResult);
       setPropertyLoading(false);
       setLoading(false);
-      
+      if (suggestedPropertiesResult&&suggestedPropertiesResult.length === 0) {
+        setPropertyLoading(false);
+        setNoProperty(true);
+      } else {
+        setNoProperty(false);
+      }
     } catch (error) {
       console.error(error);
     }
   };
-
+  //getting params from url and setting them to state
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const locationParam = params.get("locationKey");
+    const locationqueryparam = params.get("location");
+    const priceMinParam = params.get("minPrice");
+    const priceMaxParam = params.get("maxPrice");
+    const bedsParam = params.get("maxBeds");
+    const sortParam = params.get("sort");
+    const pageParam = params.get("page");
+    const typeParam = params.get("type");
+    const purposeParam = params.get("purpose");
+    if (pageParam) {
+      setCurrentPage(Number(pageParam));
+    }
+    if (locationParam) {
+      setLocation(locationParam);
+      setQuery(locationqueryparam as string);
+      setPriceRange([Number(priceMinParam), Number(priceMaxParam)]);
+      setBedNumber(bedsParam);
+      setSortBy(sortParam);
+      setCurrentPage(Number(pageParam));
+      setPurposeOfProperty(purposeParam);
+      setTypeOfProperty(typeParam);
+      
+    }
+    if (location&&priceRange&&purposeOfProperty&&typeOfProperty&&bedNumber&&sortBy&&currentPage) {
+      searchProperties();
+    } else {
+      fetchSuggestedProperties();
+    }
+  }, []);
   //run autocomplete fo location
   const fetchAutoComplete = async (query: string) => {
     setAutoCompleteLoading(true);
@@ -223,7 +234,7 @@ export default function Search() {
   // });
 
   function RunAutoComplete() {
-    if (searchQuery&&searchQuery.length > 0) {
+    if (searchQuery && searchQuery.length > 0) {
       fetchAutoComplete(searchQuery);
     }
   }
@@ -233,6 +244,7 @@ export default function Search() {
   }
   //pagination based on results
   const setPagination = (value: number) => {
+    setNoProperty(false);
     const params = new URLSearchParams(window.location.search);
     if (location) {
       params.set("page", value.toString());
@@ -245,6 +257,7 @@ export default function Search() {
       params.set("purpose", purposeOfProperty);
 
       replace(`${pathname}?${params.toString()}`);
+      searchProperties();
     } else {
       params.set("page", value.toString());
       replace(`${pathname}?${params.toString()}`);
@@ -252,7 +265,6 @@ export default function Search() {
     }
     setCurrentPage(value);
   };
-
 
   return (
     <section className="py-20">
@@ -283,16 +295,13 @@ export default function Search() {
                   variant="bordered"
                   items={autoComplete ? autoComplete : []}
                   isLoading={autoCompleteLoading}
-                  inputValue={query}
+                  inputValue={query?query:""}
                   onSelectionChange={setLocation}
                   placeholder="Select a location"
                   onInputChange={OnInputChange}
                   allowsEmptyCollection
                   startContent={<ImLocation color="#1C3988" size={20} />}
                   className="bg-white w-full max-w-[500px]"
-                  defaultSelectedKey={searchParams
-                    .get("locationKey")
-                    ?.toString()}
                 >
                   {(item: any) => (
                     <AutocompleteItem
@@ -310,10 +319,7 @@ export default function Search() {
                     !loading ? (
                       <CiSearch size={30} color="white" />
                     ) : (
-                      <Spinner
-                        aria-label="Default"
-                        color="default"
-                      />
+                      <Spinner aria-label="Default" color="default" />
                     )
                   }
                   className="bg-[#4361EE] flex items-center text-base justify-center text-white w-[50px] sm:w-[150px]  h-[53px]"
@@ -440,7 +446,9 @@ export default function Search() {
             )}
             {noProperty && (
               <div className="flex w-full justify center min-h-[50vh] items-center">
-                <p className="text-center text-xl mx-auto">No properties found !!</p>
+                <p className="text-center text-xl mx-auto">
+                  No properties found !!
+                </p>
               </div>
             )}
           </div>

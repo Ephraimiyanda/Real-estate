@@ -175,7 +175,7 @@ export default function PropertyDetails({
               {propertyData.floorPlan?.length > 0 && (
                 <div className="py-4">
                   <p className="pb-4 font-semibold text-lg">Floor Plan</p>
-                  <div className="flex flex-wrap ">
+                  <div className="flex flex-wrap gap-3">
                     {propertyData.floorPlan.map((floorplan: string) => (
                       <Card
                         key={floorplan}
