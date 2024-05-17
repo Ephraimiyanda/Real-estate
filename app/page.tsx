@@ -817,7 +817,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className="w-[90%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className="w-[90%] sm:min-w-[256px] max-w-[350px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -841,7 +841,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className=" w-[90%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className=" w-[90%] sm:min-w-[256px] max-w-[350px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -865,7 +865,7 @@ export default function Home() {
             <Card
               isHoverable
               isPressable
-              className=" w-[90%] sm:max-w-[256px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
+              className=" w-[90%] sm:min-w-[256px] max-w-[350px] sm:w-full flex flex-col justify-center items-center py-5 h-[290px] border-none shadow rounded-[24px]"
             >
               <CardHeader>
                 <div className="flex justify-center items-center bg-[#4361EE] p-2 w-[90px] h-[90px] rounded-[50%] shadow-lg shadow-[#aab7f3] mx-auto">
@@ -1144,16 +1144,16 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="py-12 w-full sm:min-h-[56vh] sm:px-10 px-3">
+      <section className="py-12 w-full  sm:px-10 px-3">
         <div className=" max-w-[1280px] w-full sm:px-10 px-3 sm:pt-0 pt-4 flex mx-auto sm:flex-row flex-col-reverse  bg-[#3A0CA3] agent_section relative  sm:h-[198px] h-full rounded-3xl">
           <Image
             src="/realtor.png"
             width={300}
             height={300}
             alt="quote"
-            className="sm:absolute sm:-top-14"
+            className="lg:absolute sm:-top-14 object-contain"
           />
-          <div className="flex sm:flex-row flex-col gap-3 justify-between items-center mx-auto">
+          <div className="flex sm:flex-row flex-col gap-3 justify-between items-center mx-auto relative">
             <div className="max-w-[500px] text-white">
               <p className=" font-semibold text-3xl py-3">Become a Agent.</p>
               <p>

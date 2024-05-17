@@ -147,13 +147,15 @@ export default function PropertyDetails({
                   <li>postalCode: {propertyData.postalCode}</li>
                   <li>Listing condition: {propertyData.listingCondition}</li>
                 </ul>
-                <ul className="list-disc px-7 py-3">
-                  <span className="font-semibold text-lg">Features</span>
-                  {propertyData.features.length>0 &&
-                    propertyData.features?.map((feature: string) => (
+                {propertyData.features.length > 0 && (
+                  <ul className="list-disc px-7 py-3">
+                    <span className="font-semibold text-lg">Features</span>
+
+                    {propertyData.features?.map((feature: string) => (
                       <li key={feature}>{feature}</li>
                     ))}
-                </ul>
+                  </ul>
+                )}
               </div>
               <div className="py-4">
                 <p className="pb-4 font-semibold text-lg flex justify-normal items-center gap-2">
