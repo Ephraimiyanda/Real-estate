@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
  
 #google credentials
-./service-account.json:1
+service-account.json:1
