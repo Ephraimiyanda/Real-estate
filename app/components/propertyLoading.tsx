@@ -48,15 +48,7 @@ export default function PropertyLoading() {
             </ul>
           </div>
         </div>
-        <div className="lg:max-w-[400px] hidden lg:flex gap-5 lg:flex-col w-full justify-between h-fit">
-          <div className="flex flex-col gap-4 bg-primary bg-opacity-10 rounded-lg sm:px-6 px-3 py-4 h-fit w-full sm:w-1/2 lg:w-full">
-            <Skeleton className="w-full h-4"></Skeleton>
-            <Skeleton className="w-full h-4"></Skeleton>
-            <Skeleton className="w-full h-4"></Skeleton>
-            <Skeleton className="w-full h-4"></Skeleton>
-            <Skeleton className="w-full h-4"></Skeleton>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

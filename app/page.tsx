@@ -18,7 +18,7 @@ import {
   Tabs,
 } from "@nextui-org/react";
 import { ImLocation } from "react-icons/im";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { GrHomeRounded } from "react-icons/gr";
@@ -27,8 +27,9 @@ import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import Script from "next/script";
 import { Helmet } from "react-helmet";
 import { useDebounceValue } from "./assest/debounce";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("");
   const [latestProperty, setLatestProperty] = useState<any>("All");
@@ -37,8 +38,10 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState<any>("");
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
+  const [signInloading, setSignInLoading] = useState<any>(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const searchQuery = useDebounceValue(searchvalue);
-  const router=useRouter()
+  const router = useRouter();
   const propertyTypeItems = [
     { key: "apartment", value: "APARTMENT" },
     { key: "condo", value: "CONDO" },
@@ -79,9 +82,17 @@ export default function Home() {
       fetchAutoComplete(searchQuery);
     }
   }
+
+  // const sesssion = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     redirect("/")
+  //   }
+  // })
+ 
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] scroll-smooth">
-      <section className="first-section w-full sm:h-screen  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
+      <section className="first-section w-full md:h-[80vh]  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
         <div className="max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-0 lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
             <p className=" text-base font-medium text-[#4361EE]">REAL ESTATE</p>
@@ -96,9 +107,9 @@ export default function Home() {
             <form
               onSubmit={(e: FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
-                
+
                 if (location.length > 0) {
-                  setLoading(true)
+                  setLoading(true);
                   router.push(
                     `/Listings?page=1&locationKey=${location}&minPrice=100&maxPrice=1000&sort=recent&type=${typeOfProperty}&purpose=rent&maxBeds=4`
                   );
@@ -125,7 +136,7 @@ export default function Home() {
               </Select>
               <Autocomplete
                 radius="none"
-                size="md"
+                size="sm"
                 aria-label="autocomplete"
                 variant="bordered"
                 items={autoComplete ? autoComplete : []}
@@ -152,14 +163,12 @@ export default function Home() {
                 type="submit"
                 startContent={
                   !loading ? (
-                      <CiSearch size={30} color="white" />
-                    ) : (
-                      <Spinner
-                        aria-label="Default"
-                        color="default"
-                      />
-                    )}
-                className="bg-[#4361EE] text-white w-[190px]  h-[44px]"
+                    <CiSearch size={30} color="white" />
+                  ) : (
+                    <Spinner aria-label="Default" color="default" />
+                  )
+                }
+                className="bg-[#4361EE] text-white w-[190px]  h-[45.5px]"
                 radius="none"
               >
                 Search
@@ -325,7 +334,10 @@ export default function Home() {
         </div>
       </section>
       {/* about section */}
-      <section className="py-10 w-full min-h-[56vh] flex flex-col items-center " id="about-us">
+      <section
+        className="py-10 w-full min-h-[56vh] flex flex-col items-center "
+        id="about-us"
+      >
         <div className="flex max-w-[1280px]  sm:px-6 px-3 m-auto justify-center flex-col lg:flex-row sm:justify-between items-center w-full">
           <div className="lg:max-w-[450px] flex flex-col gap-4">
             <span className=" text-base font-medium text-[#4361EE]">
@@ -807,7 +819,10 @@ export default function Home() {
         </div>
       </section>
       {/* services section */}
-      <section className="bg-[#eceaea] py-12  w-full min-h-[56vh] flex flex-col items-center " id="services">
+      <section
+        className="bg-[#eceaea] py-12  w-full min-h-[56vh] flex flex-col items-center "
+        id="services"
+      >
         <div className="flex flex-col gap-3 max-w-[1280px] w-full sm:px-6 px-3 m-auto">
           <p className=" text-base font-medium text-center">OUR SERVICES</p>
           <h4 className=" text-3xl sm:text-4xl text-center font-semibold">
@@ -1004,7 +1019,10 @@ export default function Home() {
         </div>
       </section>
       {/* blog section */}
-      <section className="bg-[#4361EE] py-12  w-full min-h-[56vh] flex flex-col items-center" id="blogs">
+      <section
+        className="bg-[#4361EE] py-12  w-full min-h-[56vh] flex flex-col items-center"
+        id="blogs"
+      >
         <div className=" max-w-[1280px] w-full sm:px-10 px-3 flex flex-col justify-center items-center gap-4">
           <span className="text-white text-center mx-auto pt-3">
             WHAT’S TRENDING
@@ -1145,7 +1163,7 @@ export default function Home() {
         </div>
       </section>
       <section className="py-12 w-full  sm:px-10 px-3">
-        <div className=" max-w-[1280px] w-full sm:px-10 px-3 sm:pt-0 pt-4 flex mx-auto sm:flex-row flex-col-reverse  bg-[#3A0CA3] agent_section relative  sm:h-[198px] h-full rounded-3xl">
+        <div className=" max-w-[1280px] w-full sm:px-10 px-3 sm:pt-0 pt-4 flex mx-auto sm:flex-row flex-col-reverse bg-[#3A0CA3] agent_section relative  sm:h-[198px] h-full rounded-3xl">
           <Image
             src="/realtor.png"
             width={300}
@@ -1161,7 +1179,7 @@ export default function Home() {
                 accomadations suitable for them.{" "}
               </p>
             </div>
-            <Button className="bg-white text-[#3A0CA3] py-2 px-6 mr-auto sm:mr-[unset] rounded-3xl ">
+            <Button className="bg-white text-[#4361EE] py-2 px-6 mr-auto sm:mr-[unset] rounded-3xl ">
               Register
             </Button>
           </div>
@@ -1170,3 +1188,4 @@ export default function Home() {
     </main>
   );
 }
+// Home.requireAuth=true

@@ -27,6 +27,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import PropertyLoading from "@/app/components/propertyLoading";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export default function PropertyDetails({
   params,
@@ -36,6 +37,7 @@ export default function PropertyDetails({
   const [propertyData, setPropertyData] = useState<string | number | any>([]);
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
+  const session = useSession();
   async function getProperty() {
     const url = `https://zoopla4.p.rapidapi.com/properties/${params.id}`;
     const options = {
@@ -257,6 +259,7 @@ export default function PropertyDetails({
                   }}
                   radius="sm"
                   startContent={<MdEmail />}
+                  defaultValue={session.data?.user?.email?session.data?.user.email:""}
                 />
                 <Input
                   label="Phone Number"
@@ -321,15 +324,21 @@ export default function PropertyDetails({
                   radius="sm"
                 />
                 <Spacer y={4}></Spacer>
-                <Button
-                  radius="sm"
-                  className=" border-1 text-primary"
-                  type="submit"
-                  variant="bordered"
-                  color="primary"
-                >
-                  Send Message
-                </Button>
+                {session.data?.user ? (
+                  <Button
+                    radius="sm"
+                    className=" border-1 text-primary"
+                    type="submit"
+                    variant="bordered"
+                    color="primary"
+                  >
+                    Send Message
+                  </Button>
+                ) : (
+                  <p className="text-base font-semibold">
+                    Login or sign up to send a messagae
+                  </p>
+                )}
               </form>
               <div className="flex flex-col gap-4 bg-[#4361EE] bg-opacity-20 rounded-lg sm:px-6 px-3 py-4 h-fit w-full sm:w-1/2 lg:w-full">
                 <span className="font-semibold text-lg">Brief Features</span>

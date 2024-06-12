@@ -34,10 +34,11 @@ border-radius: 4px;
 .agent_section{
   background-image: url(../public/blurry\ ellipse.svg);
   background-repeat: no-repeat;
-  background-position: 30% 10%;
+  background-position: top;
+  background-size: contain;
 }
 @media (min-width:1280px) {
   .first-section{
-    background-position: 50% -160px;
+    background-position: bottom;
   }
 }

@@ -1,5 +1,5 @@
 "use client";
-import "../../globals.css"
+import "../globals.css"
 import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 export default function NextUiProvider({
