@@ -42,6 +42,10 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const searchQuery = useDebounceValue(searchvalue);
   const router = useRouter();
+
+  const API_URL = process.env.NEXT_PUBLIC_BASE_API;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
   const propertyTypeItems = [
     { key: "apartment", value: "APARTMENT" },
     { key: "condo", value: "CONDO" },
@@ -54,19 +58,20 @@ export default function Home() {
   //run autocomplete fo location
   const fetchAutoComplete = async (query: string) => {
     setAutoCompleteLoading(true);
-    const url = `https://zoopla4.p.rapidapi.com/locations?location=${query}`;
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
-        "X-RapidAPI-Host": "zoopla4.p.rapidapi.com",
-      },
-    };
+     const url = `${API_URL}/v2/auto-complete?locationPrefix=${query}`;
+     const options = {
+       method: "GET",
+       headers: {
+         "X-RapidAPI-Key": `${API_KEY}`,
+         "X-RapidAPI-Host": "zoopla.p.rapidapi.com",
+       },
+     };
+
 
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      const autoCompleteResult = result.data;
+      const autoCompleteResult = result.data.geoSuggestion;
       setAutoComplete(autoCompleteResult);
     } catch (error) {
       console.error(error);
@@ -89,7 +94,7 @@ export default function Home() {
   //     redirect("/")
   //   }
   // })
- 
+
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] scroll-smooth">
       <section className="first-section w-full md:h-[80vh]  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
@@ -151,11 +156,11 @@ export default function Home() {
               >
                 {(item: any) => (
                   <AutocompleteItem
-                    key={item.key}
-                    value={item.key}
+                    key={item.geoIdentifier}
+                    value={item.geoIdentifier}
                     className="capitalize"
                   >
-                    {item.name}
+                    {item.geoLabel}
                   </AutocompleteItem>
                 )}
               </Autocomplete>
@@ -931,7 +936,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className="text-5xl drop-shadow text-white font-semibold opacity-60 ">
+                  <span className="text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60 ">
                     216
                   </span>
                   <p className="text-white">New York City, NY</p>
@@ -948,7 +953,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" text-5xl drop-shadow text-white font-semibold opacity-60">
+                  <span className=" text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
                     141
                   </span>
                   <p className="text-white">Houston, TX</p>
@@ -965,7 +970,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" text-5xl drop-shadow text-white font-semibold opacity-60">
+                  <span className="text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
                     212
                   </span>
                   <p className="text-white">San Diego, CA</p>
@@ -982,7 +987,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className="text-5xl drop-shadow text-white font-semibold opacity-60 ">
+                  <span className="text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60 ">
                     183
                   </span>
                   <p className="text-white">Philadelphia, PA</p>
@@ -999,7 +1004,7 @@ export default function Home() {
               />
               <CardFooter className="px-10 absolute bottom-10 left-4">
                 <div>
-                  <span className=" text-5xl drop-shadow text-white font-semibold opacity-60">
+                  <span className=" text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
                     112
                   </span>
                   <p className="text-white">San Francisco, CA</p>
