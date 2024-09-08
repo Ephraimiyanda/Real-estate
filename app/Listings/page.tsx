@@ -21,14 +21,19 @@ import LoadingBlock from "@/app/components/loading";
 import { useDebounceValue } from "@/app/assest/debounce";
 interface property {
   address: string;
-  image: string;
+  imageUris: string[];
   description: string;
-  id: number;
+  listingId: number;
+  title: string;
+  attributes: {
+    bathrooms: number;
+    bedrooms: number;
+  };
 }
 export default function Search() {
   const [suggestedProperties, setSuggestedProperties] = useState([]);
   const [query, setQuery] = useState("");
-  const [location, setLocation] = useState<any>("");
+  const [location, setLocation] = useState<any>();
   const [autoComplete, setAutoComplete] = useState([]);
   const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState<number | any>(1);
@@ -46,6 +51,8 @@ export default function Search() {
   const { replace } = useRouter();
   const router = useRouter();
   const propertyCost = ["highest", "lowest", "recent"];
+  const API_URL = process.env.NEXT_PUBLIC_BASE_API;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   const propertypurposeItems = [
     { key: "rent", value: "Rent" },
@@ -101,18 +108,18 @@ export default function Search() {
   async function fetchSuggestedProperties() {
     setPropertyLoading(true);
     setNoProperty(false);
-    const url = `https://zoopla4.p.rapidapi.com/properties/rent?locationKey=london&minPrice=100&page=${currentPage}&minBeds=1&sort=recent&maxPrice=12000`;
+    const url = `${API_URL}/properties/v2/list?locationValue=london&locationIdentifier=london&page=${currentPage}&minBeds=1&sortOrder=newest_listing&priceMin=100&priceMax=12000`;
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
-        "X-RapidAPI-Host": "zoopla4.p.rapidapi.com",
+        "X-RapidAPI-Key": `${API_KEY}`,
+        "X-RapidAPI-Host": "zoopla.p.rapidapi.com",
       },
     };
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      const suggestedPropertiesResult = result.data;
+      const suggestedPropertiesResult = result.data.listings.regular;
       setSuggestedProperties(suggestedPropertiesResult);
       setPropertyLoading(false);
       if (suggestedPropertiesResult.length === 0) {
@@ -130,23 +137,23 @@ export default function Search() {
     setPropertyLoading(true);
     setNoProperty(false);
     setLoading(true);
-    const url = `https://zoopla4.p.rapidapi.com/properties/${purposeOfProperty}?locationKey=${location}&minPrice=${priceRange[0]}&page=${currentPage}&maxBeds=${bedNumber}&sort=${sortBy}&maxPrice=${priceRange[1]}`;
+    const url = `${API_URL}/properties/v2/list?keywords=${purposeOfProperty}?locationValue=${location}&locationIdentifier=${location}&priceMin=${priceRange[0]}&page=${currentPage}&bedsMax=${bedNumber}&sortOrder=${sortBy}&priceMax=${priceRange[1]}`;
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
-        "X-RapidAPI-Host": "zoopla4.p.rapidapi.com",
+        "X-RapidAPI-Key": `${API_KEY}`,
+        "X-RapidAPI-Host": "zoopla.p.rapidapi.com",
       },
     };
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      const suggestedPropertiesResult = result.data;
+      const suggestedPropertiesResult = result.data.listings.regular;
 
       setSuggestedProperties(suggestedPropertiesResult);
       setPropertyLoading(false);
       setLoading(false);
-      if (suggestedPropertiesResult&&suggestedPropertiesResult.length === 0) {
+      if (suggestedPropertiesResult && suggestedPropertiesResult.length === 0) {
         setPropertyLoading(false);
         setNoProperty(true);
       } else {
@@ -180,9 +187,16 @@ export default function Search() {
       setCurrentPage(Number(pageParam));
       setPurposeOfProperty(purposeParam);
       setTypeOfProperty(typeParam);
-      
     }
-    if (location&&priceRange&&purposeOfProperty&&typeOfProperty&&bedNumber&&sortBy&&currentPage) {
+    if (
+      location &&
+      priceRange &&
+      purposeOfProperty &&
+      typeOfProperty &&
+      bedNumber &&
+      sortBy &&
+      currentPage
+    ) {
       searchProperties();
     } else {
       fetchSuggestedProperties();
@@ -191,19 +205,19 @@ export default function Search() {
   //run autocomplete fo location
   const fetchAutoComplete = async (query: string) => {
     setAutoCompleteLoading(true);
-    const url = `https://zoopla4.p.rapidapi.com/locations?location=${query}`;
+    const url = `${API_URL}/v2/auto-complete?locationPrefix=${query}`;
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
-        "X-RapidAPI-Host": "zoopla4.p.rapidapi.com",
+        "X-RapidAPI-Key": `${API_KEY}`,
+        "X-RapidAPI-Host": "zoopla.p.rapidapi.com",
       },
     };
 
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      const autoCompleteResult = result.data;
+      const autoCompleteResult = result.data.geoSuggestion;
       setAutoComplete(autoCompleteResult);
     } catch (error) {
       console.error(error);
@@ -295,7 +309,7 @@ export default function Search() {
                   variant="bordered"
                   items={autoComplete ? autoComplete : []}
                   isLoading={autoCompleteLoading}
-                  inputValue={query?query:""}
+                  inputValue={query ? query : ""}
                   onSelectionChange={setLocation}
                   placeholder="Select a location"
                   onInputChange={OnInputChange}
@@ -305,11 +319,11 @@ export default function Search() {
                 >
                   {(item: any) => (
                     <AutocompleteItem
-                      key={item.key}
-                      value={item.key}
+                      key={item.geoIdentifier}
+                      value={item.geoIdentifier}
                       className="capitalize"
                     >
-                      {item.name}
+                      {item.geoLabel}
                     </AutocompleteItem>
                   )}
                 </Autocomplete>
@@ -429,18 +443,22 @@ export default function Search() {
             </form>
           </div>
         </div>
-        <div className="max-w-[1280px] mx-auto  sm:px-6 px-3">
-          <div className=" flex justify-center sm:justify-between md:justify-evenly lg:justify-between items-center sm:items-start  flex-wrap  py-7 gap-4">
+        <div className="max-w-[1280px] mx-auto w-full sm:px-6 px-3">
+          <div className="  md:justify-evenly lg:justify-between items-center sm:items-start  flex-wrap  py-7 gap-4">
             {suggestedProperties && !propertyLoading ? (
-              suggestedProperties.map((properties: property) => (
-                <SearchBlock
-                  key={properties.id}
-                  id={properties.id}
-                  title={properties.description}
-                  location={properties.address}
-                  src={properties.image}
-                />
-              ))
+              <div className="grid gap-4 grid-cols-1 place-content-center place-items-center items-center  sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4  mx-auto w-full max-w-[1280px] ">
+                {suggestedProperties.map((properties: property) => (
+                  <SearchBlock
+                    key={properties.listingId}
+                    id={properties.listingId}
+                    num_bathrooms={properties.attributes.bathrooms}
+                    num_bedrooms={properties.attributes.bedrooms}
+                    title={properties.title}
+                    location={properties.address}
+                    src={properties.imageUris[0]}
+                  />
+                ))}
+              </div>
             ) : (
               <LoadingBlock />
             )}

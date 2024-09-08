@@ -209,6 +209,9 @@ export default function Nav() {
             }`}
             as={Link}
             href={"/#about-us"}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+            }}
           >
             <IoMdInformationCircleOutline
               color={pathname === "/#about-us" ? "#0070f0" : "black"}
@@ -235,6 +238,9 @@ export default function Nav() {
             }`}
             as={Link}
             href={"/#services"}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+            }}
           >
             <GrServices
               color={pathname === "/#services" ? "#0070f0" : "black"}
@@ -248,6 +254,9 @@ export default function Nav() {
             }`}
             as={Link}
             href={"/#blogs"}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+            }}
           >
             <IoBookSharp
               color={pathname === "/#blogs" ? "#0070f0" : "black"}
@@ -313,7 +322,10 @@ export default function Nav() {
                 </div>
               </ModalHeader>
               <ModalBody>
-                <Card className=" min-h-[400px] h-fit  shadow-none" shadow="none">
+                <Card
+                  className=" min-h-[400px] h-fit  shadow-none"
+                  shadow="none"
+                >
                   <CardBody className="overflow-hidden">
                     <Tabs
                       fullWidth

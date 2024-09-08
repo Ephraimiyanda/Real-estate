@@ -9,7 +9,7 @@ function LoadingCard() {
   return (
     <Card
       shadow="md"
-      className="rounded-md  p-0 bg-white w-[90%] max-w-[350px] max-h-[360px] sm:max-w-[270px] sm:w-[270px]"
+      className="rounded-md  p-0 bg-white w-[90%] max-w-[350px] max-h-[360px] sm:max-w-[280px] sm:w-full"
       style={{
         padding: "0px",
       }}
@@ -39,14 +39,14 @@ function LoadingCard() {
 export default function LoadingBlock() {
   function Load() {
     const skeletonCards = [];
-    for (var i = 0; i < 25; i++) {
+    for (var i = 0; i < 15; i++) {
       skeletonCards.push(<LoadingCard key={i} />);
     }
     return skeletonCards;
   }
-    return (
-      <div className="flex justify-center sm:justify-between md:justify-evenly lg:justify-between items-center sm:items-start  flex-wrap  gap-4 max-w-[1280px] mx-auto ">
-        {Load()}
-      </div>
-    );
+  return (
+    <div className="grid gap-4 grid-cols-1 place-content-center place-items-center items-center  sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4  mx-auto w-full max-w-[1280px] ">
+      {Load()}
+    </div>
+  );
 }

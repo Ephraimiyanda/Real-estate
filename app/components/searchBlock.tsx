@@ -1,16 +1,25 @@
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import Link from "next/link";
-interface searchblock{
+interface searchblock {
   title: string;
   location: string;
-  src: string
-  id:number
+  src: string;
+  id: number;
+  num_bathrooms: number;
+  num_bedrooms:number
 }
-export default function SearchBlock({title,location,src,id}:searchblock) {
+export default function SearchBlock({
+  title,
+  location,
+  src,
+  id,
+  num_bathrooms,
+  num_bedrooms,
+}: searchblock) {
   return (
     <Card
       shadow="md"
-      className="rounded-md  p-0 bg-white  max-h-[360px] w-[90%] max-w-[350px] sm:max-w-[270px] sm:w-[270px]"
+      className="rounded-md  p-0 bg-white w-[90%] max-w-[350px] max-h-[360px] sm:max-w-[280px] sm:w-full"
       style={{
         padding: "0px",
       }}
@@ -26,17 +35,37 @@ export default function SearchBlock({title,location,src,id}:searchblock) {
           radius="none"
           removeWrapper
           src={src}
-          className=" h-[240px] w-full sm:w-[270px] object-cover"
+          className=" h-[240px] w-full  object-cover"
           alt="img"
         />
         <CardFooter className="text-small justify-start flex flex-col px-3 gap-5 w-full p-0 pt-2">
           <div className="justify-start flex flex-col px-3 gap-4 py-3 w-full">
             <div className="text-lg">
-              <Link href={`/Listings/Properties/${id}`} >
-                <p className=" overflow-hidden text-ellipsis h-14 ">
-                  {title}
-                </p>
+              <Link href={`/Listings/Properties/${id}`}>
+                <p className=" overflow-hidden text-ellipsis h-10">{title}</p>
               </Link>
+            </div>
+            <div className="flex gap-5 justify-start w-full">
+              <div className="flex gap-1">
+                <Image
+                  width={100}
+                  height={100}
+                  alt="bed icon"
+                  src="/bed icon.svg"
+                  className="w-5"
+                />
+                <span>{num_bedrooms} beds</span>
+              </div>
+              <div className="flex gap-1">
+                <Image
+                  width={100}
+                  height={100}
+                  alt="bath icon"
+                  src="/bath icon.svg"
+                  className="w-5"
+                />
+                <span>{num_bathrooms} bath(s)</span>
+              </div>
             </div>
             <div className="text-black/50 overflow-hidden text-ellipsis h-6  whitespace-nowrap">
               {location}
