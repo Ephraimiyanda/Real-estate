@@ -33,7 +33,10 @@ interface property {
 export default function Search() {
   const [suggestedProperties, setSuggestedProperties] = useState([]);
   const [query, setQuery] = useState("");
-  const [location, setLocation] = useState<any>();
+  const [location, setLocation] = useState<any>({
+    geoIdentifier: "",
+    geoLabel: "",
+  });
   const [autoComplete, setAutoComplete] = useState([]);
   const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState<number | any>(1);
@@ -76,12 +79,14 @@ export default function Search() {
     { key: 4, title: "4+ bedroom" },
     { key: 5, title: "5+ bedroom" },
   ];
+
   //setting states to url as params
   function handleSearch() {
     const params = new URLSearchParams();
     if (location) {
       params.set("page", currentPage);
-      params.set("locationKey", location);
+      params.set("locationIdentifier", location.geoIdentifier);
+      params.set("locationValue", location.geoLabel);
       params.set("location", query);
       params.set("minPrice", priceRange[0]);
       params.set("maxPrice", priceRange[1]);
@@ -90,6 +95,8 @@ export default function Search() {
       params.set("type", typeOfProperty);
       params.set("purpose", purposeOfProperty);
     } else {
+      params.delete("locationIdentifier", location.geoIdentifier);
+      params.delete("locationValue", location.geoLabel);
       params.delete("page", currentPage);
       params.delete("location", query);
       params.delete("locationKey", location);
@@ -125,6 +132,7 @@ export default function Search() {
       if (suggestedPropertiesResult.length === 0) {
         setNoProperty(true);
         setPropertyLoading(false);
+        setLoading(false);
       } else {
         setNoProperty(false);
       }
@@ -132,12 +140,13 @@ export default function Search() {
       console.error(error);
     }
   }
+
   //search for properties based on given params
   const searchProperties = async () => {
     setPropertyLoading(true);
     setNoProperty(false);
     setLoading(true);
-    const url = `${API_URL}/properties/v2/list?keywords=${purposeOfProperty}?locationValue=${location}&locationIdentifier=${location}&priceMin=${priceRange[0]}&page=${currentPage}&bedsMax=${bedNumber}&sortOrder=${sortBy}&priceMax=${priceRange[1]}`;
+    const url = `${API_URL}/properties/v2/list?locationValue=${location.geoLabel}&locationIdentifier=${location.geoIdentifier}&priceMin=${priceRange[0]}&page=${currentPage}&bedsMax=${bedNumber}&sortOrder=${sortBy}&priceMax=${priceRange[1]}`;
     const options = {
       method: "GET",
       headers: {
@@ -163,11 +172,12 @@ export default function Search() {
       console.error(error);
     }
   };
+
   //getting params from url and setting them to state
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const locationParam = params.get("locationKey");
-    const locationqueryparam = params.get("location");
+    const locationIdentifierParam = params.get("locationIdentifier");
+    const locationValueParam = params.get("locationValue");
     const priceMinParam = params.get("minPrice");
     const priceMaxParam = params.get("maxPrice");
     const bedsParam = params.get("maxBeds");
@@ -175,22 +185,33 @@ export default function Search() {
     const pageParam = params.get("page");
     const typeParam = params.get("type");
     const purposeParam = params.get("purpose");
+
+    // Update state from URL params
     if (pageParam) {
       setCurrentPage(Number(pageParam));
     }
-    if (locationParam) {
-      setLocation(locationParam);
-      setQuery(locationqueryparam as string);
+    if (locationIdentifierParam) {
+      setLocation({
+        geoIdentifier: locationIdentifierParam,
+        geoLabel: locationValueParam,
+      });
+      setQuery(locationValueParam as string);
       setPriceRange([Number(priceMinParam), Number(priceMaxParam)]);
       setBedNumber(bedsParam);
       setSortBy(sortParam);
-      setCurrentPage(Number(pageParam));
       setPurposeOfProperty(purposeParam);
       setTypeOfProperty(typeParam);
     }
+  }, []);
+
+  // Second effect: trigger searchProperties or fetchSuggestedProperties
+  useEffect(() => {
+    // Only run if all necessary state variables have been set
     if (
-      location &&
+      location &&// Ensure the location has been set correctly
       priceRange &&
+      priceRange[0] !== undefined &&
+      priceRange[1] !== undefined &&
       purposeOfProperty &&
       typeOfProperty &&
       bedNumber &&
@@ -201,8 +222,9 @@ export default function Search() {
     } else {
       fetchSuggestedProperties();
     }
-  }, []);
-  //run autocomplete fo location
+  }, [ ]);
+
+  //run autocomplete for location
   const fetchAutoComplete = async (query: string) => {
     setAutoCompleteLoading(true);
     const url = `${API_URL}/v2/auto-complete?locationPrefix=${query}`;
@@ -225,28 +247,6 @@ export default function Search() {
     return setAutoCompleteLoading(false);
   };
 
-  // const list = useAsyncList({
-  //   async load({ signal, filterText }) {
-  //     const options = {
-  //       method: "GET",
-  //       headers: {
-  //         "X-RapidAPI-Key":
-  //           "5ebd5f9a81msh1cd13fdc012bf64p19cb9bjsnd3764f7fd7a9",
-  //         "X-RapidAPI-Host": "realtor-search.p.rapidapi.com",
-  //       },
-  //     };
-  //     let res = await fetch(
-  //       `https://realtor-search.p.rapidapi.com/properties/auto-complete?input=${filterText}`,
-  //       options
-  //     );
-  //     let json = await res.json();
-
-  //     return {
-  //       items: json.data.autocomplete,
-  //     };
-  //   },
-  // });
-
   function RunAutoComplete() {
     if (searchQuery && searchQuery.length > 0) {
       fetchAutoComplete(searchQuery);
@@ -262,7 +262,8 @@ export default function Search() {
     const params = new URLSearchParams(window.location.search);
     if (location) {
       params.set("page", value.toString());
-      params.set("locationKey", location);
+      params.set("locationIdentifier", location.geoIdentifier);
+      params.set("locationValue", location.geoLabel);
       params.set("minPrice", priceRange[0]);
       params.set("maxPrice", priceRange[1]);
       params.set("maxBeds", bedNumber);
@@ -279,7 +280,6 @@ export default function Search() {
     }
     setCurrentPage(value);
   };
-
   return (
     <section className="py-20">
       <div className="">
@@ -310,7 +310,13 @@ export default function Search() {
                   items={autoComplete ? autoComplete : []}
                   isLoading={autoCompleteLoading}
                   inputValue={query ? query : ""}
-                  onSelectionChange={setLocation}
+                  onSelectionChange={(value: any) => {
+                    const selectedItem = JSON.parse(value); // Parse the value to extract both geoIdentifier and geoLabel
+                    setLocation({
+                      geoIdentifier: selectedItem.geoIdentifier,
+                      geoLabel: selectedItem.geoLabel,
+                    });
+                  }}
                   placeholder="Select a location"
                   onInputChange={OnInputChange}
                   allowsEmptyCollection
@@ -319,7 +325,10 @@ export default function Search() {
                 >
                   {(item: any) => (
                     <AutocompleteItem
-                      key={item.geoIdentifier}
+                      key={JSON.stringify({
+                        geoIdentifier: item.geoIdentifier,
+                        geoLabel: item.geoLabel,
+                      })}
                       value={item.geoIdentifier}
                       className="capitalize"
                     >
@@ -329,7 +338,7 @@ export default function Search() {
                 </Autocomplete>
                 <Button
                   type="submit"
-                  startContent={
+                  endContent={
                     !loading ? (
                       <CiSearch size={30} color="white" />
                     ) : (

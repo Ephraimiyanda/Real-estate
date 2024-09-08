@@ -36,7 +36,10 @@ export default function Home() {
   const [autoComplete, setAutoComplete] = useState([]);
   const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState<any>("");
+   const [location, setLocation] = useState<any>({
+     geoIdentifier: "",
+     geoLabel: "",
+   });
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
   const [signInloading, setSignInLoading] = useState<any>(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -116,7 +119,7 @@ export default function Home() {
                 if (location.length > 0) {
                   setLoading(true);
                   router.push(
-                    `/Listings?page=1&locationKey=${location}&minPrice=100&maxPrice=1000&sort=recent&type=${typeOfProperty}&purpose=rent&maxBeds=4`
+                    `/Listings?page=1&locationIdentifier=${location.geoIdentifier}&locationValue=${location.geoValue}&minPrice=100&maxPrice=1000&sort=recent&type=${typeOfProperty}&purpose=rent&maxBeds=4`
                   );
                 }
               }}
@@ -147,7 +150,13 @@ export default function Home() {
                 items={autoComplete ? autoComplete : []}
                 isLoading={autoCompleteLoading}
                 inputValue={searchvalue}
-                onSelectionChange={setLocation}
+                onSelectionChange={(value: any) => {
+                  const selectedItem = JSON.parse(value); // Parse the value to extract both geoIdentifier and geoLabel
+                  setLocation({
+                    geoIdentifier: selectedItem.geoIdentifier,
+                    geoLabel: selectedItem.geoLabel,
+                  });
+                }}
                 placeholder="Select a location"
                 onInputChange={OnInputChange}
                 allowsEmptyCollection
@@ -156,7 +165,10 @@ export default function Home() {
               >
                 {(item: any) => (
                   <AutocompleteItem
-                    key={item.geoIdentifier}
+                    key={JSON.stringify({
+                      geoIdentifier: item.geoIdentifier,
+                      geoLabel: item.geoLabel,
+                    })}
                     value={item.geoIdentifier}
                     className="capitalize"
                   >
