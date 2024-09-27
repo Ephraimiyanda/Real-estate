@@ -36,10 +36,10 @@ export default function Home() {
   const [autoComplete, setAutoComplete] = useState([]);
   const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-   const [location, setLocation] = useState<any>({
-     geoIdentifier: "",
-     geoLabel: "",
-   });
+  const [location, setLocation] = useState<any>({
+    geoIdentifier: "",
+    geoLabel: "",
+  });
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
   const [signInloading, setSignInLoading] = useState<any>(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -61,15 +61,14 @@ export default function Home() {
   //run autocomplete fo location
   const fetchAutoComplete = async (query: string) => {
     setAutoCompleteLoading(true);
-     const url = `${API_URL}/v2/auto-complete?locationPrefix=${query}`;
-     const options = {
-       method: "GET",
-       headers: {
-         "X-RapidAPI-Key": `${API_KEY}`,
-         "X-RapidAPI-Host": "zoopla.p.rapidapi.com",
-       },
-     };
-
+    const url = `${API_URL}/v2/auto-complete?locationPrefix=${query}`;
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": `${API_KEY}`,
+        "X-RapidAPI-Host": "zoopla.p.rapidapi.com",
+      },
+    };
 
     try {
       const response = await fetch(url, options);
@@ -214,7 +213,7 @@ export default function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src="https://th.bing.com/th/id/R.32a24411345f8c2fabf434efc790913a?rik=7UFdKbcmKvrd2g&pid=ImgRaw&r=0"
+                      src="/house-1.jpg"
                       className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
@@ -226,7 +225,7 @@ export default function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src="https://th.bing.com/th/id/R.29c4399c34b9a89db684191b4c1928fa?rik=w6H%2fFYn6Bj6kww&pid=ImgRaw&r=0"
+                      src="/house-2.jpg"
                       className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
@@ -239,7 +238,7 @@ export default function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src="https://www.elyssacohen.com/wp-content/uploads/2016/05/9creek-2-1030x687.jpg"
+                      src="/house-3.jpg"
                       className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
