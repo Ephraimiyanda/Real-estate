@@ -63,7 +63,6 @@ export default function Nav() {
   const [errorMessage, setErrorMessage] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const session = useSession();
-
   const validateEmail = (value: string) =>
     value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
@@ -94,7 +93,7 @@ export default function Nav() {
     if (error) {
       onOpen();
       setSignInLoading(false);
-      setErrorMessage(error); 
+      setErrorMessage(error);
     }
   }, [error]);
   async function signUserIn() {
@@ -155,9 +154,12 @@ export default function Nav() {
           {session.data?.user ? (
             <Dropdown>
               <DropdownTrigger className="cursor-pointer">
-                <Avatar
-                  color="primary"
-                  src={session?.data?.user.image as string}
+                <User
+                  avatarProps={{
+                    src: `${session.data.user.image}`,
+                  }}
+                  name={session?.data?.user.name}
+                  description={session?.data?.user.email}
                 />
               </DropdownTrigger>
               <DropdownMenu>
@@ -266,12 +268,11 @@ export default function Nav() {
           </NavbarItem>
 
           <NavbarItem className=" sm:hidden flex flex-col gap-3 py-2">
-           
             {session?.data?.user ? (
               <User
                 avatarProps={{
-                  src:`${session.data.user.image}`
-               }}
+                  src: `${session.data.user.image}`,
+                }}
                 name={session?.data?.user.name}
                 description={session?.data?.user.email}
               />
