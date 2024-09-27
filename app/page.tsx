@@ -214,7 +214,7 @@ export default function Home() {
                       width={400}
                       height={400}
                       src="/carouselhouse1.jpg"
-                      className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
+                      className="block top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
                   </div>
@@ -225,8 +225,8 @@ export default function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src="/carouselhouse2jpg"
-                      className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
+                      src="/carouselhouse2.jpg"
+                      className="block top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
                   </div>
@@ -239,7 +239,7 @@ export default function Home() {
                       width={400}
                       height={400}
                       src="/carouselhouse3.jpg"
-                      className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
+                      className="block top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
                   </div>
