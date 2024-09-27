@@ -30,6 +30,8 @@ import { useDebounceValue } from "./assest/debounce";
 import { redirect, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("");
   const [latestProperty, setLatestProperty] = useState<any>("All");
@@ -193,127 +195,89 @@ export default function Home() {
           </div>
           <div className="w-full lg:w-auto">
             <div className="mx-auto w-full max-w-[500px] min-w-[270px] lg:w-[400px] relative md:-left-[10px]  lg:left-[unset]">
-              <div
-                id="default-carousel"
-                className="relative"
-                data-carousel="static"
+              <Carousel
+                additionalTransfrom={0}
+                arrows
+                autoPlay
+                autoPlaySpeed={2500}
+                centerMode={false}
+                className="rounded-lg "
+                containerClass="container "
+                customDot={
+                  <span className="w-[45px] h-[4px] rounded-sm "></span>
+                }
+                
+                dotListClass=""
+                draggable
+                focusOnSelect={false}
+                infinite
+                itemClass=""
+                keyBoardControl
+                minimumTouchDrag={80}
+                pauseOnHover
+                renderArrowsWhenDisabled={true}
+                renderButtonGroupOutside={true}
+                renderDotsOutside={true}
+                responsive={{
+                  desktop: {
+                    breakpoint: {
+                      max: 3000,
+                      min: 1024,
+                    },
+                    items: 1,
+                  },
+                  mobile: {
+                    breakpoint: {
+                      max: 464,
+                      min: 0,
+                    },
+                    items: 1,
+                  },
+                  tablet: {
+                    breakpoint: {
+                      max: 1024,
+                      min: 464,
+                    },
+                    items: 1,
+                  },
+                }}
+                rewind={false}
+                rewindWithAnimation={false}
+                rtl={false}
+                shouldResetAutoplay
+                showDots
+                sliderClass=""
+                slidesToSlide={1}
+                swipeable
               >
-                <script
-                  id="carousel-script"
-                  src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"
-                  type="text/javascript"
+                <img
+                  src="/carouselhouse1.jpg"
+                  style={{
+                    display: "block",
+                    height: "100%",
+                    margin: "auto",
+                    width: "100%",
+                  }}
                 />
-
-                <div className="overflow-hidden relative h-56 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
-                  <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                    data-te-carousel-active
-                  >
-                    <Image
-                      width={400}
-                      height={400}
-                      src="/carouselhouse1.jpg"
-                      className="block top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
-                      alt="..."
-                    />
-                  </div>
-                  <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                  >
-                    <Image
-                      width={400}
-                      height={400}
-                      src="/carouselhouse2.jpg"
-                      className="block top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
-                      alt="..."
-                    />
-                  </div>
-
-                  <div
-                    className="hidden duration-700 ease-in-out"
-                    data-carousel-item
-                  >
-                    <Image
-                      width={400}
-                      height={400}
-                      src="/carouselhouse3.jpg"
-                      className="block top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
-                      alt="..."
-                    />
-                  </div>
-                </div>
-
-                <div className=" flex absolute -bottom-4 left-1/2 z-30 space-x-3 -translate-x-1/2">
-                  <button
-                    type="button"
-                    className="w-16 h-1 rounded-sm bg-[#4361EE]"
-                    aria-current="false"
-                    aria-label="Slide 1"
-                    data-carousel-slide-to="0"
-                  ></button>
-                  <button
-                    type="button"
-                    className="w-16 h-1 rounded-sm bg-[#4361EE]"
-                    aria-current="false"
-                    aria-label="Slide 2"
-                    data-carousel-slide-to="1"
-                  ></button>
-                  <button
-                    type="button"
-                    className="w-16 h-1 rounded-sm bg-[#4361EE]"
-                    aria-current="false"
-                    aria-label="Slide 3"
-                    data-carousel-slide-to="2"
-                  ></button>
-                </div>
-
-                <button
-                  type="button"
-                  className="flex absolute top-0 sm:-left-10 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
-                  data-carousel-prev
-                >
-                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/90 dark:bg-white/60 ">
-                    <svg
-                      className="w-5 h-5 text-[#4361EE] sm:w-6 sm:h-6 dark:text-gray-800 "
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke="#4361EE"
-                        strokeWidth="2"
-                        d="M15 19l-7-7 7-7"
-                      ></path>
-                    </svg>
-                    <span className="hidden">Previous</span>
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="flex absolute top-0 right-0 sm:-right-10 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
-                  data-carousel-next
-                >
-                  <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white group-hover:bg-white/90 dark:bg-white/60 ">
-                    <svg
-                      className="w-5 h-5 text-[#4361EE] sm:w-6 sm:h-6 dark:text-gray-800"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke="#4361EE"
-                        strokeWidth="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                    <span className="hidden">Next</span>
-                  </span>
-                </button>
-              </div>
+                <img
+                  src="/carouselhouse2.jpg"
+                  style={{
+                    display: "block",
+                    height: "100%",
+                    margin: "auto",
+                    width: "100%",
+                  }}
+                />
+                <img
+                  src="/carouselhouse3.jpg"
+                  style={{
+                    display: "block",
+                    height: "100%",
+                    margin: "auto",
+                    width: "100%",
+                  }}
+                />
+              </Carousel>
             </div>
           </div>
         </div>

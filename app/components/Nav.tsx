@@ -264,11 +264,16 @@ export default function Nav() {
             />
             <p className="text-xl">Blogs</p>
           </NavbarItem>
+
           <NavbarItem className=" sm:hidden flex flex-col gap-3 py-2">
+           
             {session?.data?.user ? (
-              <Avatar
-                color="primary"
-                src={session?.data?.user.image as string}
+              <User
+                avatarProps={{
+                  src:`${session.data.user.image}`
+               }}
+                name={session?.data?.user.name}
+                description={session?.data?.user.email}
               />
             ) : (
               <Button
