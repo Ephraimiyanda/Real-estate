@@ -313,8 +313,8 @@ export default function Search() {
                   onSelectionChange={(value: any) => {
                     const selectedItem = JSON.parse(value); // Parse the value to extract both geoIdentifier and geoLabel
                     setLocation({
-                      geoIdentifier: selectedItem.geoIdentifier,
-                      geoLabel: selectedItem.geoLabel,
+                      geoIdentifier: selectedItem.geoIdentifier?selectedItem.geoIdentifier:"",
+                      geoLabel: selectedItem.geoLabel?selectedItem?.geoLabel:"",
                     });
                   }}
                   placeholder="Select a location"

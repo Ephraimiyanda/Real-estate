@@ -213,7 +213,7 @@ export default function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src="/house-1.jpg"
+                      src="/carouselhouse1.jpg"
                       className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
@@ -225,7 +225,7 @@ export default function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src="/house-2.jpg"
+                      src="/carouselhouse2jpg"
                       className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
@@ -238,7 +238,7 @@ export default function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src="/house-3.jpg"
+                      src="/carouselhouse3.jpg"
                       className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 object-cover h-full max-h-[228px] rounded-xl"
                       alt="..."
                     />
