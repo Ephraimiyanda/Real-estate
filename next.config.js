@@ -6,11 +6,10 @@ const nextConfig = {
     scrollRestoration:true
   },
   images: {
-    disableStaticImages: true,
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*",
+        hostname: "**",
       },
     ],
   },
