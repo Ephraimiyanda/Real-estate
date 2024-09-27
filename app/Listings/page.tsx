@@ -53,7 +53,24 @@ export default function Search() {
   const pathname = usePathname();
   const { replace } = useRouter();
   const router = useRouter();
-  const propertyCost = ["highest", "lowest", "recent"];
+  const propertyCost = [
+    {
+      label: "highest",
+      key: "highest_price",
+    },
+    {
+      label: "lowest",
+      key: "lowest_price ",
+    },
+    {
+      label: "newest",
+      key: "newest_listings ",
+    },
+    {
+      label: "most reduced",
+      key: "most_reduced ",
+    },
+  ];
   const API_URL = process.env.NEXT_PUBLIC_BASE_API;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -115,7 +132,7 @@ export default function Search() {
   async function fetchSuggestedProperties() {
     setPropertyLoading(true);
     setNoProperty(false);
-    const url = `${API_URL}/properties/v2/list?locationValue=london&locationIdentifier=london&page=${currentPage}&minBeds=1&sortOrder=newest_listing&priceMin=100&priceMax=12000`;
+    const url = `${API_URL}/properties/v2/list?locationValue=london&locationIdentifier=london&page=${currentPage}&minBeds=1&sortOrder=newest_listings&priceMin=1000&priceMax=120000`;
     const options = {
       method: "GET",
       headers: {
@@ -146,7 +163,15 @@ export default function Search() {
     setPropertyLoading(true);
     setNoProperty(false);
     setLoading(true);
-    const url = `${API_URL}/properties/v2/list?locationValue=${location.geoLabel}&locationIdentifier=${location.geoIdentifier}&priceMin=${priceRange[0]}&page=${currentPage}&bedsMax=${bedNumber}&sortOrder=${sortBy}&priceMax=${priceRange[1]}`;
+    const url = `${API_URL}/properties/v2/list?locationValue=${
+      location.geoLabel
+    }&locationIdentifier=${location.geoIdentifier}&priceMin=${
+      priceRange[0]
+    }&priceMax=${
+      priceRange[1]
+    }&page=${currentPage}&bedsMax=${bedNumber}&sortOrder=${sortBy}&includeRented=${
+      purposeOfProperty === "rent" ? true : false
+    }`;
     const options = {
       method: "GET",
       headers: {
@@ -208,7 +233,7 @@ export default function Search() {
   useEffect(() => {
     // Only run if all necessary state variables have been set
     if (
-      location &&// Ensure the location has been set correctly
+      location && // Ensure the location has been set correctly
       priceRange &&
       priceRange[0] !== undefined &&
       priceRange[1] !== undefined &&
@@ -222,7 +247,7 @@ export default function Search() {
     } else {
       fetchSuggestedProperties();
     }
-  }, [ ]);
+  }, []);
 
   //run autocomplete for location
   const fetchAutoComplete = async (query: string) => {
@@ -313,8 +338,12 @@ export default function Search() {
                   onSelectionChange={(value: any) => {
                     const selectedItem = JSON.parse(value); // Parse the value to extract both geoIdentifier and geoLabel
                     setLocation({
-                      geoIdentifier: selectedItem.geoIdentifier?selectedItem.geoIdentifier:"",
-                      geoLabel: selectedItem.geoLabel?selectedItem?.geoLabel:"",
+                      geoIdentifier: selectedItem?.geoIdentifier
+                        ? selectedItem?.geoIdentifier
+                        : "",
+                      geoLabel: selectedItem?.geoLabel
+                        ? selectedItem?.geoLabel
+                        : "",
                     });
                   }}
                   placeholder="Select a location"
@@ -421,8 +450,8 @@ export default function Search() {
                   }
                 >
                   {propertyCost.map((cost) => (
-                    <SelectItem key={cost} value={cost}>
-                      {cost}
+                    <SelectItem key={cost.key} value={cost.key}>
+                      {cost.label}
                     </SelectItem>
                   ))}
                 </Select>
@@ -432,8 +461,8 @@ export default function Search() {
                   label="Price Range"
                   size="sm"
                   step={50}
-                  minValue={0}
-                  maxValue={10000}
+                  minValue={1000}
+                  maxValue={1000000}
                   value={priceRange}
                   onChange={setPriceRange}
                   formatOptions={{ style: "currency", currency: "USD" }}

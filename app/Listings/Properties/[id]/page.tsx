@@ -203,15 +203,15 @@ export default function PropertyDetails({
                         alt="Card example background"
                         className="z-0 w-full h-full  object-contain"
                         src={
-                          propertyData?.floorPlan?.image
-                            ? propertyData?.floorPlan?.image
+                          propertyData?.content.floorPlan?.image[0].url
+                            ? propertyData?.content.floorPlan?.image[0].url
                             : "/no-image.jpg"
                         }
                       />
                       <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
                         <div>
                           <p className="text-black text-tiny">
-                            {propertyData?.analyticsTaxonomy.hasFloorplan
+                            {propertyData?.content.floorPlan?.image[0].url
                               ? "Available"
                               : "Unavailable"}
                           </p>

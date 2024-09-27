@@ -42,7 +42,7 @@ export default function SearchBlock({
           <div className="justify-start flex flex-col px-3 gap-4 py-3 w-full">
             <div className="text-lg">
               <Link href={`/Listings/Properties/${id}`}>
-                <p className=" overflow-hidden text-ellipsis h-10">{title}</p>
+                <p className=" overflow-hidden text-ellipsis h-8">{title}</p>
               </Link>
             </div>
             <div className="flex gap-5 justify-start w-full">
