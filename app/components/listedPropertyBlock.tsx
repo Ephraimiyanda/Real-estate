@@ -1,25 +1,27 @@
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import Link from "next/link";
-interface searchblock {
+interface ListedPropertyblock {
   title: string;
   location: string;
   src: string;
   id: number;
   num_bathrooms: number;
-  num_bedrooms:number
+  num_bedrooms: number;
+  price: string | number;
 }
-export default function SearchBlock({
+export default function ListedPropertyBlock({
   title,
   location,
   src,
   id,
   num_bathrooms,
   num_bedrooms,
-}: searchblock) {
+  price,
+}: ListedPropertyblock) {
   return (
     <Card
       shadow="md"
-      className="rounded-md  p-0 bg-white w-[90%] max-w-[350px] max-h-[360px] sm:max-w-[280px] sm:w-full"
+      className="rounded-md shadow-none border-none snap-center p-0 w-[320px] bg-none h-full"
       style={{
         padding: "0px",
       }}
@@ -32,18 +34,22 @@ export default function SearchBlock({
         }}
       >
         <Image
-          radius="none"
+          radius="lg"
           removeWrapper
           src={src}
-          className=" max-h-[220px] h-full w-full  object-cover"
+          className="w-[270px] h-[260px] object-cover "
           alt="img"
         />
-        <CardFooter className="text-small justify-start flex flex-col px-3 gap-5 w-full p-0 pt-2">
-          <div className="justify-start flex flex-col px-3 gap-4 py-3 w-full">
+        <CardFooter className="text-small justify-start flex flex-col  gap-5 w-full p-0 pt-2">
+          <div className="justify-start flex flex-col  gap-4 py-3 w-full">
+            <p className="font-bold text-left w-full">{price}</p>
             <div className="text-lg">
               <Link href={`/Listings/Properties/${id}`}>
-                <p className=" overflow-hidden text-ellipsis h-8">{title}</p>
+                <p className="font-semibold  w-full">{title}</p>
               </Link>
+            </div>
+            <div className="text-black/50 overflow-hidden text-ellipsis h-6  whitespace-nowrap">
+              {location}
             </div>
             <div className="flex gap-5 justify-start w-full">
               <div className="flex gap-1 justify-normal items-center">
@@ -66,9 +72,6 @@ export default function SearchBlock({
                 />
                 <span>{num_bathrooms} bath(s)</span>
               </div>
-            </div>
-            <div className="text-black/50 overflow-hidden text-ellipsis h-6  whitespace-nowrap">
-              {location}
             </div>
           </div>
         </CardFooter>

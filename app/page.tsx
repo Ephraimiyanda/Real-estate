@@ -32,6 +32,25 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import ListedPropertyBlock from "./components/listedPropertyBlock";
+import LoadingBlock from "./components/loading";
+import ListedPropertyLoadingBlock from "./components/listedPropertyLoading";
+
+interface property {
+  address: string;
+  imageUris: string[];
+  description: string;
+  listingId: number;
+  title: string;
+  attributes: {
+    bathrooms: number;
+    bedrooms: number;
+  };
+  pricing: {
+    label:string
+  }
+}
+
 export default function Home() {
   const [searchvalue, setSearchValue] = useState("");
   const [latestProperty, setLatestProperty] = useState<any>("All");
@@ -45,6 +64,9 @@ export default function Home() {
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
   const [signInloading, setSignInLoading] = useState<any>(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [propertyLoading, setPropertyLoading] = useState(false);
+  const [noProperty, setNoProperty] = useState(false);
+  const [suggestedProperties, setSuggestedProperties] = useState([]);
   const searchQuery = useDebounceValue(searchvalue);
   const router = useRouter();
 
@@ -60,7 +82,8 @@ export default function Home() {
     { key: "cond-op", value: "Cond_op" },
     { key: "other", value: "other" },
   ];
-  //run autocomplete fo location
+
+  //run autocomplete for location
   const fetchAutoComplete = async (query: string) => {
     setAutoCompleteLoading(true);
     const url = `${API_URL}/v2/auto-complete?locationPrefix=${query}`;
@@ -92,17 +115,44 @@ export default function Home() {
     }
   }
 
-  // const sesssion = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     redirect("/")
-  //   }
-  // })
+  //fetch suggested properties to display on page
+  async function fetchSuggestedProperties() {
+    setPropertyLoading(true);
+    setNoProperty(false);
+    const url = `${API_URL}/properties/v2/list?locationValue=london&locationIdentifier=london&page=1&minBeds=1&sortOrder=newest_listings&priceMin=1000&priceMax=120000`;
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": `${API_KEY}`,
+        "X-RapidAPI-Host": "zoopla.p.rapidapi.com",
+      },
+    };
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      const suggestedPropertiesResult = result.data.listings.regular;
+      setSuggestedProperties(suggestedPropertiesResult);
+      setPropertyLoading(false);
+      if (suggestedPropertiesResult.length === 0) {
+        setNoProperty(true);
+        setPropertyLoading(false);
+        setLoading(false);
+      } else {
+        setNoProperty(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchSuggestedProperties();
+  }, []);
 
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] scroll-smooth">
       <section className="first-section w-full md:h-[80vh]  bg-no-repeat bg-center bg-cover flex flex-col gap-5 py-10">
-        <div className="max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-0 lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
+        <div className="max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-6 lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
             <p className=" text-base font-medium text-[#4361EE]">REAL ESTATE</p>
             <h1 className=" text-4xl sm:text-6xl font-semibold max-w-[500px]">
@@ -206,7 +256,6 @@ export default function Home() {
                 customDot={
                   <span className="w-[45px] h-[4px] rounded-sm "></span>
                 }
-                
                 dotListClass=""
                 draggable
                 focusOnSelect={false}
@@ -215,6 +264,8 @@ export default function Home() {
                 keyBoardControl
                 minimumTouchDrag={80}
                 pauseOnHover
+                customLeftArrow={<div className="hidden" />}
+                customRightArrow={<div className="hidden" />}
                 renderArrowsWhenDisabled={true}
                 renderButtonGroupOutside={true}
                 renderDotsOutside={true}
@@ -435,366 +486,32 @@ export default function Home() {
         </div>
         <div className="py-4 w-full max-w-[1280px] mx-auto sm:px-6 px-3 h-full   flex justify-between gap-3 ">
           <div className="card-container w-full flex-nowrap  py-3 h-full overflow-x-auto flex snap-center snap-x first:scroll ">
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0 ">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
+            {suggestedProperties && !propertyLoading ? (
+              suggestedProperties.map((properties: property) => (
+                <div className="py-3">
+                  <ListedPropertyBlock
+                    key={properties.listingId}
+                    id={properties.listingId}
+                    num_bathrooms={properties.attributes.bathrooms}
+                    num_bedrooms={properties.attributes.bedrooms}
+                    title={properties.title}
+                    location={properties.address}
+                    src={properties.imageUris[0]}
+                    price={properties.pricing.label}
                   />
-                  <PopularChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
-                  />
-                  <NewListingChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
-                  />
-                  <InvestChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
-                  />
-                  <NewListingChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
-                  />
-                  <InvestChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
-                  />
-                  <PopularChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>{" "}
-            </div>
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
-                  />
-                  <PopularChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>{" "}
-            </div>
-            <div className="py-3">
-              <Card className=" w-[320px] bg-none h-full shadow-none snap-center">
-                <CardBody className="p-0">
-                  <Image
-                    src="/Rectangle18.png"
-                    width={300}
-                    height={300}
-                    alt="home"
-                    className="w-[270px] h-[260px]"
-                  />
-                  <NewListingChip />
-                </CardBody>
-                <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                  <p className="font-bold text-left w-full">$ 5,970</p>
-                  <p className="font-semibold  w-full">
-                    Tranquil Haven in the Woods
-                  </p>
-                  <p className="text-[#808080]  w-full text-sm">
-                    103 Wright CourtBurien, WA 98168
-                  </p>
-                  <div className="flex gap-5 justify-start w-full">
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bed icon"
-                        src="/bed icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 beds</span>
-                    </div>
-                    <div className="flex gap-1">
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="bath icon"
-                        src="/bath icon.svg"
-                        className="w-5"
-                      />
-                      <span>4 bath(s)</span>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
+                </div>
+              ))
+            ) : (
+              <ListedPropertyLoadingBlock />
+            )}
+
+            {noProperty && (
+              <div className="flex w-full justify center min-h-[50vh] items-center">
+                <p className="text-center text-xl mx-auto">
+                  No properties found !!
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>

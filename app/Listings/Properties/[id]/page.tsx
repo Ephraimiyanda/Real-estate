@@ -41,6 +41,8 @@ export default function PropertyDetails({
   const API_URL = process.env.NEXT_PUBLIC_BASE_API;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const GOOGLE_MAP_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY;
+
+  //get property details
   async function getProperty() {
     const url = `${API_URL}/properties/v2/detail?listingId=${params.id}`;
     const options = {

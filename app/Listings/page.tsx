@@ -34,19 +34,19 @@ export default function Search() {
   const [suggestedProperties, setSuggestedProperties] = useState([]);
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState<any>({
-    geoIdentifier: "",
-    geoLabel: "",
+    geoIdentifier: "london",
+    geoLabel: "london",
   });
   const [autoComplete, setAutoComplete] = useState([]);
   const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState<number | any>(1);
-  const [priceRange, setPriceRange] = useState<SliderValue | any>([100, 1000]);
-  const [bedNumber, setBedNumber] = useState<string | any>();
+  const [priceRange, setPriceRange] = useState<SliderValue | any>([1000, 120000]);
+  const [bedNumber, setBedNumber] = useState<string | any>(3);
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
   const [purposeOfProperty, setPurposeOfProperty] = useState<string | any>("");
-  const [propertyLoading, setPropertyLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState<string | any>("");
+  const [propertyLoading, setPropertyLoading] = useState(false);
   const [noProperty, setNoProperty] = useState(false);
   const searchQuery = useDebounceValue(query);
   const searchParams = useSearchParams();
@@ -465,7 +465,7 @@ export default function Search() {
                   maxValue={1000000}
                   value={priceRange}
                   onChange={setPriceRange}
-                  formatOptions={{ style: "currency", currency: "USD" }}
+                  formatOptions={{ style: "currency", currency: "GBP" }}
                   className="max-w-md"
                   showTooltip
                   tooltipValueFormatOptions={{
