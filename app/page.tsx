@@ -629,7 +629,7 @@ export default function Home() {
               <CardBody>
                 <span className=" font-medium text-center">Sell a House</span>
                 <p className="text-[#808080] text-center">
-                  List your property for sale and get seriuos buyers without
+                  List your property for sale and get serious buyers without
                   hassles.
                 </p>
               </CardBody>
@@ -651,10 +651,9 @@ export default function Home() {
                 </div>
               </CardHeader>
               <CardBody>
-                <span className=" font-[590] text-center">Buy a New Home</span>
+                <span className=" font-[590] text-center">Invest in real estate</span>
                 <p className="text-[#808080] text-center">
-                  Find a property that fits your needs.Browse our listings and
-                  discover theperfect properties
+                  Discover properties to invest in and over time recieve profit.
                 </p>
               </CardBody>
             </Card>
