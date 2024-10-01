@@ -18,7 +18,7 @@ import {
   Tabs,
 } from "@nextui-org/react";
 import { ImLocation } from "react-icons/im";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { GrHomeRounded } from "react-icons/gr";
@@ -35,6 +35,7 @@ import "react-multi-carousel/lib/styles.css";
 import ListedPropertyBlock from "./components/listedPropertyBlock";
 import LoadingBlock from "./components/loading";
 import ListedPropertyLoadingBlock from "./components/listedPropertyLoading";
+import { BlogBlock } from "./components/blogBlock";
 
 interface property {
   address: string;
@@ -47,8 +48,15 @@ interface property {
     bedrooms: number;
   };
   pricing: {
-    label:string
-  }
+    label: string;
+  };
+}
+interface blog {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  author: string | null;
 }
 
 export default function Home() {
@@ -67,12 +75,22 @@ export default function Home() {
   const [propertyLoading, setPropertyLoading] = useState(false);
   const [noProperty, setNoProperty] = useState(false);
   const [suggestedProperties, setSuggestedProperties] = useState([]);
+  const [newsBlogs, setNewsBlogS] = useState([]);
+  const [newsBlogsLoading, setNewsBlogsLoading] = useState(true);
   const searchQuery = useDebounceValue(searchvalue);
   const router = useRouter();
 
   const API_URL = process.env.NEXT_PUBLIC_BASE_API;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+  const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
 
+  //get date
+  const currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  const backtrackedDate = new Date(currentDate);
+
+  //property types
   const propertyTypeItems = [
     { key: "apartment", value: "APARTMENT" },
     { key: "condo", value: "CONDO" },
@@ -105,10 +123,12 @@ export default function Home() {
     }
     return setAutoCompleteLoading(false);
   };
+
   function OnInputChange(value: string) {
     setSearchValue(value);
     RunAutoComplete();
   }
+
   function RunAutoComplete() {
     if (searchQuery.length > 0) {
       fetchAutoComplete(searchQuery);
@@ -145,9 +165,48 @@ export default function Home() {
     }
   }
 
+  //fetch news blogs
+  async function fetchNewsBolgs() {
+    setNewsBlogsLoading(true);
+    const url = `${NEWS_API}?qInTitle=housing&page=1&pageSize=10&language=en&sortBy=publishedAt&domains=bbc.co.uk,cnn.com`;
+    const options = {
+      method: "GET",
+      headers: {
+        "X-Api-Key": `${NEWS_API_KEY}`,
+      },
+    };
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      const newsBlogsResult = result.articles;
+      setNewsBlogS(newsBlogsResult);
+      console.log(result);
+      setNewsBlogsLoading(false);
+      if (newsBlogsResult.length === 0) {
+        setNewsBlogsLoading(false);
+        setLoading(false);
+      } else {
+        setNoProperty(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     fetchSuggestedProperties();
-  }, []);
+    fetchNewsBolgs();
+  }, [API_KEY, API_URL]);
+
+  //momoized property data
+  const memoizedProperties = useMemo(() => {
+    return suggestedProperties;
+  }, [suggestedProperties]);
+
+  //momoized blog data
+  const memoizedBlogs = useMemo(() => {
+    return newsBlogs;
+  }, [newsBlogs]);
 
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between  w-full  top-[0] scroll-smooth">
@@ -155,6 +214,7 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-6 lg:flex-row relative lg:top-0 pt-14 lg:justify-between  justify-evenly items-center h-full w-full sm:px-6 px-3 ">
           <div className=" flex flex-col gap-4 w-full ">
             <p className=" text-base font-medium text-[#4361EE]">REAL ESTATE</p>
+
             <h1 className=" text-4xl sm:text-6xl font-semibold max-w-[500px]">
               Find a perfect home you love ..!
             </h1>
@@ -486,8 +546,8 @@ export default function Home() {
         </div>
         <div className="py-4 w-full max-w-[1280px] mx-auto sm:px-6 px-3 h-full   flex justify-between gap-3 ">
           <div className="card-container w-full flex-nowrap  py-3 h-full overflow-x-auto flex snap-center snap-x first:scroll ">
-            {suggestedProperties && !propertyLoading ? (
-              suggestedProperties.map((properties: property) => (
+            {memoizedProperties && !propertyLoading ? (
+              memoizedProperties.map((properties: property) => (
                 <div className="py-3">
                   <ListedPropertyBlock
                     key={properties.listingId}
@@ -727,79 +787,21 @@ export default function Home() {
           <h6 className="text-white text-3xl sm:text-4xl font-semibold text-center pt-3 py-4">
             Latest Blogs & Posts
           </h6>
-          <div className="flex flex-wrap flex-col sm:flex-row gap-6 sm:gap-4 items-center sm:items-[unset] justify-between w-full">
-            <Card className="bg-transparent md:max-w-[340px] sm:max-w-[280px] max-w-[340px] bg-none shadow-none text-white">
-              <CardBody className="p-0 flex flex-col gap-3">
-                <Image
-                  src="/Rectangle18.png"
-                  width={300}
-                  height={300}
-                  alt="home"
-                  className=" h-[240px] w-[340px] "
+          <div className="blog-container w-full flex-nowrap  py-3 h-full overflow-x-auto flex gap-5 snap-center snap-x first:scroll ">
+            {memoizedBlogs && !propertyLoading ? (
+              memoizedBlogs.map((blogs: blog, index: number) => (
+                <BlogBlock
+                  key={index}
+                  title={blogs.title}
+                  description={blogs.description}
+                  link={blogs.url}
+                  imgUrl={blogs.urlToImage}
+                  author={blogs.author}
                 />
-                <p className=" text-2xl font-medium">
-                  Top 10 Home Buying Mistakes to Avoid
-                </p>
-              </CardBody>
-              <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                <p className="text-[#D4D4D4]">
-                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
-                </p>
-                <div className="w-full flex justify-end">
-                  <Button isIconOnly className="p-2 rounded-[50%] bg-white">
-                    <GoArrowRight color="#4361EE" size={32} />
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-            <Card className="bg-transparent md:max-w-[340px] sm:max-w-[280px] max-w-[340px] bg-none shadow-none text-white">
-              <CardBody className="p-0 flex flex-col gap-3">
-                <Image
-                  src="/Rectangle18.png"
-                  width={300}
-                  height={300}
-                  alt="home"
-                  className=" h-[240px] w-[340px] "
-                />
-                <p className=" text-2xl font-medium">
-                  Top 10 Home Buying Mistakes to Avoid
-                </p>
-              </CardBody>
-              <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                <p className="text-[#D4D4D4]">
-                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
-                </p>
-                <div className="w-full flex justify-end">
-                  <Button isIconOnly className="p-2 rounded-[50%] bg-white">
-                    <GoArrowRight color="#4361EE" size={32} />
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-            <Card className="bg-transparent md:max-w-[340px] sm:max-w-[280px] max-w-[340px] bg-none shadow-none text-white">
-              <CardBody className="p-0 flex flex-col gap-3">
-                <Image
-                  src="/Rectangle18.png"
-                  width={300}
-                  height={300}
-                  alt="home"
-                  className=" h-[240px] w-[340px] "
-                />
-                <p className=" text-2xl font-medium">
-                  Top 10 Home Buying Mistakes to Avoid
-                </p>
-              </CardBody>
-              <CardFooter className="flex flex-col gap-2 px-0 py-2">
-                <p className="text-[#D4D4D4]">
-                  Etiam eget elementum elit. Aenean dignissim dapibus vestibulum
-                </p>
-                <div className="w-full flex justify-end">
-                  <Button isIconOnly className="p-2 rounded-[50%] bg-white">
-                    <GoArrowRight color="#4361EE" size={32} />
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
+              ))
+            ) : (
+              <ListedPropertyLoadingBlock />
+            )}
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 // app/tabs/page.tsx
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   Card,
   CardBody,
@@ -63,6 +63,13 @@ export default function Nav() {
   const [errorMessage, setErrorMessage] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const session = useSession();
+  const hashUrl = window && window.location.hash;
+  const [hashedUrl, setHashedURL] = useState(hashUrl);
+  const url = pathname + hashedUrl;
+  const searchParams = useSearchParams();
+  const error = searchParams?.get("error");
+
+  //check if email is valid
   const validateEmail = (value: string) =>
     value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
@@ -72,6 +79,11 @@ export default function Nav() {
     return validateEmail(email) ? false : true;
   }, [email]);
 
+  window.addEventListener("hashchange", () => {
+    const hashUrl = window && window.location.hash;
+    const url:any= hashUrl ?  hashUrl : pathname;
+    setHashedURL(url);
+  });
   // const getmyproviders = async () => {
   //   try {
   //     const res: any = await getProviders();
@@ -87,8 +99,6 @@ export default function Nav() {
   // }, []);
 
   // console.log(session);
-  const searchParams = useSearchParams();
-  const error = searchParams?.get("error");
   useEffect(() => {
     if (error) {
       onOpen();
@@ -96,14 +106,16 @@ export default function Nav() {
       setErrorMessage(error);
     }
   }, [error]);
-  async function signUserIn() {
-    try {
-      const data = await signInWithPopup(auth, provider);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
+  // async function signUserIn() {
+  //   try {
+  //     const data = await signInWithPopup(auth, provider);
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   return (
     <div>
       <Navbar
@@ -132,7 +144,7 @@ export default function Nav() {
         <NavbarContent className="text-black hidden lg:flex">
           <Tabs
             aria-label="Options"
-            selectedKey={pathname}
+            selectedKey={url}
             variant="light"
             color="primary"
             radius="full"
@@ -147,6 +159,7 @@ export default function Nav() {
             ></Tab>
             <Tab key="/#services" title="Services" href="/#services"></Tab>
             <Tab key="/#blogs" title="Blogs" href="/#blogs"></Tab>
+           
           </Tabs>
         </NavbarContent>
 
@@ -429,7 +442,10 @@ export default function Nav() {
                               fullWidth
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={() => {
-                                signIn("google");
+                                signIn("google", {
+                                  redirect: true,
+                                  callbackUrl: "/",
+                                });
                                 // signUserIn();
                               }}
                               startContent={<FcGoogle size={30} />}

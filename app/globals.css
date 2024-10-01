@@ -17,28 +17,36 @@
 }
 
 body {
-  color:black;
+  color: black;
 }
-.first-section{
+.first-section {
   background-image: url(../public/Rectangle4.png);
-   background-position: center;
-  
-}.card-container::-webkit-scrollbar{
+  background-position: center;
+}
+.card-container::-webkit-scrollbar {
   background: rgb(244, 243, 243);
   height: 6px;
 }
-.card-container::-webkit-scrollbar-thumb{
-background:#4361EE ;
-border-radius: 4px;  
+.card-container::-webkit-scrollbar-thumb {
+  background: #4361ee;
+  border-radius: 4px;
 }
-.agent_section{
+.blog-container::-webkit-scrollbar {
+  background: rgb(197, 196, 196);
+  height: 6px;
+}
+.blog-container::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 4px;
+}
+.agent_section {
   background-image: url(../public/blurry\ ellipse.svg);
   background-repeat: no-repeat;
   background-position: top;
   background-size: contain;
 }
-@media (min-width:1280px) {
-  .first-section{
+@media (min-width: 1280px) {
+  .first-section {
     background-position: bottom;
   }
 }
