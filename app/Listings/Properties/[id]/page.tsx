@@ -142,7 +142,7 @@ export default function PropertyDetails({
                 </p>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: propertyData?.detailedDescription
+                    __html: propertyData?.detailedDescription,
                   }}
                 ></div>
               </div>
@@ -318,17 +318,22 @@ export default function PropertyDetails({
                     orientation="horizontal"
                   >
                     {propertyData?.analyticsTaxonomy?.listingStatus ===
-                      "to_rent" && (
-                      <CustomRadio description="Rent property" value="rent">
-                        Rent
-                      </CustomRadio>
-                    )}
+                      "to_rent" ||
+                      (propertyData?.analyticsTaxonomy?.listingStatus ===
+                        "for_rent" && (
+                        <CustomRadio description="Rent property" value="rent">
+                          Rent
+                        </CustomRadio>
+                      ))}
                     {propertyData?.analyticsTaxonomy?.listingStatus ===
-                      "to_sale" && (
-                      <CustomRadio description="Buy property" value="sale">
-                        Sale
-                      </CustomRadio>
-                    )}
+                      "to_sale" ||
+                      (propertyData?.analyticsTaxonomy?.listingStatus ===
+                        "for_sale" && (
+                        <CustomRadio description="Buy property" value="sale">
+                          Sale
+                        </CustomRadio>
+                      ))}
+
                     <CustomRadio
                       description="Invest in property"
                       value="Invest"
