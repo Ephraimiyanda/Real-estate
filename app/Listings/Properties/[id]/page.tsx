@@ -1,7 +1,9 @@
 "use client";
 import ImageGallery from "react-image-gallery";
+// import stylesheet if you're not already using CSS @import
 import "react-image-gallery/styles/css/image-gallery.css";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 import {
   Button,
   Checkbox,
@@ -32,7 +34,7 @@ export default function PropertyDetails({
 }: {
   params: { id: string };
 }) {
-  const [propertyData, setPropertyData] = useState<any>(null);
+  const [propertyData, setPropertyData] = useState<string | number | any>([]);
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
   const session = useSession();
@@ -40,6 +42,7 @@ export default function PropertyDetails({
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const GOOGLE_MAP_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY;
 
+  //get property details
   async function getProperty() {
     const url = `${API_URL}/properties/v2/detail?listingId=${params.id}`;
     const options = {
@@ -53,22 +56,21 @@ export default function PropertyDetails({
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      const listingDetails = result.data?.listingDetails;
-
-      setPropertyData(listingDetails || {});
-      const newArray = listingDetails?.propertyImage?.map(
+      setPropertyData(result.data.listingDetails);
+      const newArray = result.data.listingDetails.propertyImage.map(
         (image: { original: string; caption: string }) => ({
           original: image.original,
           thumbnail: image.caption,
         })
       );
-      setImages(newArray || []);
+      setImages(newArray);
+      setLoading(false);
+      console.log(result.data);
     } catch (error) {
       console.error(error);
     }
     setLoading(false);
   }
-
   useEffect(() => {
     getProperty();
   }, []);
@@ -78,11 +80,11 @@ export default function PropertyDetails({
       {loading ? (
         <PropertyLoading />
       ) : (
-        <div className="py-20 max-w-[1280px] mx-auto md:px-6 px-3">
+        <div className="py-20  max-w-[1280px] mx-auto md:px-6 px-3">
           <h1 className="md:px-6 px-3 text-center font-semibold text-3xl pb-8">
-            {propertyData?.title || "Title unavailable"}
+            {propertyData?.title}
           </h1>
-          <div className="flex lg:flex-row flex-col gap-5 justify-between">
+          <div className=" flex lg:flex-row flex-col gap-5 justify-between">
             <div className="max-w-[800px]">
               <div className="max-w-[800px]">
                 <ImageGallery
@@ -109,7 +111,7 @@ export default function PropertyDetails({
                       onClick={onClick}
                       disabled={disabled}
                       isIconOnly
-                      className="p-0 rounded-full bg-white z-20 border-2 border-[#4361EE] absolute right-1 top-[45%]"
+                      className="p-0 rounded-full bg-white z-20 border-2 border-[#4361EE] absolute right-1 top-[45%] "
                     >
                       <IoIosArrowForward color="#4361EE" size={32} />
                     </Button>
@@ -117,13 +119,11 @@ export default function PropertyDetails({
                 />
               </div>
               <Spacer y={6}></Spacer>
-              <div className="flex justify-between items-center px-6 py-3 rounded-sm bg-[#4361EE] bg-opacity-20">
+              <div className="flex justify-between  items-center px-6 py-3 rounded-sm bg-[#4361EE] bg-opacity-20">
                 <div className="flex flex-col">
                   <span className="font-light">Mortgage since:</span>
                   <span className="text-lg font-semibold">
-                    {propertyData?.analyticsTaxonomy?.price
-                      ? `${propertyData.analyticsTaxonomy.price} €/month`
-                      : "Price unavailable"}
+                    {propertyData?.analyticsTaxonomy?.price} €/month
                   </span>
                 </div>
                 <Button
@@ -141,10 +141,7 @@ export default function PropertyDetails({
                   <BsBuildings size={40} color="#4361EE" />
                   <span>Description</span>
                 </p>
-                <div>
-                  {propertyData?.detailedDescription ||
-                    "No description available"}
-                </div>
+                <div>{propertyData?.detailedDescription}</div>
               </div>
               <div className="py-8 ">
                 <p className="pb-4 font-semibold text-lg flex justify-normal items-center gap-2">
@@ -152,31 +149,27 @@ export default function PropertyDetails({
                   <span>Basic characteristics</span>
                 </p>
                 <ul className="list-disc px-7">
-                  {propertyData?.analyticsTaxonomy?.brandName && (
+                  {propertyData?.councilTaxBand && (
                     <li>
-                      BrandName: {propertyData.analyticsTaxonomy.brandName}
+                      BrandName:{propertyData?.analyticsTaxonomy.brandName}
                     </li>
                   )}
                   <li>
-                    Property Type:{" "}
-                    {propertyData?.analyticsTaxonomy?.propertyType ||
-                      "Unavailable"}
+                    propertyType:{" "}
+                    {propertyData?.analyticsTaxonomy?.propertyType}
                   </li>
-                  <li>
-                    Postal Code:{" "}
-                    {propertyData?.location?.postalCode || "Unavailable"}
-                  </li>
+                  <li>postalCode: {propertyData?.location?.postalCode}</li>
                   <li>
                     Listing condition:{" "}
-                    {propertyData?.analyticsTaxonomy?.listingCondition ||
-                      "Unavailable"}
+                    {propertyData?.analyticsTaxonomy?.listingCondition}
                   </li>
                 </ul>
-                {propertyData?.features?.bullets && (
+                {propertyData?.features && (
                   <ul className="list-disc px-7 py-3">
                     <span className="font-semibold text-lg">Features</span>
-                    {propertyData.features.bullets.length > 0 ? (
-                      propertyData.features.bullets.map((bullet: string) => (
+
+                    {propertyData?.features.bullets ? (
+                      propertyData?.features.bullets?.map((bullet: string) => (
                         <li key={bullet}>{bullet}</li>
                       ))
                     ) : (
@@ -190,19 +183,14 @@ export default function PropertyDetails({
                   <FaMapLocationDot size={40} color="#4361EE" />
                   <span>Location</span>
                 </p>
-                <p>
-                  {propertyData?.analyticsTaxonomy?.displayAddress ||
-                    "Address unavailable"}
-                </p>
+                <p>{propertyData?.analyticsTaxonomy?.displayAddress}</p>
               </div>
               <div>
-                {GOOGLE_MAP_KEY && propertyData?.location?.coordinates && (
-                  <iframe
-                    width="100%"
-                    height="450"
-                    src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAP_KEY}&q=${propertyData.location.coordinates.latitude},${propertyData.location.coordinates.longitude}`}
-                  ></iframe>
-                )}
+                <iframe
+                  width="100%"
+                  height="450"
+                  src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAP_KEY}&q=${propertyData?.location?.coordinates?.latitude},${propertyData?.location?.coordinates?.longitude}`}
+                ></iframe>
               </div>
               {propertyData?.floorPlan && (
                 <div className="py-4">
@@ -214,18 +202,18 @@ export default function PropertyDetails({
                     >
                       <Image
                         removeWrapper
-                        alt="Floor plan image"
-                        className="z-0 w-full h-full object-contain"
+                        alt="Card example background"
+                        className="z-0 w-full h-full  object-contain"
                         src={
-                          propertyData?.content?.floorPlan?.image[0]?.url
-                            ? propertyData.content.floorPlan.image[0].url
+                          propertyData?.content.floorPlan?.image[0]?.url
+                            ? propertyData?.content.floorPlan?.image[0]?.url
                             : "/no-image.jpg"
                         }
                       />
                       <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
                         <div>
                           <p className="text-black text-tiny">
-                            {propertyData?.content?.floorPlan?.image[0]?.url
+                            {propertyData?.content.floorPlan?.image[0]?.url
                               ? "Available"
                               : "Unavailable"}
                           </p>
@@ -240,7 +228,9 @@ export default function PropertyDetails({
                           size="sm"
                           as={Link}
                           href={propertyData?.floorPlan?.link}
-                          isDisabled={!propertyData?.floorPlan?.link}
+                          isDisabled={
+                            propertyData?.floorPlan?.link ? false : true
+                          }
                         >
                           View floor plan
                         </Button>
@@ -253,55 +243,188 @@ export default function PropertyDetails({
             <div className="lg:max-w-[400px] flex gap-5 sm:flex-row-reverse flex-col-reverse lg:flex-col-reverse w-full justify-between h-fit">
               <form
                 action=""
-                className="flex flex-col gap-3 w-full bg-[#4361EE] bg-opacity-10 px-4 py-8 rounded-sm"
+                className="flex flex-col gap-3 bg-[#4361EE] bg-opacity-20 py-4 rounded-lg sm:px-6 px-3 w-full sm:w-1/2 lg:w-full"
               >
-                <h2 className="text-center text-lg font-semibold">
-                  Contact Us
-                </h2>
+                <p className="text-3xl font-semibold">Contact Us</p>
+                <Spacer y={4}></Spacer>
                 <Input
-                  radius="none"
-                  size="lg"
+                  type="string"
+                  label="Name"
+                  labelPlacement="outside"
                   placeholder="Enter your full name"
-                  variant="bordered"
+                  classNames={{
+                    label: "text-lg",
+                    input: "py-2 text-base bg-white text-black",
+                    inputWrapper: [
+                      "bg-white",
+                      "data-focus-[within=true]:bg-white",
+                      "data-[hover=true]:bg-white",
+                      "group-data-[focus=true]:bg-white",
+                    ],
+                  }}
+                  radius="sm"
+                  size="md"
                   startContent={<FaUser />}
-                  isRequired
                 />
                 <Input
-                  radius="none"
-                  type="tel"
-                  size="lg"
-                  placeholder="Enter your phone number"
-                  variant="bordered"
-                  startContent={<BsFillTelephoneFill />}
-                  isRequired
-                />
-                <Input
-                  radius="none"
                   type="email"
-                  size="lg"
-                  placeholder="Enter your email address"
-                  variant="bordered"
+                  label="Email"
+                  labelPlacement="outside"
+                  placeholder="Enter your email"
+                  className="py-2 text-xl"
+                  size="md"
+                  classNames={{
+                    label: "text-lg",
+                    input: "py-2 text-base",
+                    inputWrapper: [
+                      "bg-white",
+                      "data-focus-[within=true]:bg-white",
+                      "data-[hover=true]:bg-white",
+                      "group-data-[focus=true]:bg-white",
+                    ],
+                  }}
+                  radius="sm"
                   startContent={<MdEmail />}
-                  isRequired
+                  defaultValue={
+                    session.data?.user?.email ? session.data?.user?.email : ""
+                  }
                 />
+                <Input
+                  label="Phone Number"
+                  labelPlacement="outside"
+                  placeholder="Enter your phone number"
+                  classNames={{
+                    label: "text-lg",
+                    input: "py-2 text-base",
+                    inputWrapper: [
+                      "bg-white",
+                      "data-focus-[within=true]:bg-white",
+                      "data-[hover=true]:bg-white",
+                      "group-data-[focus=true]:bg-white",
+                    ],
+                  }}
+                  radius="sm"
+                  startContent={<BsFillTelephoneFill />}
+                />
+                <div className="py-3">
+                  <RadioGroup
+                    label="Purpose of Email"
+                    classNames={{
+                      label: "text-lg text-black",
+                    }}
+                    orientation="horizontal"
+                  >
+                    {propertyData?.analyticsTaxonomy?.listingStatus ===
+                      "to_rent" && (
+                      <CustomRadio description="Rent property" value="rent">
+                        Rent
+                      </CustomRadio>
+                    )}
+                    {propertyData?.analyticsTaxonomy?.listingStatus ===
+                      "to_sale" && (
+                      <CustomRadio description="Buy property" value="sale">
+                        Sale
+                      </CustomRadio>
+                    )}
+                    <CustomRadio
+                      description="Invest in property"
+                      value="Invest"
+                    >
+                      Invest
+                    </CustomRadio>
+                  </RadioGroup>
+                </div>
                 <Textarea
-                  radius="none"
-                  size="lg"
-                  placeholder="Enter a message"
-                  variant="bordered"
-                  minRows={5}
+                  type="string"
+                  label="Message"
+                  labelPlacement="outside"
+                  placeholder="Enter the message your message to inquire about the property "
+                  minRows={4}
+                  maxRows={6}
+                  classNames={{
+                    label: "text-lg",
+                    input: "py-2 text-base",
+                    inputWrapper: [
+                      "bg-white",
+                      "data-focus-[within=true]:bg-white",
+                      "data-[hover=true]:bg-white",
+                      "group-data-[focus=true]:bg-white",
+                    ],
+                  }}
+                  radius="sm"
                 />
-                <Checkbox color="primary" isRequired>
-                  I consent to having this website store my data.
-                </Checkbox>
-                <Button
-                  className="bg-[#4361EE] text-white"
-                  radius="none"
-                  type="submit"
-                >
-                  Submit Request
-                </Button>
+                <Spacer y={4}></Spacer>
+                {session.data?.user ? (
+                  <Button
+                    radius="sm"
+                    className=" border-1 text-primary"
+                    type="submit"
+                    variant="bordered"
+                    color="primary"
+                  >
+                    Send Message
+                  </Button>
+                ) : (
+                  <p className="text-base font-semibold">
+                    Login or sign up to send a messagae
+                  </p>
+                )}
               </form>
+              <div className="flex flex-col gap-4 bg-[#4361EE] bg-opacity-20 rounded-lg sm:px-6 px-3 py-4 h-fit w-full sm:w-1/2 lg:w-full">
+                <span className="font-semibold text-lg">Brief Features</span>
+                <p>
+                  <strong>Listing status:</strong>{" "}
+                  {propertyData?.analyticsTaxonomy?.listingStatus === "to_rent"
+                    ? "for rent"
+                    : "for sale"}
+                </p>
+                <p>
+                  <strong>Category:</strong>{" "}
+                  {propertyData?.analyticsTaxonomy?.listingsCategory}
+                </p>
+                <p>
+                  <strong>Total floor area:</strong>{" "}
+                  {propertyData?.sqft === ""
+                    ? "unavailable"
+                    : propertyData?.analyticsTaxonomy?.sizeSqFeet}
+                </p>
+                <p>
+                  <strong>Number of rooms :</strong>{" "}
+                  {propertyData?.counts?.numLivingRooms === null
+                    ? "unavailable"
+                    : propertyData?.counts?.LivingRooms}
+                </p>
+                <p>
+                  <strong>Number of beds:</strong>{" "}
+                  {propertyData?.analyticsTaxonomy?.numBeds === null
+                    ? "unavailable"
+                    : propertyData?.analyticsTaxonomy?.numBeds}
+                </p>
+                <p>
+                  <strong>Number of baths:</strong>{" "}
+                  {propertyData?.analyticsTaxonomy?.numBaths === null
+                    ? "unavailable"
+                    : propertyData?.analyticsTaxonomy?.numBaths}
+                </p>
+                <p>
+                  <strong>Shared ownership:</strong>{" "}
+                  {propertyData?.analyticsTaxonomy?.isSharedOwnership
+                    ? "True"
+                    : "False"}
+                </p>
+                <p>
+                  <strong>Student friendly:</strong>{" "}
+                  {propertyData?.features?.flags?.studentFriendly
+                    ? "True"
+                    : "False"}
+                </p>
+                <p>
+                  <strong>Retirement Home:</strong>{" "}
+                  {propertyData?.analyticsTaxonomy?.isRetirementHome
+                    ? "True"
+                    : "False"}
+                </p>
+              </div>
             </div>
           </div>
         </div>
