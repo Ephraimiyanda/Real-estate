@@ -81,7 +81,7 @@ export default function Nav() {
 
   window.addEventListener("hashchange", () => {
     const hashUrl = window && window.location.hash;
-    const url:any= hashUrl ?  hashUrl : pathname;
+    const url: any = hashUrl ? hashUrl : pathname;
     setHashedURL(url);
   });
   // const getmyproviders = async () => {
@@ -159,7 +159,6 @@ export default function Nav() {
             ></Tab>
             <Tab key="/#services" title="Services" href="/#services"></Tab>
             <Tab key="/#blogs" title="Blogs" href="/#blogs"></Tab>
-           
           </Tabs>
         </NavbarContent>
 
@@ -519,7 +518,10 @@ export default function Nav() {
                               fullWidth
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={() => {
-                                signIn("google");
+                                signIn("google", {
+                                  redirect: true,
+                                  callbackUrl: "/",
+                                });
                               }}
                               startContent={<FcGoogle size={30} />}
                             >

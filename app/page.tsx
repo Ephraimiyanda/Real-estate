@@ -548,7 +548,7 @@ export default function Home() {
           <div className="card-container w-full flex-nowrap  py-3 h-full overflow-x-auto flex snap-center snap-x first:scroll ">
             {memoizedProperties && !propertyLoading ? (
               memoizedProperties.map((properties: property) => (
-                <div className="py-3">
+                <div className="py-3" key={properties.listingId}>
                   <ListedPropertyBlock
                     key={properties.listingId}
                     id={properties.listingId}
@@ -651,7 +651,9 @@ export default function Home() {
                 </div>
               </CardHeader>
               <CardBody>
-                <span className=" font-[590] text-center">Invest in real estate</span>
+                <span className=" font-[590] text-center">
+                  Invest in real estate
+                </span>
                 <p className="text-[#808080] text-center">
                   Discover properties to invest in and over time recieve profit.
                 </p>
