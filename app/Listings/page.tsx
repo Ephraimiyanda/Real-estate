@@ -51,10 +51,16 @@ export default function Page() {
   const [propertyLoading, setPropertyLoading] = useState(false);
   const [noProperty, setNoProperty] = useState(false);
   const searchQuery = useDebounceValue(query);
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const router = useRouter();
+  const searchParams = new URLSearchParams(window.location.search);
+
+  //api environment variables
+  const API_URL = process.env.NEXT_PUBLIC_BASE_API;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
+  //property cost filter
   const propertyCost = [
     {
       label: "highest",
@@ -73,15 +79,15 @@ export default function Page() {
       key: "most_reduced ",
     },
   ];
-  const API_URL = process.env.NEXT_PUBLIC_BASE_API;
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
+  //purpose for property
   const propertypurposeItems = [
     { key: "rent", value: "Rent" },
     { key: "sale", value: "Sale" },
     { key: "invest", value: "Invest" },
   ];
 
+  //types of properties
   const propertyTypeItems = [
     { key: "apartment", value: "APARTMENT" },
     { key: "condo", value: "CONDO" },
@@ -91,6 +97,8 @@ export default function Page() {
     { key: "cond-op", value: "Cond_op" },
     { key: "other", value: "other" },
   ];
+
+  //number of bedrooms in property
   const numberOfBedrooms = [
     { key: 1, title: "1+ bedroom" },
     { key: 2, title: "2+ bedroom" },
@@ -202,16 +210,15 @@ export default function Page() {
 
   //getting params from url and setting them to state
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const locationIdentifierParam = params.get("locationIdentifier");
-    const locationValueParam = params.get("locationValue");
-    const priceMinParam = params.get("minPrice");
-    const priceMaxParam = params.get("maxPrice");
-    const bedsParam = params.get("maxBeds");
-    const sortParam = params.get("sort");
-    const pageParam = params.get("page");
-    const typeParam = params.get("type");
-    const purposeParam = params.get("purpose");
+    const locationIdentifierParam = searchParams.get("locationIdentifier");
+    const locationValueParam = searchParams.get("locationValue");
+    const priceMinParam = searchParams.get("minPrice");
+    const priceMaxParam = searchParams.get("maxPrice");
+    const bedsParam = searchParams.get("maxBeds");
+    const sortParam = searchParams.get("sort");
+    const pageParam = searchParams.get("page");
+    const typeParam = searchParams.get("type");
+    const purposeParam = searchParams.get("purpose");
 
     // Update state from URL params
     if (pageParam) {
@@ -229,7 +236,7 @@ export default function Page() {
       setPurposeOfProperty(purposeParam);
       setTypeOfProperty(typeParam);
     }
-  }, []);
+  }, [searchParams]);
 
   // Second effect: trigger searchProperties or fetchSuggestedProperties
   useEffect(() => {
@@ -283,30 +290,31 @@ export default function Page() {
     setQuery(value);
     RunAutoComplete();
   }
+
   //pagination based on results
   const setPagination = (value: number) => {
     setNoProperty(false);
-    const params = new URLSearchParams(window.location.search);
     if (location) {
-      params.set("page", value.toString());
-      params.set("locationIdentifier", location.geoIdentifier);
-      params.set("locationValue", location.geoLabel);
-      params.set("minPrice", priceRange[0]);
-      params.set("maxPrice", priceRange[1]);
-      params.set("maxBeds", bedNumber);
-      params.set("sort", sortBy);
-      params.set("type", typeOfProperty);
-      params.set("purpose", purposeOfProperty);
+      searchParams.set("page", value.toString());
+      searchParams.set("locationIdentifier", location.geoIdentifier);
+      searchParams.set("locationValue", location.geoLabel);
+      searchParams.set("minPrice", priceRange[0]);
+      searchParams.set("maxPrice", priceRange[1]);
+      searchParams.set("maxBeds", bedNumber);
+      searchParams.set("sort", sortBy);
+      searchParams.set("type", typeOfProperty);
+      searchParams.set("purpose", purposeOfProperty);
 
-      replace(`${pathname}?${params.toString()}`);
+      replace(`${pathname}?${searchParams.toString()}`);
       searchProperties();
     } else {
-      params.set("page", value.toString());
-      replace(`${pathname}?${params.toString()}`);
+      searchParams.set("page", value.toString());
+      replace(`${pathname}?${searchParams.toString()}`);
       fetchSuggestedProperties();
     }
     setCurrentPage(value);
   };
+
   return (
     <section className="py-20">
       <div className="">
