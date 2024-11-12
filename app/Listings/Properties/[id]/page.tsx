@@ -14,7 +14,6 @@ import {
   Image,
   Card,
   CardFooter,
-  CardHeader,
   Link,
 } from "@nextui-org/react";
 import { MouseEventHandler, useEffect, useState } from "react";
@@ -26,7 +25,6 @@ import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import PropertyLoading from "@/app/components/propertyLoading";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 export default function PropertyDetails({
@@ -58,9 +56,9 @@ export default function PropertyDetails({
       const result = await response.json();
       setPropertyData(result.data.listingDetails);
       const newArray = result.data.listingDetails.propertyImage.map(
-        (image: { original: string; caption: string }) => ({
+        (image: { original: string }) => ({
           original: image.original,
-          thumbnail: image.caption,
+          thumbnail: image.original,
         })
       );
       setImages(newArray);
@@ -88,6 +86,7 @@ export default function PropertyDetails({
             <div className="max-w-[800px]">
               <div className="max-w-[800px]">
                 <ImageGallery
+                  lazyLoad={true}
                   showPlayButton={false}
                   items={images}
                   renderLeftNav={(
@@ -205,15 +204,15 @@ export default function PropertyDetails({
                         alt="Card example background"
                         className="z-0 w-full h-full  object-contain"
                         src={
-                          propertyData?.content.floorPlan?.image[0]?.url
-                            ? propertyData?.content.floorPlan?.image[0]?.url
+                          propertyData?.content.floorPlan.original
+                            ? propertyData?.content.floorPlan?.original
                             : "/no-image.jpg"
                         }
                       />
                       <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
                         <div>
                           <p className="text-black text-tiny">
-                            {propertyData?.content.floorPlan?.image[0]?.url
+                            {propertyData?.content.floorPlan.original
                               ? "Available"
                               : "Unavailable"}
                           </p>
