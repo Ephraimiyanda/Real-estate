@@ -140,7 +140,11 @@ export default function PropertyDetails({
                   <BsBuildings size={40} color="#4361EE" />
                   <span>Description</span>
                 </p>
-                <div>{propertyData?.detailedDescription}</div>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: propertyData?.detailedDescription
+                  }}
+                ></div>
               </div>
               <div className="py-8 ">
                 <p className="pb-4 font-semibold text-lg flex justify-normal items-center gap-2">
