@@ -70,13 +70,10 @@ export default function Home() {
     geoLabel: "",
   });
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
-  const [signInloading, setSignInLoading] = useState<any>(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [propertyLoading, setPropertyLoading] = useState(false);
   const [noProperty, setNoProperty] = useState(false);
   const [suggestedProperties, setSuggestedProperties] = useState([]);
   const [newsBlogs, setNewsBlogS] = useState([]);
-  const [newsBlogsLoading, setNewsBlogsLoading] = useState(true);
   const searchQuery = useDebounceValue(searchvalue);
   const router = useRouter();
 
@@ -167,7 +164,6 @@ export default function Home() {
 
   //fetch news blogs
   async function fetchNewsBolgs() {
-    setNewsBlogsLoading(true);
     const url = `${NEWS_API}?qInTitle=housing&page=1&pageSize=10&language=en&sortBy=publishedAt&domains=bbc.co.uk,cnn.com`;
     const options = {
       method: "GET",
@@ -181,9 +177,8 @@ export default function Home() {
       const newsBlogsResult = result.articles;
       setNewsBlogS(newsBlogsResult);
       console.log(result);
-      setNewsBlogsLoading(false);
+
       if (newsBlogsResult.length === 0) {
-        setNewsBlogsLoading(false);
         setLoading(false);
       } else {
         setNoProperty(false);
