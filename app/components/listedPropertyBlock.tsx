@@ -48,7 +48,7 @@ export default function ListedPropertyBlock({
                 <p className="font-semibold  w-full">{title}</p>
               </Link>
             </div>
-            <div className="text-black/50 overflow-hidden text-ellipsis h-6  whitespace-nowrap">
+            <div className="text-black/50 overflow-hidden text-ellipsis h-6 max-w-[270px]  whitespace-nowrap">
               {location}
             </div>
             <div className="flex gap-5 justify-start w-full">

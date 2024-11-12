@@ -543,7 +543,7 @@ export default function Home() {
           <div className="card-container w-full flex-nowrap  py-3 h-full overflow-x-auto flex snap-center snap-x first:scroll ">
             {memoizedProperties && !propertyLoading ? (
               memoizedProperties.map((properties: property) => (
-                <div className="py-3" key={properties.listingId}>
+                <div className="py-3 flex gap-4" key={properties.listingId}>
                   <ListedPropertyBlock
                     key={properties.listingId}
                     id={properties.listingId}
