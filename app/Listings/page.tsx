@@ -54,7 +54,10 @@ export default function Page() {
   const pathname = usePathname();
   const { replace } = useRouter();
   const router = useRouter();
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : null;
 
   //api environment variables
   const API_URL = process.env.NEXT_PUBLIC_BASE_API;
@@ -210,15 +213,15 @@ export default function Page() {
 
   //getting params from url and setting them to state
   useEffect(() => {
-    const locationIdentifierParam = searchParams.get("locationIdentifier");
-    const locationValueParam = searchParams.get("locationValue");
-    const priceMinParam = searchParams.get("minPrice");
-    const priceMaxParam = searchParams.get("maxPrice");
-    const bedsParam = searchParams.get("maxBeds");
-    const sortParam = searchParams.get("sort");
-    const pageParam = searchParams.get("page");
-    const typeParam = searchParams.get("type");
-    const purposeParam = searchParams.get("purpose");
+    const locationIdentifierParam = searchParams?.get("locationIdentifier");
+    const locationValueParam = searchParams?.get("locationValue");
+    const priceMinParam = searchParams?.get("minPrice");
+    const priceMaxParam = searchParams?.get("maxPrice");
+    const bedsParam = searchParams?.get("maxBeds");
+    const sortParam = searchParams?.get("sort");
+    const pageParam = searchParams?.get("page");
+    const typeParam = searchParams?.get("type");
+    const purposeParam = searchParams?.get("purpose");
 
     // Update state from URL params
     if (pageParam) {
@@ -295,21 +298,21 @@ export default function Page() {
   const setPagination = (value: number) => {
     setNoProperty(false);
     if (location) {
-      searchParams.set("page", value.toString());
-      searchParams.set("locationIdentifier", location.geoIdentifier);
-      searchParams.set("locationValue", location.geoLabel);
-      searchParams.set("minPrice", priceRange[0]);
-      searchParams.set("maxPrice", priceRange[1]);
-      searchParams.set("maxBeds", bedNumber);
-      searchParams.set("sort", sortBy);
-      searchParams.set("type", typeOfProperty);
-      searchParams.set("purpose", purposeOfProperty);
+      searchParams?.set("page", value.toString());
+      searchParams?.set("locationIdentifier", location.geoIdentifier);
+      searchParams?.set("locationValue", location.geoLabel);
+      searchParams?.set("minPrice", priceRange[0]);
+      searchParams?.set("maxPrice", priceRange[1]);
+      searchParams?.set("maxBeds", bedNumber);
+      searchParams?.set("sort", sortBy);
+      searchParams?.set("type", typeOfProperty);
+      searchParams?.set("purpose", purposeOfProperty);
 
-      replace(`${pathname}?${searchParams.toString()}`);
+      replace(`${pathname}?${searchParams?.toString()}`);
       searchProperties();
     } else {
-      searchParams.set("page", value.toString());
-      replace(`${pathname}?${searchParams.toString()}`);
+      searchParams?.set("page", value.toString());
+      replace(`${pathname}?${searchParams?.toString()}`);
       fetchSuggestedProperties();
     }
     setCurrentPage(value);
