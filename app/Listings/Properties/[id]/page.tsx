@@ -230,9 +230,9 @@ export default function PropertyDetails({
                           radius="full"
                           size="sm"
                           as={Link}
-                          href={propertyData?.floorPlan?.link}
+                          href={propertyData?.floorPlan?.original}
                           isDisabled={
-                            propertyData?.floorPlan?.link ? false : true
+                            propertyData?.floorPlan?.original ? false : true
                           }
                         >
                           View floor plan
