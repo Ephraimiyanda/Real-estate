@@ -6,7 +6,7 @@ interface searchblock {
   src: string;
   id: number;
   num_bathrooms: number;
-  num_bedrooms:number
+  num_bedrooms: number;
 }
 export default function SearchBlock({
   title,
@@ -19,7 +19,7 @@ export default function SearchBlock({
   return (
     <Card
       shadow="md"
-      className="rounded-md  p-0 bg-white w-[90%] max-w-[350px] max-h-[360px] sm:max-w-[280px] sm:w-full"
+      className="rounded-md  p-0 bg-white w-[90%] max-w-[350px] max-h-[360px] min-h-[327px] sm:max-w-[280px] sm:w-full"
       style={{
         padding: "0px",
       }}
@@ -35,7 +35,7 @@ export default function SearchBlock({
           radius="none"
           removeWrapper
           src={src}
-          className=" max-h-[220px] h-full w-full  object-cover"
+          className=" max-h-[200px] h-full w-full  object-cover"
           alt="img"
         />
         <CardFooter className="text-small justify-start flex flex-col px-3 gap-5 w-full p-0 pt-2">

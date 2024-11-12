@@ -43,7 +43,7 @@ export default function Listings() {
   const [priceRange, setPriceRange] = useState<SliderValue | any>([
     1000, 120000,
   ]);
-  const [bedNumber, setBedNumber] = useState<string | any>(3);
+  const [bedNumber, setBedNumber] = useState<string | any>();
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
   const [purposeOfProperty, setPurposeOfProperty] = useState<string | any>("");
   const [loading, setLoading] = useState(false);

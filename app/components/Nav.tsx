@@ -63,9 +63,9 @@ export default function Nav() {
   const [errorMessage, setErrorMessage] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const session = useSession();
-  const hashUrl = window && window.location.hash;
-  const [hashedUrl, setHashedURL] = useState(hashUrl);
-  const url = pathname + hashedUrl;
+  const hashUrl = typeof window !== "undefined" && window.location.hash;
+  const [hashedUrl, setHashedUrl] = useState("");
+   const url = pathname + (hashedUrl || "");
   const searchParams = useSearchParams();
   const error = searchParams?.get("error");
 
@@ -78,27 +78,21 @@ export default function Nav() {
 
     return validateEmail(email) ? false : true;
   }, [email]);
+  // Update hash URL only on client side
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Set the initial hash if it exists
+      setHashedUrl(window.location.hash);
 
-  window.addEventListener("hashchange", () => {
-    const hashUrl = window && window.location.hash;
-    const url: any = hashUrl ? hashUrl : pathname;
-    setHashedURL(url);
-  });
-  // const getmyproviders = async () => {
-  //   try {
-  //     const res: any = await getProviders();
-  //     console.log(Object.values(res));
-  //     setProviders(Object.values(res));
-  //     return res;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getmyproviders();
-  // }, []);
+      // Listen for hash changes
+      const handleHashChange = () => {
+        setHashedUrl(window.location.hash || "");
+      };
 
-  // console.log(session);
+      window.addEventListener("hashchange", handleHashChange);
+      return () => window.removeEventListener("hashchange", handleHashChange);
+    }
+  }, []);
   useEffect(() => {
     if (error) {
       onOpen();
@@ -106,15 +100,6 @@ export default function Nav() {
       setErrorMessage(error);
     }
   }, [error]);
-
-  // async function signUserIn() {
-  //   try {
-  //     const data = await signInWithPopup(auth, provider);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
   return (
     <div>
