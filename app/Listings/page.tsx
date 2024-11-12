@@ -30,7 +30,7 @@ interface property {
     bedrooms: number;
   };
 }
-export default function Search() {
+export default function Page() {
   const [suggestedProperties, setSuggestedProperties] = useState([]);
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState<any>({
@@ -40,7 +40,9 @@ export default function Search() {
   const [autoComplete, setAutoComplete] = useState([]);
   const [autoCompleteLoading, setAutoCompleteLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState<number | any>(1);
-  const [priceRange, setPriceRange] = useState<SliderValue | any>([1000, 120000]);
+  const [priceRange, setPriceRange] = useState<SliderValue | any>([
+    1000, 120000,
+  ]);
   const [bedNumber, setBedNumber] = useState<string | any>(3);
   const [typeOfProperty, setTypeOfProperty] = useState<string | any>("");
   const [purposeOfProperty, setPurposeOfProperty] = useState<string | any>("");
