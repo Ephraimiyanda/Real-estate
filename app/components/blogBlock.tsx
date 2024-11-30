@@ -21,6 +21,7 @@ export function BlogBlock({ link, title, description, imgUrl, author }: blog) {
       <Card className="bg-transparent bg-none shadow-none text-white  border-none snap-center p-0 sm:w-[320px] w-full  h-full">
         <CardBody className="p-0 flex flex-col gap-3">
           <Image
+            removeWrapper
             src={imgUrl}
             width={300}
             height={300}
@@ -29,7 +30,7 @@ export function BlogBlock({ link, title, description, imgUrl, author }: blog) {
             isZoomed
           />
           <Link href={link}>
-            <p className="text-white text-xl font-medium hover:underline h-8 truncate whitespace-normal text-ellipsis">
+            <p className="text-white text-xl font-medium hover:underline h-8 truncate   sm:max-w-[310px]">
               {title}
             </p>
           </Link>

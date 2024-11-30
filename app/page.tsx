@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import "./infinitescroll.scss";
 import {
   Autocomplete,
@@ -9,8 +8,6 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Chip,
-  Input,
   Select,
   SelectItem,
   Spinner,
@@ -21,22 +18,15 @@ import { ImLocation } from "react-icons/im";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
-import { GrHomeRounded } from "react-icons/gr";
-import { InvestChip, NewListingChip, PopularChip } from "./components/Chips";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
-import Script from "next/script";
-import { Helmet } from "react-helmet";
 import { useDebounceValue } from "./assest/debounce";
-import { redirect, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ListedPropertyBlock from "./components/listedPropertyBlock";
-import LoadingBlock from "./components/loading";
 import ListedPropertyLoadingBlock from "./components/listedPropertyLoading";
 import { BlogBlock } from "./components/blogBlock";
-
+import { newsBlogs } from "./assest/data";
 interface property {
   address: string;
   imageUris: string[];
@@ -73,19 +63,11 @@ export default function Home() {
   const [propertyLoading, setPropertyLoading] = useState(false);
   const [noProperty, setNoProperty] = useState(false);
   const [suggestedProperties, setSuggestedProperties] = useState([]);
-  const [newsBlogs, setNewsBlogS] = useState([]);
   const searchQuery = useDebounceValue(searchvalue);
   const router = useRouter();
 
   const API_URL = process.env.NEXT_PUBLIC_BASE_API;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-  const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
-  const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
-
-  //get date
-  const currentDate = new Date();
-  currentDate.setMonth(currentDate.getMonth() - 1);
-  const backtrackedDate = new Date(currentDate);
 
   //property types
   const propertyTypeItems = [
@@ -162,35 +144,8 @@ export default function Home() {
     }
   }
 
-  //fetch news blogs
-  async function fetchNewsBolgs() {
-    const url = `${NEWS_API}?qInTitle=housing&page=1&pageSize=10&language=en&sortBy=publishedAt&domains=bbc.co.uk,cnn.com`;
-    const options = {
-      method: "GET",
-      headers: {
-        "X-Api-Key": `${NEWS_API_KEY}`,
-      },
-    };
-    try {
-      const response = await fetch(url, options);
-      const result = await response.json();
-      const newsBlogsResult = result.articles;
-      setNewsBlogS(newsBlogsResult);
-      console.log(result);
-
-      if (newsBlogsResult.length === 0) {
-        setLoading(false);
-      } else {
-        setNoProperty(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
     fetchSuggestedProperties();
-    fetchNewsBolgs();
   }, [API_KEY, API_URL]);
 
   //momoized property data
@@ -580,7 +535,7 @@ export default function Home() {
           <h4 className=" text-3xl sm:text-4xl text-center font-semibold">
             What we offer our clients
           </h4>
-          <div className="flex flex-col flex-wrap gap-5 sm:gap-4 items-center sm:items-[unset] sm:flex-row w-full justify-evenly py-6">
+          <div className="flex flex-col flex-wrap gap-5 sm:gap-4 items-center sm:items-[unset] sm:flex-row w-full justify-center py-6">
             <Card
               isHoverable
               isPressable
@@ -682,12 +637,12 @@ export default function Home() {
                 src="/house1.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
-              <CardFooter className="px-10 absolute bottom-10 left-4">
+              <CardFooter className="sm:px-10 px-5 absolute bottom-4 sm:bottom-10  sm:left-4 left-3">
                 <div>
-                  <span className="text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60 ">
+                  <span className="text-xl sm:text-5xl drop-shadow text-white font-semibold opacity-60 ">
                     216
                   </span>
-                  <p className="text-white">New York City, NY</p>
+                  <p className="text-white text-pretty">New York City, NY</p>
                 </div>
               </CardFooter>
             </Card>
@@ -699,12 +654,12 @@ export default function Home() {
                 src="/house2.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
-              <CardFooter className="px-10 absolute bottom-10 left-4">
+              <CardFooter className="sm:px-10 px-5 absolute bottom-4 sm:bottom-10 sm:left-4 left-3">
                 <div>
-                  <span className=" text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
+                  <span className=" text-xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
                     141
                   </span>
-                  <p className="text-white">Houston, TX</p>
+                  <p className="text-white text-pretty">Houston, TX</p>
                 </div>
               </CardFooter>
             </Card>
@@ -716,12 +671,12 @@ export default function Home() {
                 src="/house3.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
-              <CardFooter className="px-10 absolute bottom-10 left-4">
+              <CardFooter className="sm:px-10 px-5 absolute bottom-4 sm:bottom-10 sm:left-4 left-3">
                 <div>
-                  <span className="text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
+                  <span className="text-xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
                     212
                   </span>
-                  <p className="text-white">San Diego, CA</p>
+                  <p className="text-white text-pretty">San Diego, CA</p>
                 </div>
               </CardFooter>
             </Card>
@@ -733,12 +688,12 @@ export default function Home() {
                 src="/house4.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full"
               />
-              <CardFooter className="px-10 absolute bottom-10 left-4">
+              <CardFooter className="sm:px-10 px-5 absolute bottom-4 sm:bottom-10 sm:left-4 left-3">
                 <div>
-                  <span className="text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60 ">
+                  <span className="text-xl sm:text-5xl drop-shadow text-white font-semibold opacity-60 ">
                     183
                   </span>
-                  <p className="text-white">Philadelphia, PA</p>
+                  <p className="text-white text-pretty">Philadelphia, PA</p>
                 </div>
               </CardFooter>
             </Card>
@@ -750,12 +705,12 @@ export default function Home() {
                 src="/house5.png"
                 className="  max-w-full rounded-lg w-full max-h-[340px] object-fill h-full "
               />
-              <CardFooter className="px-10 absolute bottom-10 left-4">
+              <CardFooter className="sm:px-10 px-5 absolute bottom-4 sm:bottom-10 sm:left-4 left-3">
                 <div>
-                  <span className=" text-3xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
+                  <span className=" text-xl sm:text-5xl drop-shadow text-white font-semibold opacity-60">
                     112
                   </span>
-                  <p className="text-white">San Francisco, CA</p>
+                  <p className="text-white text-pretty">San Francisco, CA</p>
                 </div>
               </CardFooter>
             </Card>

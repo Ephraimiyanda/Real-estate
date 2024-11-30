@@ -25,15 +25,18 @@ body {
 }
 .card-container::-webkit-scrollbar {
   background: rgb(244, 243, 243);
+  border-radius: 4px;
   height: 6px;
 }
+
 .card-container::-webkit-scrollbar-thumb {
   background: #4361ee;
   border-radius: 4px;
 }
 .blog-container::-webkit-scrollbar {
-  background: rgb(197, 196, 196);
+  background: rgb(219, 217, 217);
   height: 6px;
+  border-radius: 4px;
 }
 .blog-container::-webkit-scrollbar-thumb {
   background: white;
@@ -44,6 +47,9 @@ body {
   background-repeat: no-repeat;
   background-position: top;
   background-size: contain;
+}
+.text-pretty {
+  text-wrap: pretty;
 }
 @media (min-width: 1280px) {
   .first-section {

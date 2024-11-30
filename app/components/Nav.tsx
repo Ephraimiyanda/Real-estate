@@ -65,7 +65,7 @@ export default function Nav() {
   const session = useSession();
   const hashUrl = typeof window !== "undefined" && window.location.hash;
   const [hashedUrl, setHashedUrl] = useState("");
-   const url = pathname + (hashedUrl || "");
+  const url = pathname + (hashedUrl || "");
   const searchParams = useSearchParams();
   const error = searchParams?.get("error");
 
@@ -189,22 +189,19 @@ export default function Nav() {
         <NavbarMenu className="flex flex-col gap-3">
           <NavbarItem
             className={`flex justify-start items-center gap-3 py-2 ${
-              pathname === "/" ? "text-[#0070f0]" : "text-black"
+              url === "/" ? "text-[#0070f0]" : "text-black"
             }`}
             as={Link}
             key="home"
             href="/"
             aria-label="dashboard"
           >
-            <IoMdHome
-              color={pathname === "/" ? "#0070f0" : "black"}
-              size={24}
-            />
+            <IoMdHome color={url === "/" ? "#0070f0" : "black"} size={24} />
             <p className="text-xl">Home</p>
           </NavbarItem>
           <NavbarItem
             className={`flex justify-start items-center gap-3 py-2 ${
-              pathname === "/#about-us" ? "text-[#0070f0]" : "text-black"
+              url === "/#about-us" ? "text-[#0070f0]" : "text-black"
             }`}
             as={Link}
             href={"/#about-us"}
@@ -213,27 +210,27 @@ export default function Nav() {
             }}
           >
             <IoMdInformationCircleOutline
-              color={pathname === "/#about-us" ? "#0070f0" : "black"}
+              color={url === "/#about-us" ? "#0070f0" : "black"}
               size={24}
             />
             <p className="text-xl">About</p>
           </NavbarItem>
           <NavbarItem
             className={`flex justify-start items-center gap-3 py-2 ${
-              pathname?.includes("/Listings") ? "text-[#0070f0]" : "text-black"
+              url?.includes("/Listings") ? "text-[#0070f0]" : "text-black"
             }`}
             as={Link}
             href={"/Listings"}
           >
             <TbHomeSearch
-              color={pathname?.includes("/Listings") ? "#0070f0" : "black"}
+              color={url?.includes("/Listings") ? "#0070f0" : "black"}
               size={24}
             />
             <p className="text-xl">Listings and Offers</p>
           </NavbarItem>
           <NavbarItem
             className={`flex justify-start items-center gap-3 py-2 ${
-              pathname === "/#services" ? "text-[#0070f0]" : "text-black"
+              url === "/#services" ? "text-[#0070f0]" : "text-black"
             }`}
             as={Link}
             href={"/#services"}
@@ -242,14 +239,14 @@ export default function Nav() {
             }}
           >
             <GrServices
-              color={pathname === "/#services" ? "#0070f0" : "black"}
+              color={url === "/#services" ? "#0070f0" : "black"}
               size={24}
             />
             <p className="text-xl">Services</p>
           </NavbarItem>
           <NavbarItem
             className={`flex justify-start items-center gap-3 py-2 ${
-              pathname === "/#blogs" ? "text-[#0070f0]" : "text-black"
+              url === "/#blogs" ? "text-[#0070f0]" : "text-black"
             }`}
             as={Link}
             href={"/#blogs"}
@@ -258,17 +255,21 @@ export default function Nav() {
             }}
           >
             <IoBookSharp
-              color={pathname === "/#blogs" ? "#0070f0" : "black"}
+              color={url === "/#blogs" ? "#0070f0" : "black"}
               size={24}
             />
             <p className="text-xl">Blogs</p>
           </NavbarItem>
 
-          <NavbarItem className=" sm:hidden flex flex-col gap-3 py-2">
+          <NavbarItem className="sm:hidden flex flex-col gap-3 justify-start">
             {session?.data?.user ? (
               <User
+                className="justify-start"
+                classNames={{
+                  base: "justify-start",
+                }}
                 avatarProps={{
-                  src: `${session.data.user.image}`,
+                  src: `${session.data?.user?.image}`,
                 }}
                 name={session?.data?.user.name}
                 description={session?.data?.user.email}
