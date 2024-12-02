@@ -9,6 +9,8 @@ export const authOptions = {
   // Configure one or more authentication providers
   pages: {
     error: "/",
+    signIn: "/",
+    signOut: "/",
   },
   providers: [
     GoogleProvider({
