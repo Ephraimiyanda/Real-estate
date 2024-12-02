@@ -421,7 +421,7 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
                                 signIn("google", {
-                                  callbackUrl: "/",
+                                  callbackUrl: "https://realswitch.netlify.app",
                                 });
                               }}
                               startContent={<FcGoogle size={30} />}
@@ -496,7 +496,7 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
                                 signIn("google", {
-                                  callbackUrl: "/",
+                                  callbackUrl: "https://realswitch.netlify.app",
                                 });
                               }}
                               startContent={<FcGoogle size={30} />}
