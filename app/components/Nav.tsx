@@ -420,7 +420,11 @@ export default function Nav() {
                               fullWidth
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={() => {
-                                signIn("google");
+                                signIn("google", {
+                                  redirect: true,
+                                  callbackUrl: "/",
+                                });
+                                // signUserIn();
                               }}
                               startContent={<FcGoogle size={30} />}
                             >
