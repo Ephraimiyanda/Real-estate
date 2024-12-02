@@ -424,8 +424,7 @@ export default function Nav() {
                               onClick={() => {
                                 signIn("google", {
                                   redirect: false,
-                                }).then(() => {
-                                  redirect("/");
+                                  callbackUrl: "/",
                                 });
                                 // signUserIn();
                               }}
@@ -502,8 +501,7 @@ export default function Nav() {
                               onClick={() => {
                                 signIn("google", {
                                   redirect: false,
-                                }).then(() => {
-                                  redirect("/");
+                                  callbackUrl: "/",
                                 });
                               }}
                               startContent={<FcGoogle size={30} />}
