@@ -2,12 +2,8 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, firebaseConfig } from "@/app/firebase";
-import { FirestoreAdapter } from "@auth/firebase-adapter";
-import firebase from "firebase/app";
+import { auth } from "@/app/firebase";
 import "firebase/firestore";
-import { cert } from "firebase-admin/app";
-import { Firestore } from "firebase-admin/firestore";
 
 export const authOptions = {
   // Configure one or more authentication providers
