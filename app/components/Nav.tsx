@@ -421,7 +421,7 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={() => {
                                 signIn("google", {
-                                  redirect: true,
+                                  redirect: false,
                                   callbackUrl: "/",
                                 });
                                 // signUserIn();
