@@ -420,9 +420,10 @@ export default function Nav() {
                               fullWidth
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
-                                signIn("google", {
-                                  callbackUrl: "/",
-                                });
+                                const result = await signIn("google");
+                                if (result?.ok) {
+                                  redirect("/");
+                                }
                               }}
                               startContent={<FcGoogle size={30} />}
                             >
@@ -495,9 +496,10 @@ export default function Nav() {
                               fullWidth
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
-                                signIn("google", {
-                                  callbackUrl: "/",
-                                });
+                                const result = await signIn("google");
+                                if (result?.ok) {
+                                  redirect("/");
+                                }
                               }}
                               startContent={<FcGoogle size={30} />}
                             >
