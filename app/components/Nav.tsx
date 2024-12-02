@@ -413,13 +413,6 @@ export default function Nav() {
                             >
                               Login
                             </Button>
-                            {/* {Object.values(providers).map((provider: any) => (
-                              <div key={provider.name}>
-                                <button onClick={() => signIn(provider.name)}>
-                                  Sign in with {provider.name}
-                                </button>
-                              </div>
-                            ))} */}
                           </div>
 
                           <div className="flex justify-center">
