@@ -739,7 +739,7 @@ export default function Home() {
             Latest Blogs & Posts
           </h6>
           <div className="blog-container w-full flex-nowrap  py-3 h-full overflow-x-auto flex gap-5 snap-center snap-x first:scroll ">
-            {memoizedBlogs && !propertyLoading ? (
+            {memoizedBlogs ? (
               memoizedBlogs.map((blogs: blog, index: number) => (
                 <BlogBlock
                   key={index}
