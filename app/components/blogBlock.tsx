@@ -21,13 +21,14 @@ export function BlogBlock({ link, title, description, imgUrl, author }: blog) {
       <Card className="bg-transparent bg-none shadow-none text-white  border-none snap-center p-0 sm:w-[320px] w-full  h-full">
         <CardBody className="p-0 flex flex-col gap-3">
           <Image
-            removeWrapper
             src={imgUrl}
-            width={300}
-            height={300}
             alt="home"
             className=" h-[240px] w-full sm:w-[340px] rounded-lg "
             isZoomed
+            classNames={{
+              wrapper: "max-w-[unset] w-full",
+            }}
+            
           />
           <Link href={link}>
             <p className="text-white text-xl font-medium hover:underline h-8 truncate   sm:max-w-[310px]">

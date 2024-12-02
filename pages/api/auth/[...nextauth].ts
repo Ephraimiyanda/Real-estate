@@ -43,6 +43,9 @@ export const authOptions = {
     async redirect({ url, baseUrl }: any) {
       return baseUrl;
     },
+    async signIn({ user }:any) {
+      return true;
+    },
   },
 };
 

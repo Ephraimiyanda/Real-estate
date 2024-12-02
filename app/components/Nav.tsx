@@ -58,12 +58,10 @@ export default function Nav() {
   const [password, setPassword] = useState("");
   const [selected, setSelected] = useState<any>("login");
   const pathname = usePathname();
-  const [providers, setProviders] = useState<any>([]);
   const [signInloading, setSignInLoading] = useState<any>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const session = useSession();
-  const hashUrl = typeof window !== "undefined" && window.location.hash;
   const [hashedUrl, setHashedUrl] = useState("");
   const url = pathname + (hashedUrl || "");
   const searchParams = useSearchParams();
@@ -423,9 +421,8 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
                                 signIn("google", {
-                                  redirect: false,
+                                  callbackUrl: "/",
                                 });
-                                redirect("/");
                               }}
                               startContent={<FcGoogle size={30} />}
                             >
@@ -499,9 +496,8 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
                                 signIn("google", {
-                                  redirect: false,
+                                  callbackUrl: "/",
                                 });
-                                redirect("/");
                               }}
                               startContent={<FcGoogle size={30} />}
                             >
