@@ -17,7 +17,8 @@ export const authOptions = {
       name: "google",
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      checks: "none",
+      checks: "state",
+      state:false
     }),
     CredentialsProvider({
       name: "credentials",
