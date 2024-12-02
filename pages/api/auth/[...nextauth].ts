@@ -40,7 +40,12 @@ export const authOptions = {
       },
     }),
   ],
-
+  callbacks: {
+    async redirect({ url, baseUrl }:any) {
+      // Ensure redirection to a clean URL without query parameters
+      return baseUrl;
+    },
+  },
   csrf: {
     // NextAuth will handle CSRF internally using anti-CSRF tokens
     csrfToken: true,

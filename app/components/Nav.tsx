@@ -1,6 +1,6 @@
 // app/tabs/page.tsx
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardBody,
@@ -17,11 +17,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Button,
   useDisclosure,
   Input,
-  CardHeader,
   User,
   Dropdown,
   DropdownTrigger,
@@ -29,29 +27,26 @@ import {
   DropdownItem,
   Avatar,
 } from "@nextui-org/react";
-import { redirect, usePathname, useSearchParams } from "next/navigation";
+import {
+  redirect,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { useState, useMemo } from "react";
 import { HiHomeModern } from "react-icons/hi2";
 import { RxAvatar } from "react-icons/rx";
-import { TbHomePlus } from "react-icons/tb";
 import { IoMdHome } from "react-icons/io";
-import { FcAbout } from "react-icons/fc";
 import { TbHomeSearch } from "react-icons/tb";
 import { GrServices } from "react-icons/gr";
 import { IoBookSharp } from "react-icons/io5";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { CiLogin } from "react-icons/ci";
-import {
-  getProviders,
-  getCsrfToken,
-  signIn,
-  useSession,
-  signOut,
-} from "next-auth/react";
-import { GetServerSidePropsContext } from "next";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { getProviders, signIn, useSession, signOut } from "next-auth/react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, provider } from "../firebase";
 import { FcGoogle } from "react-icons/fc";
+
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -66,6 +61,15 @@ export default function Nav() {
   const url = pathname + (hashedUrl || "");
   const searchParams = useSearchParams();
   const error = searchParams?.get("error");
+  const router = useRouter();
+
+  //cleanup url after login
+  useEffect(() => {
+    if (searchParams?.get("code ") || searchParams?.get("state")) {
+      //@ts-ignore
+      router.replace(pathname);
+    }
+  }, [router]);
 
   //check if email is valid
   const validateEmail = (value: string) =>
