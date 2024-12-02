@@ -421,11 +421,13 @@ export default function Nav() {
                             <Button
                               fullWidth
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
-                              onClick={() => {
-                                signIn("google", {
+                              onClick={async () => {
+                                const result = await signIn("google", {
                                   redirect: false,
-                                  callbackUrl: "/",
                                 });
+                                if (result?.ok) {
+                                  redirect("/");
+                                }
                                 // signUserIn();
                               }}
                               startContent={<FcGoogle size={30} />}
@@ -498,11 +500,13 @@ export default function Nav() {
                             <Button
                               fullWidth
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
-                              onClick={() => {
-                                signIn("google", {
+                              onClick={async () => {
+                                const result = await signIn("google", {
                                   redirect: false,
-                                  callbackUrl: "/",
                                 });
+                                if (result?.ok) {
+                                  redirect("/");
+                                }
                               }}
                               startContent={<FcGoogle size={30} />}
                             >
