@@ -168,7 +168,7 @@ export default function Nav() {
                   key="logout"
                   color="danger"
                   onPress={() => {
-                    signOut();
+                    signOut({ redirect: false });
                   }}
                 >
                   Log Out
@@ -289,7 +289,7 @@ export default function Nav() {
             <Button
               className="text-xl text-white bg-danger max-w-[200px] flex justify-center items-center"
               onClick={() => {
-                signOut();
+                signOut({ redirect: false });
               }}
               endContent={<CiLogin size={24} color="white" />}
             >
@@ -421,7 +421,7 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
                                 signIn("google", {
-                                  callbackUrl: "https://realswitch.netlify.app",
+                                  callbackUrl: "/",
                                 });
                               }}
                               startContent={<FcGoogle size={30} />}
@@ -496,7 +496,7 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={async () => {
                                 signIn("google", {
-                                  callbackUrl: "https://realswitch.netlify.app",
+                                  callbackUrl: "/",
                                 });
                               }}
                               startContent={<FcGoogle size={30} />}
