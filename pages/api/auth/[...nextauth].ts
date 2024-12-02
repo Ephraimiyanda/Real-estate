@@ -41,7 +41,7 @@ export const authOptions = {
   ],
   callbacks: {
     async redirect({ url, baseUrl }: any) {
-      return baseUrl;
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
 };

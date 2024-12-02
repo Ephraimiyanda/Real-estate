@@ -29,7 +29,7 @@ import {
   DropdownItem,
   Avatar,
 } from "@nextui-org/react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 import { useState, useMemo } from "react";
 import { HiHomeModern } from "react-icons/hi2";
 import { RxAvatar } from "react-icons/rx";
@@ -78,6 +78,7 @@ export default function Nav() {
 
     return validateEmail(email) ? false : true;
   }, [email]);
+
   // Update hash URL only on client side
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -93,6 +94,7 @@ export default function Nav() {
       return () => window.removeEventListener("hashchange", handleHashChange);
     }
   }, []);
+
   useEffect(() => {
     if (error) {
       onOpen();
@@ -421,8 +423,10 @@ export default function Nav() {
                               className="bg-white max-w-[200px] shadow-md  mx-auto h-[45px] rounded-sm "
                               onClick={() => {
                                 signIn("google", {
-                                  redirect: false,
+                                  redirect: true,
                                   callbackUrl: "/",
+                                }).then(() => {
+                                  redirect("/");
                                 });
                                 // signUserIn();
                               }}
@@ -500,6 +504,8 @@ export default function Nav() {
                                 signIn("google", {
                                   redirect: true,
                                   callbackUrl: "/",
+                                }).then(() => {
+                                  redirect("/");
                                 });
                               }}
                               startContent={<FcGoogle size={30} />}
