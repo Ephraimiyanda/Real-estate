@@ -15,9 +15,9 @@ import {
 import { FormEvent, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { ImLocation } from "react-icons/im";
-import SearchBlock from "@/app/components/searchBlock";
+import SearchBlock from "@/app/components/cards/searchBlock";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import LoadingBlock from "@/app/components/loading";
+import LoadingBlock from "@/app/components/loaders/loading";
 import { useDebounceValue } from "@/app/assest/debounce";
 interface property {
   address: string;

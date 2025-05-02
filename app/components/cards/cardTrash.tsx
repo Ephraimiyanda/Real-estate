@@ -1,5 +1,5 @@
 import { Card, CardBody, CardFooter,Image } from "@nextui-org/react";
-import { PopularChip } from "./Chips";
+import { PopularChip } from "../chips/Chips";
 
 export function CardTrash() {
   return (

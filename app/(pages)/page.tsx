@@ -1,5 +1,5 @@
 "use client";
-import "./infinitescroll.scss";
+import "../infinitescroll.scss";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -19,14 +19,14 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
-import { useDebounceValue } from "./assest/debounce";
+import { useDebounceValue } from "../assest/debounce";
 import { useRouter } from "next/navigation";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import ListedPropertyBlock from "./components/listedPropertyBlock";
-import ListedPropertyLoadingBlock from "./components/listedPropertyLoading";
-import { BlogBlock } from "./components/blogBlock";
-import { newsBlogs } from "./assest/data";
+import ListedPropertyBlock from "../components/cards/listedPropertyBlock";
+import ListedPropertyLoadingBlock from "../components/loaders/listedPropertyLoading";
+import { BlogBlock } from "../components/cards/blogBlock";
+import { newsBlogs } from "../assest/data";
 interface property {
   address: string;
   imageUris: string[];

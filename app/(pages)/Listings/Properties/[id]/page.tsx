@@ -20,11 +20,11 @@ import { MouseEventHandler, useEffect, useState } from "react";
 import { BsBuildings } from "react-icons/bs";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { SiBlueprint } from "react-icons/si";
-import { CustomRadio } from "@/app/components/customRadio";
+import { CustomRadio } from "@/app/components/radios/customRadio";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
-import PropertyLoading from "@/app/components/propertyLoading";
+import PropertyLoading from "@/app/components/loaders/propertyLoading";
 import { useSession } from "next-auth/react";
 
 export default function PropertyDetails({

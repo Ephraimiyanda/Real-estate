@@ -44,7 +44,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { CiLogin } from "react-icons/ci";
 import { getProviders, signIn, useSession, signOut } from "next-auth/react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, provider } from "../firebase";
+import { auth, provider } from "../../firebase";
 import { FcGoogle } from "react-icons/fc";
 
 export default function Nav() {

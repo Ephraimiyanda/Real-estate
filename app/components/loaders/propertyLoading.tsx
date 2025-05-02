@@ -20,7 +20,7 @@ import { MouseEventHandler } from "react";
 import { BsBuildings } from "react-icons/bs";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { SiBlueprint } from "react-icons/si";
-import { CustomRadio } from "@/app/components/customRadio";
+import { CustomRadio } from "@/app/components/radios/customRadio";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
@@ -48,7 +48,6 @@ export default function PropertyLoading() {
             </ul>
           </div>
         </div>
-        
       </div>
     </div>
   );
