@@ -3,10 +3,8 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/firebase";
-import "firebase/firestore";
 
 export const authOptions = {
-  // Configure one or more authentication providers
   pages: {
     error: "/",
     signIn: "/",
@@ -21,33 +19,41 @@ export const authOptions = {
     }),
     CredentialsProvider({
       name: "credentials",
-      credentials: {},
-      async authorize(credentials): Promise<any> {
-        return await signInWithEmailAndPassword(
-          auth,
-          (credentials as any).email || "",
-          (credentials as any).password || ""
-        )
-          .then((userCredential) => {
-            if (userCredential.user) {
-              return userCredential.user;
-            }
-            throw new Error("Invalid login details");
-          })
-          .catch((error) => {
-            throw new Error("Invalid login details");
-          });
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const email = credentials?.email ?? "";
+        const password = credentials?.password ?? "";
+
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          const user = userCredential.user;
+          if (!user) throw new Error("Invalid login details");
+
+          return {
+            id: user.uid,
+            email: user.email,
+            name: user.displayName,
+            image: user.photoURL,
+          };
+        } catch {
+          throw new Error("Invalid login details");
+        }
       },
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl }:any) {
-      // Ensure redirection to a clean URL without query parameters
+    async redirect({ baseUrl }: { url: string; baseUrl: string }) {
       return baseUrl;
     },
   },
   csrf: {
-    // NextAuth will handle CSRF internally using anti-CSRF tokens
     csrfToken: true,
   },
 };

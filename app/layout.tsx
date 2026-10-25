@@ -3,31 +3,24 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/navigation/Nav";
 import Footer from "./components/footers/Footer";
-const inter = Inter({ subsets: ["latin"] });
 import Providers from "./Providers/providers";
+
+const inter = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
   title: "Realswitch",
   description: "what you want we have, look for your best housing options",
   icons: "/logo.png",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // const sesssion = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     redirect("/signIn")
-  //   }
-  // })
   return (
     <html lang="en">
-      <meta
-        http-equiv="Cross-Origin-Opener-Policy"
-        content="allow-popups"
-      ></meta>
+      <meta httpEquiv="Cross-Origin-Opener-Policy" content="allow-popups" />
       <body className={inter.className}>
         <Providers>
           <Nav />
