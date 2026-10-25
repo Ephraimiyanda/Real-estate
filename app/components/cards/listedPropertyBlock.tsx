@@ -1,6 +1,6 @@
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import Link from "next/link";
-interface ListedPropertyblock {
+interface ListedPropertyBlockProps {
   title: string;
   location: string;
   src: string;
@@ -17,7 +17,7 @@ export default function ListedPropertyBlock({
   num_bathrooms,
   num_bedrooms,
   price,
-}: ListedPropertyblock) {
+}: ListedPropertyBlockProps) {
   return (
     <Card
       shadow="md"

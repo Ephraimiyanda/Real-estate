@@ -6,7 +6,6 @@ import {
   Link,
   Image,
 } from "@nextui-org/react";
-import { title } from "process";
 import { GoArrowRight } from "react-icons/go";
 interface blog {
   title: string;
@@ -28,7 +27,6 @@ export function BlogBlock({ link, title, description, imgUrl, author }: blog) {
             classNames={{
               wrapper: "max-w-[unset] w-full",
             }}
-            
           />
           <Link href={link}>
             <p className="text-white text-xl font-medium hover:underline h-8 truncate   sm:max-w-[310px]">

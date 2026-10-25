@@ -1,6 +1,6 @@
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import Link from "next/link";
-interface searchblock {
+interface SearchBlockProps {
   title: string;
   location: string;
   src: string;
@@ -15,7 +15,7 @@ export default function SearchBlock({
   id,
   num_bathrooms,
   num_bedrooms,
-}: searchblock) {
+}: SearchBlockProps) {
   return (
     <Card
       shadow="md"

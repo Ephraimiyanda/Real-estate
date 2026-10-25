@@ -17,14 +17,14 @@ export default function Footer() {
               <p className="font-bold text-inherit">RealSwitch</p>
             </Link>
           </div>
-          <p>2728 Hickory StreetSalt Lake City, UT 84104</p>
+          <p>2728 Hickory Street, Salt Lake City, UT 84104</p>
           <div className="flex justify-start gap-2 items-center">
             <BsTelephone />
             <p>+1 206-214-2298</p>
           </div>
           <div className="flex justify-start gap-2 items-center">
             <MdOutlineEmail />
-            <Link href={"myemail@gmail.com"}>RealSwitch@gmail.com</Link>
+            <Link href="mailto:RealSwitch@gmail.com">RealSwitch@gmail.com</Link>
           </div>
         </div>
         <div className="flex flex-col gap-3">
@@ -46,7 +46,7 @@ export default function Footer() {
               <Link href={"/#blogs"}>Blogs</Link>
             </li>
             <li>
-              <Link href={"#Blogs"}>Become a Agent</Link>
+              <Link href="/#blogs">Become an Agent</Link>
             </li>
           </ul>
         </div>
@@ -72,7 +72,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col gap-2">
           <p className="font-semibold text-lg text-black">
-            Suscribe to our Newsletter!
+            Subscribe to our Newsletter!
           </p>
           <form
             action=""
