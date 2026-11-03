@@ -4,7 +4,7 @@ interface SearchBlockProps {
   title: string;
   location: string;
   src: string;
-  id: number;
+  id: string | number;
   num_bathrooms: number;
   num_bedrooms: number;
 }
