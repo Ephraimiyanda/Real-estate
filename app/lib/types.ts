@@ -7,7 +7,7 @@ export interface PropertyListing {
   address: string;
   imageUris?: string[];
   description?: string;
-  listingId: number;
+  listingId: string | number;
   title: string;
   attributes?: {
     bathrooms?: number;

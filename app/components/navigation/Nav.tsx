@@ -39,7 +39,7 @@ import { TbHomeSearch } from "react-icons/tb";
 import { GrServices } from "react-icons/gr";
 import { IoBookSharp } from "react-icons/io5";
 import { IoMdInformationCircleOutline } from "react-icons/io";
-import { CiLogin } from "react-icons/ci";
+import { CiLogin, CiLogout } from "react-icons/ci";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/firebase";
@@ -49,6 +49,7 @@ const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selected, setSelected] = useState("login");
@@ -69,6 +70,11 @@ export default function Nav() {
       router.replace(pathname);
     }
   }, [pathname, router, searchParams]);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsAccountOpen(false);
+  }, [pathname, hashedUrl]);
 
   const isInvalid = useMemo(() => {
     if (email === "") return false;
@@ -187,29 +193,63 @@ export default function Nav() {
 
         <NavbarContent justify="end" className="hidden sm:flex">
           {isLoggedIn ? (
-            <Dropdown>
-              <DropdownTrigger className="cursor-pointer">
-                <User
-                  avatarProps={{
-                    src: `${session.data?.user?.image ?? ""}`,
-                  }}
-                  name={session.data?.user?.name}
-                  description={session.data?.user?.email}
-                />
+            <Dropdown
+              isOpen={isAccountOpen}
+              onOpenChange={setIsAccountOpen}
+              placement="bottom-end"
+            >
+              <DropdownTrigger>
+                <Button
+                  variant="light"
+                  disableRipple
+                  className="h-auto min-w-0 bg-transparent px-1 data-[hover=true]:bg-transparent"
+                >
+                  <User
+                    as="span"
+                    className="justify-end"
+                    classNames={{
+                      base: "justify-end",
+                      name: "max-w-[140px] truncate text-left",
+                      description: "max-w-[140px] truncate text-left",
+                    }}
+                    avatarProps={{
+                      src: session.data?.user?.image ?? "",
+                      size: "sm",
+                    }}
+                    name={session.data?.user?.name || "Account"}
+                    description={session.data?.user?.email}
+                  />
+                </Button>
               </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem key="account">
-                  <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">{session.data?.user?.email}</p>
+              <DropdownMenu
+                aria-label="Account menu"
+                closeOnSelect
+                className="min-w-[220px]"
+              >
+                <DropdownItem
+                  key="account"
+                  isReadOnly
+                  textValue="Signed in"
+                  className="cursor-default opacity-100"
+                >
+                  <div className="flex flex-col items-start gap-0.5 py-1">
+                    <span className="text-xs text-default-500">Signed in as</span>
+                    <span className="max-w-[200px] truncate font-semibold">
+                      {session.data?.user?.email}
+                    </span>
+                  </div>
                 </DropdownItem>
                 <DropdownItem
                   key="logout"
                   color="danger"
+                  className="text-danger"
+                  startContent={<CiLogout size={18} />}
                   onPress={() => {
-                    signOut({ redirect: false });
+                    setIsAccountOpen(false);
+                    void signOut({ redirect: false });
                   }}
                 >
-                  Log Out
+                  Log out
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -234,6 +274,7 @@ export default function Nav() {
             key="home"
             href="/"
             aria-label="dashboard"
+            onClick={closeMenu}
           >
             <IoMdHome color={url === "/" ? "#0070f0" : "black"} size={24} />
             <p className="text-xl">Home</p>
@@ -258,6 +299,7 @@ export default function Nav() {
             }`}
             as={Link}
             href="/Listings"
+            onClick={closeMenu}
           >
             <TbHomeSearch
               color={url?.includes("/Listings") ? "#0070f0" : "black"}
@@ -294,7 +336,7 @@ export default function Nav() {
             <p className="text-xl">Blogs</p>
           </NavbarItem>
 
-          <NavbarItem className="sm:hidden flex flex-col gap-3 justify-start">
+          <NavbarItem className="flex flex-col items-start gap-3 justify-start border-t border-black/10 pt-3">
             {isLoggedIn ? (
               <User
                 className="justify-start"
@@ -319,15 +361,19 @@ export default function Nav() {
             )}
           </NavbarItem>
           {isLoggedIn && (
-            <Button
-              className="text-xl text-white bg-danger max-w-[200px] flex justify-center items-center"
-              onClick={() => {
-                signOut({ redirect: false });
-              }}
-              endContent={<CiLogin size={24} color="white" />}
-            >
-              Logout
-            </Button>
+            <NavbarItem className="w-full">
+              <button
+                type="button"
+                className="flex w-full items-center gap-3 py-2 text-left text-xl text-danger"
+                onClick={() => {
+                  closeMenu();
+                  void signOut({ redirect: false });
+                }}
+              >
+                <CiLogout size={24} />
+                <span>Log out</span>
+              </button>
+            </NavbarItem>
           )}
         </NavbarMenu>
 
